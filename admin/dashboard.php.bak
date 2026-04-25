@@ -1,0 +1,57 @@
+﻿<?php
+/**********************************************************************
+    Copyright (C) Vip Accounting System, LLC.
+    Released under the terms of the GNU General Public License, GPL,
+    as published by the Free Software Foundation, either version 3
+    of the License, or (at your option) any later version.
+***********************************************************************/
+
+$path_to_root = "..";
+
+$page_security = 'SA_SETUPDISPLAY';
+
+include_once($path_to_root . "/includes/session.inc");
+include_once($path_to_root . "/includes/ui.inc");
+include_once($path_to_root . "/includes/data_checks.inc");
+include_once($path_to_root . "/reporting/includes/class.graphic.inc");
+
+/* ── Ensure App session is initialized with applications (needed for sidebar) ── */
+if (!isset($_SESSION['App']) || !isset($_SESSION['App']->applications)) {
+    include_once($path_to_root . "/frontaccounting.php");
+    if (!isset($_SESSION['App'])) {
+        $_SESSION['App'] = new front_accounting();
+    }
+    add_access_extensions();
+    if (empty($_SESSION['App']->applications)) {
+        $_SESSION['App']->init();
+    }
+}
+
+/* Priority: themes/default/dashboard.inc overrides includes/dashboard.inc */
+if (file_exists("$path_to_root/themes/" . user_theme() . "/dashboard.inc"))
+    include_once("$path_to_root/themes/" . user_theme() . "/dashboard.inc");
+else
+    include_once("$path_to_root/includes/dashboard.inc");
+
+/* ── When accessed from the Dashboard top-link → show full overview (display_all)
+       When accessed from an app module → show that app's analysis section ── */
+$app = '';
+if (isset($_GET['sel_app'])  && $_GET['sel_app']  !== '') $app = $_GET['sel_app'];
+if (isset($_POST['sel_app']) && $_POST['sel_app'] !== '') $app = $_POST['sel_app'];
+/* $app='' → falls into else → display_all() */
+
+/* AJAX partial-refresh */
+if (get_post('id')) {
+    dashboard($app);
+    exit;
+}
+
+/* Full page render */
+$js = '';
+if ($SysPrefs->use_popup_windows)
+    $js .= get_js_open_window(800, 500);
+
+page(_($help_context = 'Dashboard'), false, false, '', $js);
+dashboard($app);
+end_page();
+exit;
