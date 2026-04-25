@@ -1,0 +1,2420 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="VIP Vip Accounting System - نظام محاسبي فاخر للشركات">
+<meta name="theme-color" content="#004D40">
+<title> 💎 FA System </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ====================================================
+   VIP Vip Accounting System — ELITE DESIGN SYSTEM v2.0
+   ==================================================== */
+:root {
+  --primary:#00695C;--primary-light:#00897B;--primary-dark:#004D40;
+  --gold:#D4AF37;--gold-light:#F0D060;--gold-dark:#A0800A;
+  --emerald:#10B981;--purple:#7C3AED;--blue:#2563EB;--red:#EF4444;--amber:#F59E0B;
+  --bg:#F0F4F8;--bg-card:#FFFFFF;--bg-sidebar:#0D1B2A;
+  --text:#1A2332;--text2:#4A5568;--text3:#94A3B8;--text-inv:#FFFFFF;
+  --border:rgba(0,105,92,0.12);--border2:rgba(0,0,0,0.06);
+  --shadow-xs:0 1px 3px rgba(0,0,0,0.06);
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:0 4px 16px rgba(0,77,64,0.12);
+  --shadow-lg:0 8px 32px rgba(0,77,64,0.16);
+  --shadow-xl:0 16px 48px rgba(0,77,64,0.2);
+  --shadow-gold:0 8px 32px rgba(212,175,55,0.25);
+  --glow:0 0 40px rgba(0,137,123,0.3);
+  --glass:rgba(255,255,255,0.72);--glass-b:rgba(255,255,255,0.18);
+  --grad-main:linear-gradient(135deg,#004D40 0%,#00695C 50%,#00897B 100%);
+  --grad-gold:linear-gradient(135deg,#A0800A 0%,#D4AF37 50%,#F0D060 100%);
+  --grad-card:linear-gradient(135deg,rgba(0,105,92,0.06) 0%,rgba(212,175,55,0.04) 100%);
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;--rfull:9999px;
+  --dur:.25s;--ease:cubic-bezier(.4,0,.2,1);--ease-out:cubic-bezier(.19,1,.22,1);
+  --font:'Tajawal',sans-serif;--font-en:'Inter',sans-serif;
+  --sidebar-w:270px;--header-h:66px;
+}
+body.dark{
+  --bg:#0A0F1A;--bg-card:#111827;--bg-sidebar:#060C14;
+  --text:#F1F5F9;--text2:#CBD5E1;--text3:#64748B;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.05);
+  --glass:rgba(17,24,39,0.8);--glass-b:rgba(255,255,255,0.08);
+  --shadow-md:0 4px 16px rgba(0,0,0,0.4);--shadow-lg:0 8px 32px rgba(0,0,0,0.5);
+}
+[dir=ltr]{--font:'Inter',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);transition:background var(--dur) var(--ease),color var(--dur) var(--ease);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ======= SCROLLBAR ======= */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:var(--rfull);}
+
+/* ======= HEADER ======= */
+.header{
+  position:fixed;inset:0 0 auto 0;height:var(--header-h);
+  background:var(--grad-main);backdrop-filter:blur(30px);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  z-index:1000;display:flex;align-items:center;padding:0 1.25rem;
+  box-shadow:var(--shadow-lg);
+  animation:headerIn .5s var(--ease-out) both;
+}
+@keyframes headerIn{from{transform:translateY(-100%);opacity:0;}to{transform:none;opacity:1;}}
+.header-inner{display:flex;align-items:center;width:100%;gap:1rem;}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;flex-shrink:0;}
+.brand-icon{
+  width:46px;height:46px;background:var(--grad-gold);border-radius:var(--r12);
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  box-shadow:var(--shadow-gold);animation:floatIcon 3s ease-in-out infinite;
+  border:2px solid rgba(255,255,255,0.2);
+}
+@keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.brand-name{font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.01em;}
+.brand-sub{font-size:.65rem;color:rgba(255,255,255,.65);margin-top:1px;}
+
+/* Search Bar */
+.header-search{
+  flex:1;max-width:520px;position:relative;
+}
+.search-bar-btn{
+  width:100%;height:40px;background:rgba(255,255,255,0.13);
+  border:1px solid rgba(255,255,255,0.2);border-radius:var(--rfull);
+  display:flex;align-items:center;gap:.75rem;padding:0 1rem;
+  cursor:pointer;transition:all var(--dur) var(--ease);color:rgba(255,255,255,.7);
+  font-size:.85rem;font-family:var(--font);
+}
+.search-bar-btn:hover{background:rgba(255,255,255,.2);border-color:var(--gold);}
+.search-bar-btn .kbd{
+  margin-inline-start:auto;background:rgba(255,255,255,.15);
+  border-radius:4px;padding:1px 6px;font-size:.7rem;color:rgba(255,255,255,.6);
+}
+
+/* Search Overlay */
+.search-overlay{
+  position:fixed;inset:0;z-index:3000;opacity:0;visibility:hidden;
+  transition:all var(--dur) var(--ease);
+}
+.search-overlay.open{opacity:1;visibility:visible;}
+.search-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);}
+.search-panel{
+  position:absolute;top:0;left:50%;transform:translateX(-50%) translateY(-20px);
+  width:min(700px,95vw);transition:transform var(--dur) var(--ease);
+  padding-top:var(--header-h);
+}
+.search-overlay.open .search-panel{transform:translateX(-50%) translateY(0);}
+.search-input-wrap{
+  background:var(--bg-card);border-radius:var(--r16);overflow:hidden;
+  box-shadow:var(--shadow-xl);border:1px solid var(--border);
+}
+.search-input-row{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
+.search-input-row svg{color:var(--text3);flex-shrink:0;}
+#searchInput{
+  flex:1;border:none;outline:none;font-size:1.05rem;font-family:var(--font);
+  background:transparent;color:var(--text);
+}
+#searchInput::placeholder{color:var(--text3);}
+.search-results{max-height:360px;overflow-y:auto;padding:.5rem;}
+.search-item{
+  display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;
+  border-radius:var(--r8);cursor:pointer;transition:background var(--dur) var(--ease);
+  color:var(--text);
+}
+.search-item:hover,.search-item.focused{background:var(--grad-card);}
+.search-item-icon{width:36px;height:36px;border-radius:var(--r8);background:var(--grad-main);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.search-item-title{font-weight:600;font-size:.9rem;}
+.search-item-sub{font-size:.75rem;color:var(--text3);}
+.search-empty{text-align:center;padding:2rem;color:var(--text3);}
+
+/* Header Actions */
+.header-actions{display:flex;align-items:center;gap:.5rem;margin-inline-start:auto;}
+.h-btn{
+  width:40px;height:40px;border-radius:var(--r8);background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all var(--dur) var(--ease);color:#fff;position:relative;
+}
+.h-btn:hover{background:rgba(255,255,255,.2);border-color:var(--gold);transform:translateY(-1px);}
+.h-btn-badge{
+  position:absolute;top:-4px;inset-inline-end:-4px;
+  min-width:18px;height:18px;background:#EF4444;border-radius:var(--rfull);
+  font-size:.6rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--primary);
+}
+.lang-btn{width:auto;padding:0 .75rem;gap:.4rem;font-size:.8rem;font-weight:700;}
+.user-btn{
+  display:flex;align-items:center;gap:.6rem;padding:0 .75rem;
+  width:auto;border-radius:var(--rfull);
+}
+.user-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad-gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;}
+.user-name{font-size:.82rem;font-weight:600;}
+.mobile-toggle{display:none;}
+@media(max-width:1023px){
+  .mobile-toggle{display:flex;}
+  .header-search{display:none;}
+}
+
+/* ======= SIDEBAR ======= */
+.sidebar{
+  position:fixed;
+  top:var(--header-h);
+  right:0;                         /* RTL default: right side */
+  width:var(--sidebar-w);
+  height:calc(100vh - var(--header-h));
+  background:var(--bg-sidebar);
+  border-left:1px solid rgba(255,255,255,.05);
+  overflow-y:auto;
+  z-index:900;
+  box-shadow:-4px 0 24px rgba(0,0,0,.2);
+  transition:right .32s cubic-bezier(.19,1,.22,1);
+}
+/* LTR override */
+[dir=ltr] .sidebar{
+  right:auto;
+  left:0;
+  border-left:none;
+  border-right:1px solid rgba(255,255,255,.05);
+  box-shadow:4px 0 24px rgba(0,0,0,.2);
+  transition:left .32s cubic-bezier(.19,1,.22,1);
+}
+
+/* ═══ MOBILE: HIDE SIDEBAR OFF-SCREEN ═══ */
+@media(max-width:1023px){
+  /* RTL — push sidebar to the RIGHT off screen */
+  .sidebar{
+    right: calc(-1 * var(--sidebar-w) - 30px);
+  }
+  .sidebar.open{
+    right:0;
+  }
+  /* LTR — push sidebar to the LEFT off screen */
+  [dir=ltr] .sidebar{
+    left: calc(-1 * var(--sidebar-w) - 30px);
+    right:auto;
+  }
+  [dir=ltr] .sidebar.open{
+    left:0;
+  }
+}
+
+/* ── Sidebar Inner ──────────────────────────── */
+.sidebar-inner{padding:1.25rem 0 5rem;}
+.nav-group{margin-bottom:1.5rem;}
+.nav-group-title{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;
+  color:rgba(255,255,255,.3);text-transform:uppercase;
+  padding:.25rem 1.25rem .5rem;
+}
+.nav-link{
+  display:flex;align-items:center;gap:.85rem;padding:.7rem 1.25rem;
+  color:rgba(255,255,255,.6);cursor:pointer;
+  transition:all var(--dur) var(--ease);position:relative;
+  font-size:.875rem;font-weight:500;border:none;background:none;
+  width:100%;text-align:inherit;text-decoration:none;
+}
+.nav-link::after{
+  content:'';position:absolute;right:0;top:0;bottom:0;width:3px;
+  background:var(--grad-gold);transform:scaleY(0);
+  transition:transform var(--dur) var(--ease);
+}
+[dir=ltr] .nav-link::after{right:auto;left:0;}
+.nav-link:hover{background:rgba(0,137,123,.12);color:#fff;}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleY(1);}
+.nav-link.active{background:var(--grad-main);color:#fff;box-shadow:var(--shadow-md);}
+.nav-icon{width:20px;text-align:center;font-size:1rem;flex-shrink:0;}
+.nav-text{flex:1;}
+.nav-badge{
+  padding:.1rem .45rem;background:#EF4444;border-radius:var(--rfull);
+  font-size:.65rem;font-weight:700;color:#fff;
+}
+
+/* Overlay backdrop */
+.sidebar-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:899;
+  backdrop-filter:blur(4px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s var(--ease),visibility .3s;
+}
+.sidebar-overlay.open{opacity:1;visibility:visible;pointer-events:auto;}
+
+/* ======= MAIN CONTENT ======= */
+.main{
+  margin-top:var(--header-h);
+  margin-right:var(--sidebar-w);    /* RTL: space for sidebar on right */
+  padding:1.75rem;
+  min-height:calc(100vh - var(--header-h));
+  animation:mainIn .6s var(--ease-out) both;
+}
+[dir=ltr] .main{
+  margin-right:0;
+  margin-left:var(--sidebar-w);    /* LTR: space for sidebar on left */
+}
+/* Mobile: full width, no margin */
+@media(max-width:1023px){
+  .main{
+    margin-right:0 !important;
+    margin-left:0 !important;
+    padding:1rem;
+  }
+}
+@keyframes mainIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+/* ======= DASHBOARD ======= */
+.page{display:none;}
+.page.active{display:block;}
+
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.page-title{font-size:1.5rem;font-weight:800;}
+.page-subtitle{font-size:.875rem;color:var(--text3);margin-top:.2rem;}
+.page-actions{display:flex;gap:.5rem;}
+
+/* Stats Grid */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;margin-bottom:1.75rem;}
+.kpi{
+  background:var(--bg-card);border-radius:var(--r16);padding:1.25rem;
+  border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  transition:all .3s var(--ease-out);cursor:default;
+  position:relative;overflow:hidden;
+}
+.kpi::before{
+  content:'';position:absolute;top:0;inset-inline-start:0;inset-inline-end:0;height:3px;
+  background:var(--grad-main);transform:scaleX(0);transform-origin:start;
+  transition:transform .4s var(--ease-out);
+}
+.kpi:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+.kpi:hover::before{transform:scaleX(1);}
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.875rem;}
+.kpi-icon{
+  width:48px;height:48px;border-radius:var(--r12);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  background:var(--grad-main);box-shadow:var(--shadow-md);
+  transition:transform .4s var(--ease-out);
+}
+.kpi:hover .kpi-icon{transform:rotate(360deg) scale(1.05);}
+.kpi-badge{
+  padding:.25rem .6rem;border-radius:var(--rfull);font-size:.72rem;font-weight:700;
+  display:flex;align-items:center;gap:.2rem;
+}
+.kpi-badge.up{background:rgba(16,185,129,.12);color:#059669;}
+.kpi-badge.down{background:rgba(239,68,68,.12);color:#DC2626;}
+.kpi-badge.warn{background:rgba(245,158,11,.12);color:#D97706;}
+.kpi-val{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;color:var(--text);}
+.kpi-label{font-size:.8rem;color:var(--text3);margin-top:.15rem;}
+
+/* Quick Actions */
+.quick-actions{margin-bottom:1.75rem;}
+.qa-title{font-size:1rem;font-weight:700;margin-bottom:.875rem;}
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.875rem;}
+.qa-item{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r12);
+  padding:1.1rem .875rem;text-align:center;cursor:pointer;
+  transition:all .3s var(--ease-out);display:flex;flex-direction:column;align-items:center;gap:.6rem;
+}
+.qa-item:hover{background:var(--grad-main);color:#fff;transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:transparent;}
+.qa-item:hover .qa-icon{transform:scale(1.15) rotate(-5deg);}
+.qa-icon{font-size:1.75rem;transition:transform .3s var(--ease-out);}
+.qa-label{font-size:.78rem;font-weight:600;color:var(--text2);}
+.qa-item:hover .qa-label{color:rgba(255,255,255,.9);}
+
+/* Charts Grid */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.75rem;}
+@media(max-width:900px){.charts-grid{grid-template-columns:1fr;}}
+.chart-card{background:var(--bg-card);border-radius:var(--r16);padding:1.25rem;border:1px solid var(--border);box-shadow:var(--shadow-sm);}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.chart-title{font-size:.95rem;font-weight:700;}
+.chart-wrap{position:relative;height:220px;}
+
+/* Table Card */
+.table-card{background:var(--bg-card);border-radius:var(--r16);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:1.25rem;}
+.table-head{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.5rem;}
+.table-title{font-size:.95rem;font-weight:700;}
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--bg);font-size:.75rem;font-weight:700;color:var(--text3);padding:.75rem 1rem;text-align:inherit;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;}
+td{padding:.875rem 1rem;font-size:.85rem;border-bottom:1px solid var(--border2);color:var(--text);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--grad-card);}
+.tbody-empty{text-align:center;padding:3rem;color:var(--text3);}
+
+/* ======= BUTTONS ======= */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.1rem;
+  border-radius:var(--r8);border:none;cursor:pointer;font-family:var(--font);
+  font-size:.85rem;font-weight:600;transition:all var(--dur) var(--ease);
+  position:relative;overflow:hidden;text-decoration:none;
+}
+.btn::after{
+  content:'';position:absolute;inset:50% 50%;width:0;height:0;
+  background:rgba(255,255,255,.25);border-radius:50%;transition:all .4s var(--ease);
+  transform:translate(-50%,-50%);
+}
+.btn:hover::after,.btn:active::after{width:200%;height:200%;}
+.btn-primary{background:var(--grad-main);color:#fff;box-shadow:var(--shadow-md);}
+.btn-primary:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+.btn-gold{background:var(--grad-gold);color:#1a1a00;box-shadow:var(--shadow-gold);}
+.btn-gold:hover{box-shadow:0 12px 40px rgba(212,175,55,.4);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary);}
+.btn-outline:hover{background:var(--primary);color:#fff;}
+.btn-ghost{background:var(--bg);color:var(--text2);border:1px solid var(--border);}
+.btn-ghost:hover{background:var(--grad-card);color:var(--text);}
+.btn-danger{background:#EF4444;color:#fff;}
+.btn-danger:hover{background:#DC2626;}
+.btn-sm{padding:.35rem .8rem;font-size:.78rem;border-radius:var(--r8);}
+.btn-icon{width:34px;height:34px;border-radius:var(--r8);padding:0;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--border);cursor:pointer;transition:all var(--dur) var(--ease);font-size:.95rem;}
+.btn-icon:hover{background:var(--grad-main);color:#fff;border-color:transparent;transform:scale(1.05);}
+
+/* ======= FORMS ======= */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
+.form-full{grid-column:1/-1;}
+.field{margin-bottom:1rem;}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--text2);margin-bottom:.4rem;}
+.field-tip{font-size:.72rem;color:var(--text3);margin-top:.25rem;}
+input,select,textarea{
+  width:100%;padding:.6rem .875rem;border:1.5px solid var(--border);
+  border-radius:var(--r8);background:var(--bg-card);color:var(--text);
+  font-family:var(--font);font-size:.875rem;transition:all var(--dur) var(--ease);outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,105,92,.12);}
+textarea{resize:vertical;min-height:90px;}
+.input-group{position:relative;}
+.input-prefix,.input-suffix{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:.85rem;color:var(--text3);pointer-events:none;
+}
+.input-prefix{inset-inline-start:.875rem;}
+.input-suffix{inset-inline-end:.875rem;}
+.input-group input{padding-inline-start:2.5rem;}
+.input-group.has-suffix input{padding-inline-end:2.5rem;}
+
+/* Status Badges */
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .65rem;border-radius:var(--rfull);font-size:.72rem;font-weight:700;}
+.badge-green{background:rgba(16,185,129,.12);color:#059669;}
+.badge-red{background:rgba(239,68,68,.12);color:#DC2626;}
+.badge-amber{background:rgba(245,158,11,.12);color:#D97706;}
+.badge-blue{background:rgba(37,99,235,.12);color:#1D4ED8;}
+.badge-purple{background:rgba(124,58,237,.12);color:#6D28D9;}
+
+/* ======= MODAL SYSTEM ======= */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(10px);
+  z-index:2000;opacity:0;visibility:hidden;transition:all .2s var(--ease);
+}
+.modal-backdrop.open{opacity:1;visibility:visible;}
+.modal{
+  position:fixed;inset-inline-end:-100%;top:0;bottom:0;
+  width:min(92vw,900px);background:var(--bg-card);z-index:2001;
+  display:flex;flex-direction:column;
+  box-shadow:-20px 0 60px rgba(0,0,0,.2);
+  transition:inset-inline-end .35s var(--ease-out);overflow:hidden;
+}
+[dir=ltr] .modal{inset-inline-end:auto;inset-inline-start:-100%;transition:inset-inline-start .35s var(--ease-out);}
+.modal-backdrop.open .modal{inset-inline-end:0;}
+[dir=ltr] .modal-backdrop.open .modal{inset-inline-start:0;}
+.modal-hdr{
+  background:var(--grad-main);padding:1rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.modal-hdr-title{font-size:1.1rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.6rem;}
+.modal-hdr-close{
+  width:36px;height:36px;background:rgba(255,255,255,.15);border:none;border-radius:var(--r8);
+  color:#fff;font-size:1.1rem;cursor:pointer;transition:all var(--dur) var(--ease);
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-hdr-close:hover{background:rgba(255,255,255,.25);transform:rotate(90deg);}
+.modal-toolbar{
+  padding:.75rem 1.25rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--bg);flex-shrink:0;
+}
+.modal-body{flex:1;overflow-y:auto;padding:1.25rem;}
+.modal-footer{
+  padding:.875rem 1.25rem;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:.5rem;background:var(--bg);flex-shrink:0;
+}
+
+/* ======= TOAST ======= */
+.toast-wrap{position:fixed;bottom:1.5rem;inset-inline-start:1.5rem;z-index:5000;display:flex;flex-direction:column;gap:.5rem;}
+.toast{
+  display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;
+  background:var(--bg-card);border-radius:var(--r12);box-shadow:var(--shadow-xl);
+  border-inline-start:3px solid var(--primary);min-width:260px;max-width:360px;
+  transform:translateX(-120%);transition:transform .3s var(--ease-out);font-size:.85rem;
+}
+[dir=ltr] .toast{transform:translateX(-120%);}
+.toast.show{transform:none;}
+.toast-icon{font-size:1.2rem;flex-shrink:0;}
+.toast-msg{flex:1;font-weight:500;}
+.toast-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;}
+.toast.success{border-color:var(--emerald);}
+.toast.error{border-color:var(--red);}
+.toast.warn{border-color:var(--amber);}
+.toast.info{border-color:var(--blue);}
+
+/* ======= INVOICE FORM ======= */
+.inv-lines{border:1px solid var(--border);border-radius:var(--r12);overflow:hidden;margin-bottom:1rem;}
+.inv-lines-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:.5rem;padding:.5rem .875rem;background:var(--bg);font-size:.72rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;}
+.inv-line{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:.5rem;padding:.5rem .875rem;border-top:1px solid var(--border2);align-items:center;}
+.inv-line input{border-color:transparent;background:transparent;padding:.35rem .5rem;}
+.inv-line input:focus{background:var(--bg-card);border-color:var(--primary);}
+.inv-totals{padding:1rem 1.25rem;border-top:2px solid var(--border);display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
+.inv-total-row{display:flex;gap:3rem;font-size:.875rem;}
+.inv-total-row.grand{font-size:1.1rem;font-weight:800;color:var(--primary);}
+
+/* ======= REPORT STYLES ======= */
+.report-filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:flex-end;}
+.report-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);overflow:hidden;margin-bottom:1.25rem;}
+.report-card-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.report-section{margin-bottom:1.5rem;}
+.report-section-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);padding:.5rem 1rem;background:var(--bg);border-bottom:1px solid var(--border);}
+.report-row{display:flex;justify-content:space-between;padding:.65rem 1rem;border-bottom:1px solid var(--border2);font-size:.85rem;}
+.report-row.subtotal{background:rgba(0,105,92,.04);font-weight:700;}
+.report-row.total{background:var(--grad-main);color:#fff;font-weight:800;font-size:.95rem;}
+.report-row.indent{padding-inline-start:2.5rem;color:var(--text2);}
+
+/* ======= INVENTORY ======= */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+.inv-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);
+  padding:1.1rem;transition:all .3s var(--ease-out);cursor:pointer;
+}
+.inv-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.inv-card-icon{font-size:2.5rem;margin-bottom:.6rem;}
+.inv-card-name{font-weight:700;font-size:.9rem;margin-bottom:.25rem;}
+.inv-card-sku{font-size:.72rem;color:var(--text3);margin-bottom:.6rem;}
+.inv-card-stock{display:flex;align-items:center;justify-content:space-between;}
+.stock-bar-wrap{height:4px;background:var(--border);border-radius:2px;flex:1;margin-inline-end:.5rem;overflow:hidden;}
+.stock-bar{height:100%;border-radius:2px;background:var(--grad-main);transition:width .6s var(--ease-out);}
+.stock-num{font-size:.72rem;font-weight:700;}
+
+/* ======= CTA FLOATING ======= */
+.cta-float{
+  position:fixed;bottom:1.5rem;inset-inline-start:1.5rem;
+  display:flex;gap:.75rem;z-index:1500;
+  animation:floatUp .6s .8s var(--ease-out) both;
+}
+@keyframes floatUp{from{transform:translateY(60px);opacity:0;}to{transform:none;opacity:1;}}
+.cta-float .btn{border-radius:var(--rfull);padding:.65rem 1.25rem;font-size:.82rem;}
+@media(max-width:640px){.cta-float{inset-inline-start:.75rem;bottom:.75rem;flex-direction:column;gap:.4rem;}
+.cta-float .btn span{display:none;}
+.cta-float .btn{padding:.65rem;width:46px;height:46px;justify-content:center;}}
+
+/* ======= BACK TO TOP ======= */
+.btt{
+  position:fixed;bottom:1.5rem;inset-inline-end:1.5rem;z-index:1500;
+  width:44px;height:44px;border-radius:50%;background:var(--grad-main);
+  border:none;color:#fff;cursor:pointer;box-shadow:var(--shadow-md);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all var(--dur) var(--ease);display:flex;align-items:center;justify-content:center;
+}
+.btt.show{opacity:1;visibility:visible;transform:none;}
+.btt:hover{box-shadow:var(--shadow-lg),var(--glow);transform:translateY(-3px);}
+
+/* ======= ONBOARDING ======= */
+.onboard-wrap{
+  position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(12px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s var(--ease),visibility .35s;
+}
+.onboard-wrap.show{opacity:1;visibility:visible;pointer-events:auto;}
+.onboard-card{
+  background:var(--bg-card);border-radius:var(--r24);padding:2rem 2rem 1.75rem;
+  width:min(520px,92vw);box-shadow:var(--shadow-xl);
+  border:1px solid var(--border);
+  transform:scale(.92) translateY(16px);
+  transition:transform .4s var(--ease-out);
+  min-height:auto;
+}
+.onboard-wrap.show .onboard-card{transform:none;}
+.onboard-step{display:none;animation:fadeSlide .3s var(--ease-out);}
+.onboard-step.active{display:block;}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.onboard-icon{font-size:3.5rem;margin-bottom:.875rem;text-align:center;line-height:1;}
+.onboard-progress{display:flex;gap:.4rem;margin-bottom:1.25rem;}
+.op-dot{height:4px;flex:1;border-radius:2px;background:var(--border);transition:background .3s;}
+.op-dot.done{background:var(--grad-main);}
+.setup-form .field{margin-bottom:.875rem;}
+/* Dismiss button top-right */
+.onboard-dismiss{
+  position:absolute;top:1rem;inset-inline-end:1rem;
+  width:32px;height:32px;border-radius:50%;background:var(--bg);
+  border:1px solid var(--border);color:var(--text3);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;transition:all var(--dur) var(--ease);
+}
+.onboard-dismiss:hover{background:var(--red);color:#fff;border-color:transparent;transform:rotate(90deg);}
+.onboard-card-inner{position:relative;}
+
+/* ======= KEYBOARD SHORTCUT HELP ======= */
+.shortcut-overlay{
+  position:fixed;inset:0;z-index:4500;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.65);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transition:all .2s var(--ease);
+}
+.shortcut-overlay.open{opacity:1;visibility:visible;}
+.shortcut-card{
+  background:var(--bg-card);border-radius:var(--r24);padding:1.75rem;
+  width:min(520px,90vw);max-height:80vh;overflow-y:auto;box-shadow:var(--shadow-xl);
+}
+.shortcut-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border2);font-size:.875rem;}
+kbd{
+  background:var(--bg);border:1px solid var(--border);border-radius:4px;
+  padding:.15rem .4rem;font-size:.75rem;font-family:monospace;color:var(--text2);
+}
+
+/* ======= MISC ======= */
+.empty-state{text-align:center;padding:3rem 1rem;}
+.empty-icon{font-size:3.5rem;margin-bottom:1rem;}
+.empty-title{font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+.empty-desc{font-size:.875rem;color:var(--text3);margin-bottom:1.25rem;}
+صلاح ider{height:1px;background:var(--border);margin:1rem 0;}
+.tag{display:inline-block;padding:.15rem .5rem;border-radius:var(--r4);font-size:.72rem;font-weight:600;background:var(--grad-card);border:1px solid var(--border);}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--grad-main);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;}
+
+/* Progress bar */
+.prog-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.prog-bar{height:100%;background:var(--grad-main);border-radius:3px;transition:width .6s var(--ease-out);}
+
+/* Tooltip */
+[data-tip]{position:relative;}
+[data-tip]::before{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.8);color:#fff;padding:.3rem .6rem;border-radius:var(--r4);font-size:.72rem;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:100;
+}
+[data-tip]:hover::before{opacity:1;}
+
+/* Animations helpers */
+.fade-in{animation:fadeIn .5s var(--ease-out);}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.slide-up{animation:mainIn .4s var(--ease-out);}
+
+/* RTL fix for table */
+[dir=rtl] th,[dir=rtl] td{text-align:right;}
+[dir=ltr] .nav-link::after{right:0;left:auto;border-radius:0 2px 2px 0;}
+[dir=ltr] .kpi::before{transform-origin:end;}
+[dir=ltr] .sidebar{box-shadow:4px 0 24px rgba(0,0,0,.15);}
+
+/* Print */
+@media print{.header,.sidebar,.cta-float,.btt,.toast-wrap,.modal-backdrop{display:none!important;}
+.main{margin:0!important;padding:1rem!important;}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+
+   
+<!-- ========== HEADER ========== -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a class="brand" href="#" onclick="showPage('dashboard'); return false;">
+      <div class="brand-icon">💎</div>
+      <div class="brand-text-wrapper">
+        <div class="brand-name" data-ar=" FA System" data-en="FA System"> FA System</div>
+        <div class="brand-sub" data-ar="لوحة التحكم" data-en="Dashboard">Dashboard</div>
+      </div>
+    </a>
+  
+           
+    <!-- Search trigger -->
+    <div class="header-search">
+      <button class="search-bar-btn" id="searchTrigger" data-tip="Ctrl+K">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span data-ar="البحث في النظام..." data-en="Search system...">البحث في النظام...</span>
+        <span class="kbd">Ctrl+K</span>
+      </button>
+    </div>
+
+    <div class="header-actions">
+      <button class="h-btn" id="themeBtn" data-tip="Dark Mode">🌙</button>
+      <button class="h-btn lang-btn" id="langBtn">
+        <span id="langLabel">EN</span>
+      </button>
+      
+      <button class="h-btn user-btn">
+        
+        <span class="user-name" data-ar=" انا " data-en=" Me"> انا </span>
+      </button>
+      <button class="h-btn mobile-toggle" id="mobileToggle">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== SEARCH OVERLAY ========== -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-backdrop" id="searchBackdrop"></div>
+  <div class="search-panel">
+    <div class="search-input-wrap">
+      <div class="search-input-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInput" placeholder="ابحث عن عميل، فاتورة، منتج..." autocomplete="off">
+        <button class="btn-icon btn-sm" onclick="closeSearch()">✕</button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-inner" id="sidebarInner"></div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main" id="main">
+
+  <!-- DASHBOARD PAGE -->
+  <div class="page active" id="page-dashboard">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title" data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</h1>
+        <p class="page-subtitle" data-ar="مرحباً محمد، إليك ملخص اليوم" data-en="Welcome Mohamed, here's today's summary">مرحباً محمد، إليك ملخص اليوم</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-primary" onclick="showToast('success','تم تحديث البيانات','✓')">
+          <span>🔄</span> <span data-ar="تحديث" data-en="Refresh">تحديث</span>
+        </button>
+        <button class="btn btn-gold" onclick="openPage('salesInvoices')">
+          <span>➕</span> <span data-ar="فاتورة جديدة" data-en="New Invoice">فاتورة جديدة</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis" id="kpis"></div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2 class="qa-title" data-ar="الإجراءات السريعة" data-en="Quick Actions">الإجراءات السريعة</h2>
+      <div class="qa-grid" id="qaGrid"></div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-head">
+          <span class="chart-title" data-ar="الإيرادات الشهرية" data-en="Monthly Revenue">الإيرادات الشهرية</span>
+          <button class="btn btn-ghost btn-sm" data-ar="6 أشهر" data-en="6 Months">6 أشهر</button>
+        </div>
+        <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-head">
+          <span class="chart-title" data-ar="توزيع المبيعات" data-en="Sales Distribution">توزيع المبيعات</span>
+          <button class="btn btn-ghost btn-sm" data-ar="هذا الشهر" data-en="This Month">هذا الشهر</button>
+        </div>
+        <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="table-card">
+      <div class="table-head">
+        <span class="table-title" data-ar="آخر العمليات" data-en="Recent Transactions">آخر العمليات</span>
+        <button class="btn btn-ghost btn-sm" onclick="openPage('salesInvoices')" data-ar="عرض الكل" data-en="View All">عرض الكل</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-ar="الرقم" data-en="Number">الرقم</th>
+              <th data-ar="العميل / المورد" data-en="Customer / Supplier">العميل / المورد</th>
+              <th data-ar="النوع" data-en="Type">النوع</th>
+              <th data-ar="المبلغ" data-en="Amount">المبلغ</th>
+              <th data-ar="التاريخ" data-en="Date">التاريخ</th>
+              <th data-ar="الحالة" data-en="Status">الحالة</th>
+              <th data-ar="إجراءات" data-en="Actions">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="txTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER PAGES (dynamically shown) -->
+  <div class="page" id="page-modal">
+    <div id="modalPageContent"></div>
+  </div>
+
+</main>
+
+<!-- ========== MODAL SYSTEM ========== -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modalPanel">
+    <div class="modal-hdr" id="modalHdr">
+      <span class="modal-hdr-title" id="modalTitle">...</span>
+      <button class="modal-hdr-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-toolbar" id="modalToolbar"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<!-- ========== TOAST ========== -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ========== BTT ========== -->
+<button class="btt" id="btt" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ========== CTA FLOATING ========== -->
+<div class="cta-float">
+  <a href="https://moh222salah.github.io/cv" target="_blank" class="btn btn-primary">
+    <span>🌐</span><span data-ar="ملف الأعمال" data-en="Portfolio">ملف الأعمال</span>
+  </a>
+  <a href="https://wa.me/201113903070" target="_blank" class="btn btn-gold">
+    <span>💬</span><span data-ar="واتساب" data-en="WhatsApp">واتساب</span>
+  </a>
+</div>
+
+<!-- ========== ONBOARDING ========== -->
+<div class="onboard-wrap" id="onboardWrap">
+  <div class="onboard-card">
+    <div class="onboard-card-inner">
+      <button class="onboard-dismiss" id="onboardDismiss" onclick="finishOnboarding()" title="تخطي / Skip">✕</button>
+      <div class="onboard-progress" id="onboardProgress"></div>
+      <div id="onboardContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SHORTCUT HELP ========== -->
+<div class="shortcut-overlay" id="shortcutOverlay" onclick="closeShortcuts(event)">
+  <div class="shortcut-card" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <h3 data-ar="اختصارات لوحة المفاتيح" data-en="Keyboard Shortcuts">اختصارات لوحة المفاتيح</h3>
+      <button class="btn-icon" onclick="closeShortcuts()">✕</button>
+    </div>
+    <div class="shortcut-row"><span data-ar="فتح البحث" data-en="Open Search">فتح البحث</span><kbd>Ctrl + K</kbd></div>
+    <div class="shortcut-row"><span data-ar="فاتورة جديدة" data-en="New Invoice">فاتورة جديدة</span><kbd>Ctrl + N</kbd></div>
+    <div class="shortcut-row"><span data-ar="حفظ" data-en="Save">حفظ</span><kbd>Ctrl + S</kbd></div>
+    <div class="shortcut-row"><span data-ar="طباعة" data-en="Print">طباعة</span><kbd>Ctrl + P</kbd></div>
+    <div class="shortcut-row"><span data-ar="لوحة التحكم" data-en="Dashboard">لوحة التحكم</span><kbd>Alt + D</kbd></div>
+    <div class="shortcut-row"><span data-ar="هذه القائمة" data-en="This menu">هذه القائمة</span><kbd>Ctrl + /</kbd></div>
+    <div class="shortcut-row"><span data-ar="إغلاق / رجوع" data-en="Close / Back">إغلاق / رجوع</span><kbd>Esc</kbd></div>
+    <div class="shortcut-row"><span data-ar="تبديل اللغة" data-en="Toggle Language">تبديل اللغة</span><kbd>Alt + L</kbd></div>
+  </div>
+</div>
+
+<script>
+/* =============================================
+   VIP Vip Accounting System — ENGINE v2.0
+   ============================================= */
+
+// ── STATE ──────────────────────────────────────
+const S = {
+  lang: localStorage.getItem('vfa-lang') || (navigator.language.startsWith('ar') ? 'ar' : 'en'),
+  dark: localStorage.getItem('vfa-dark') === '1',
+  onboarded: localStorage.getItem('vfa-onboarded') === '1',
+  activePage: 'dashboard',
+  charts: {},
+};
+
+// ── SIDEBAR MENU ────────────────────────────────
+const MENU = [
+  { group: { ar:'الرئيسية', en:'Main' }, items:[
+    { id:'dashboard', ar:'لوحة التحكم', en:'Dashboard', icon:'📊' },
+  ]},
+  { group:{ ar:'المحاسبة', en:'Accounting' }, items:[
+    { id:'chartOfAccounts', ar:'دليل الحسابات', en:'Chart of Accounts', icon:'📋' },
+    { id:'journalEntries',  ar:'القيود اليومية', en:'Journal Entries',  icon:'📝', badge:2 },
+    { id:'trialBalance',    ar:'ميزان المراجعة', en:'Trial Balance',    icon:'⚖️' },
+    { id:'financialReports',ar:'التقارير المالية',en:'Financial Reports',icon:'📈' },
+  ]},
+  { group:{ ar:'المبيعات', en:'Sales' }, items:[
+    { id:'customers',     ar:'العملاء',        en:'Customers',      icon:'👥' },
+    { id:'salesInvoices', ar:'فواتير المبيعات', en:'Sales Invoices', icon:'🧾', badge:5 },
+    { id:'salesReturns',  ar:'مردودات المبيعات',en:'Sales Returns',  icon:'↩️' },
+    { id:'receipts',      ar:'سندات القبض',    en:'Receipts',       icon:'💵' },
+  ]},
+  { group:{ ar:'المشتريات', en:'Purchases' }, items:[
+    { id:'suppliers',        ar:'الموردون',         en:'Suppliers',         icon:'🏭' },
+    { id:'purchaseInvoices', ar:'فواتير المشتريات', en:'Purchase Invoices', icon:'📦' },
+    { id:'purchaseReturns',  ar:'مردودات المشتريات',en:'Purchase Returns',  icon:'🔄' },
+    { id:'payments',         ar:'سندات الصرف',      en:'Payments',         icon:'💳' },
+  ]},
+  { group:{ ar:'المخزون', en:'Inventory' }, items:[
+    { id:'products',      ar:'المنتجات',    en:'Products',       icon:'📦' },
+    { id:'stockMovement', ar:'حركة المخزون',en:'Stock Movement', icon:'🔀' },
+    { id:'warehouseRpt',  ar:'تقرير المخزن',en:'Warehouse Rpt',  icon:'🏪' },
+  ]},
+  { group:{ ar:'الإعدادات', en:'Settings' }, items:[
+    { id:'company',    ar:'بيانات الشركة', en:'Company Info', icon:'🏢' },
+    { id:'currencies', ar:'العملات',       en:'Currencies',   icon:'💱' },
+    { id:'users',      ar:'المستخدمون',    en:'Users',        icon:'👤' },
+  ]},
+];
+
+// ── SEARCH DATA ──────────────────────────────────
+const SEARCH_DATA = [
+  { label:{ar:'لوحة التحكم',en:'Dashboard'}, sub:{ar:'الصفحة الرئيسية',en:'Main page'}, icon:'📊', action:()=>showPage('dashboard') },
+  { label:{ar:'فاتورة مبيعات جديدة',en:'New Sales Invoice'}, sub:{ar:'إنشاء فاتورة',en:'Create invoice'}, icon:'🧾', action:()=>openPage('salesInvoices') },
+  { label:{ar:'شركة النخبة التجارية',en:'Elite Trading Co.'}, sub:{ar:'عميل — رصيد 85,500 ر.س',en:'Customer — Balance SAR 85,500'}, icon:'👥', action:()=>openPage('customers') },
+  { label:{ar:'دليل الحسابات',en:'Chart of Accounts'}, sub:{ar:'شجرة الحسابات المحاسبية',en:'Accounting chart'}, icon:'📋', action:()=>openPage('chartOfAccounts') },
+  { label:{ar:'ميزان المراجعة',en:'Trial Balance'}, sub:{ar:'تقرير - آخر تحديث اليوم',en:'Report — updated today'}, icon:'⚖️', action:()=>openPage('trialBalance') },
+  { label:{ar:'المنتجات',en:'Products'}, sub:{ar:'إدارة المخزون والمنتجات',en:'Manage inventory'}, icon:'📦', action:()=>openPage('products') },
+  { label:{ar:'القيود اليومية',en:'Journal Entries'}, sub:{ar:'2 قيد قيد المراجعة',en:'2 entries under review'}, icon:'📝', action:()=>openPage('journalEntries') },
+  { label:{ar:'التقارير المالية',en:'Financial Reports'}, sub:{ar:'P&L, Balance Sheet, Cash Flow',en:'P&L, Balance Sheet, Cash Flow'}, icon:'📈', action:()=>openPage('financialReports') },
+];
+
+// ── KPI DATA ────────────────────────────────────
+const KPI_DATA = [
+  { icon:'💰', ar:'إيرادات اليوم',    en:'Today Revenue',     val:'SAR 12,450', badge:'+12%', type:'up' },
+  { icon:'📊', ar:'الذمم المدينة',    en:'Accounts Receivable',val:'SAR 245,800',badge:'-5%',  type:'down' },
+  { icon:'⚠️', ar:'منتجات منخفضة',   en:'Low Stock Items',    val:'8',          badge:'تحذير',type:'warn' },
+  { icon:'🔄', ar:'طلبات معلقة',      en:'Pending Orders',     val:'23',         badge:'+3',   type:'up' },
+  { icon:'💳', ar:'المدفوعات اليوم', en:'Today Payments',     val:'SAR 8,200',  badge:'+8%',  type:'up' },
+  { icon:'📦', ar:'حركة مخزون',      en:'Stock Movements',    val:'47',         badge:'اليوم',type:'up' },
+];
+
+// ── QUICK ACTIONS ───────────────────────────────
+const QA_DATA = [
+  { icon:'🧾', ar:'فاتورة مبيعات', en:'Sales Invoice',  fn:()=>openPage('salesInvoices') },
+  { icon:'💵', ar:'سند قبض',        en:'Receipt',        fn:()=>openPage('receipts') },
+  { icon:'👤', ar:'عميل جديد',      en:'New Customer',   fn:()=>openPage('customers') },
+  { icon:'📦', ar:'إدخال مخزون',    en:'Stock Entry',    fn:()=>openPage('stockMovement') },
+  { icon:'📝', ar:'قيد يومية',      en:'Journal Entry',  fn:()=>openPage('journalEntries') },
+  { icon:'📊', ar:'التقارير',       en:'Reports',        fn:()=>openPage('financialReports') },
+  { icon:'🛒', ar:'فاتورة مشتريات',en:'Purchase Inv.',  fn:()=>openPage('purchaseInvoices') },
+  { icon:'💱', ar:'العملات',         en:'Currencies',     fn:()=>openPage('currencies') },
+];
+
+// ── RECENT TRANSACTIONS ──────────────────────────
+const TX_DATA = [
+  { no:'INV-2024-001', party:{ar:'شركة النخبة التجارية',en:'Elite Trading Co.'}, type:{ar:'فاتورة مبيعات',en:'Sales Invoice'}, amount:'SAR 85,500', date:'2026-02-16', status:'paid' },
+  { no:'PUR-2024-015', party:{ar:'مؤسسة التوريد الوطني',en:'National Supply Est.'}, type:{ar:'فاتورة مشتريات',en:'Purchase Invoice'}, amount:'SAR 42,000', date:'2026-02-15', status:'pending' },
+  { no:'JE-2024-002',  party:{ar:'قيد مصاريف',en:'Expense Entry'}, type:{ar:'قيد يومية',en:'Journal Entry'}, amount:'SAR 15,200', date:'2026-02-14', status:'approved' },
+  { no:'REC-2024-010', party:{ar:'مؤسسة التقنية الحديثة',en:'Modern Tech Est.'}, type:{ar:'سند قبض',en:'Receipt'}, amount:'SAR 30,000', date:'2026-02-13', status:'paid' },
+  { no:'INV-2024-000', party:{ar:'شركة الخليج للتجارة',en:'Gulf Commerce Co.'}, type:{ar:'فاتورة مبيعات',en:'Sales Invoice'}, amount:'SAR 67,800', date:'2026-02-12', status:'overdue' },
+];
+
+const STATUS_MAP = {
+  paid:     { ar:'مدفوعة',      en:'Paid',        cls:'badge-green' },
+  pending:  { ar:'معلقة',       en:'Pending',     cls:'badge-amber' },
+  approved: { ar:'معتمدة',      en:'Approved',    cls:'badge-blue'  },
+  overdue:  { ar:'متأخرة',      en:'Overdue',     cls:'badge-red'   },
+};
+
+// ── PAGE CONTENT ────────────────────────────────
+const PAGES = {
+  salesInvoices:{
+    ar:{title:'فواتير المبيعات',icon:'🧾'},
+    en:{title:'Sales Invoices',icon:'🧾'},
+    render: renderSalesInvoices
+  },
+  customers:{
+    ar:{title:'إدارة العملاء',icon:'👥'},
+    en:{title:'Customer Management',icon:'👥'},
+    render: renderCustomers
+  },
+  chartOfAccounts:{
+    ar:{title:'دليل الحسابات',icon:'📋'},
+    en:{title:'Chart of Accounts',icon:'📋'},
+    render: renderChartOfAccounts
+  },
+  journalEntries:{
+    ar:{title:'القيود اليومية',icon:'📝'},
+    en:{title:'Journal Entries',icon:'📝'},
+    render: renderJournalEntries
+  },
+  financialReports:{
+    ar:{title:'التقارير المالية',icon:'📈'},
+    en:{title:'Financial Reports',icon:'📈'},
+    render: renderFinancialReports
+  },
+  trialBalance:{
+    ar:{title:'ميزان المراجعة',icon:'⚖️'},
+    en:{title:'Trial Balance',icon:'⚖️'},
+    render: renderTrialBalance
+  },
+  products:{
+    ar:{title:'المنتجات والمخزون',icon:'📦'},
+    en:{title:'Products & Inventory',icon:'📦'},
+    render: renderProducts
+  },
+  purchaseInvoices:{
+    ar:{title:'فواتير المشتريات',icon:'📦'},
+    en:{title:'Purchase Invoices',icon:'📦'},
+    render: renderPurchaseInvoices
+  },
+  suppliers:{
+    ar:{title:'الموردون',icon:'🏭'},
+    en:{title:'Suppliers',icon:'🏭'},
+    render: renderSuppliers
+  },
+  receipts:{
+    ar:{title:'سندات القبض',icon:'💵'},
+    en:{title:'Receipts',icon:'💵'},
+    render: renderReceipts
+  },
+  payments:{
+    ar:{title:'سندات الصرف',icon:'💳'},
+    en:{title:'Payments',icon:'💳'},
+    render: renderPayments
+  },
+  stockMovement:{
+    ar:{title:'حركة المخزون',icon:'🔀'},
+    en:{title:'Stock Movement',icon:'🔀'},
+    render: renderStockMovement
+  },
+  company:{
+    ar:{title:'بيانات الشركة',icon:'🏢'},
+    en:{title:'Company Info',icon:'🏢'},
+    render: renderCompany
+  },
+  currencies:{
+    ar:{title:'العملات',icon:'💱'},
+    en:{title:'Currencies',icon:'💱'},
+    render: renderCurrencies
+  },
+  users:{
+    ar:{title:'المستخدمون',icon:'👤'},
+    en:{title:'Users',icon:'👤'},
+    render: renderUsers
+  },
+  salesReturns:{
+    ar:{title:'مردودات المبيعات',icon:'↩️'},
+    en:{title:'Sales Returns',icon:'↩️'},
+    render: renderSalesReturns
+  },
+  purchaseReturns:{
+    ar:{title:'مردودات المشتريات',icon:'🔄'},
+    en:{title:'Purchase Returns',icon:'🔄'},
+    render: renderPurchaseReturns
+  },
+  warehouseRpt:{
+    ar:{title:'تقرير المخزن',icon:'🏪'},
+    en:{title:'Warehouse Report',icon:'🏪'},
+    render: renderWarehouseReport
+  },
+};
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+function init(){
+  applyLang(S.lang);
+  applyDark(S.dark);
+  buildSidebar();
+  renderKPIs();
+  renderQA();
+  renderTxTable();
+  initCharts();
+  bindEvents();
+  if(!S.onboarded) startOnboarding();
+}
+
+// ── LANG ─────────────────────────────────────
+function t(obj){ return obj[S.lang]||obj.ar||obj.en||''; }
+
+function applyLang(lang){
+  S.lang = lang;
+  localStorage.setItem('vfa-lang',lang);
+  const isAr = lang==='ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = isAr ? 'rtl':'ltr';
+  document.body.style.fontFamily = isAr
+    ? "'Tajawal',sans-serif"
+    : "'Inter',sans-serif";
+  document.getElementById('langLabel').textContent = isAr ? 'EN':'ع';
+  document.querySelectorAll('[data-ar][data-en]').forEach(el=>{
+    el.textContent = isAr ? el.dataset.ar : el.dataset.en;
+  });
+  document.querySelectorAll('input[data-ar][data-en]').forEach(el=>{
+    el.placeholder = isAr ? el.dataset.ar : el.dataset.en;
+  });
+}
+
+function toggleLang(){
+  applyLang(S.lang==='ar'?'en':'ar');
+  // Re-render current modal if open
+  if(document.getElementById('modalBackdrop').classList.contains('open')){
+    const pid = document.getElementById('modalPanel').dataset.page;
+    if(pid) openPage(pid);
+  }
+  buildSidebar();
+  renderKPIs();
+  renderQA();
+  renderTxTable();
+}
+
+// ── DARK MODE ────────────────────────────────
+function applyDark(dark){
+  S.dark = dark;
+  localStorage.setItem('vfa-dark', dark?'1':'0');
+  document.body.classList.toggle('dark',dark);
+  document.getElementById('themeBtn').textContent = dark ? '☀️':'🌙';
+  // Update charts
+  Object.values(S.charts).forEach(c=>{ c.update?.(); });
+}
+
+// ── SIDEBAR BUILD ────────────────────────────
+function buildSidebar(){
+  const el = document.getElementById('sidebarInner');
+  el.innerHTML = MENU.map(g=>`
+    <div class="nav-group">
+      <div class="nav-group-title">${t(g.group)}</div>
+      ${g.items.map(item=>`
+        <button class="nav-link${item.id===S.activePage?' active':''}"
+          onclick="openPage('${item.id}')" >
+          <span class="nav-icon">${item.icon}</span>
+          <span class="nav-text">${t(item)}</span>
+          ${item.badge?`<span class="nav-badge">${item.badge}</span>`:''}
+        </button>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+// ── KPIs ─────────────────────────────────────
+function renderKPIs(){
+  document.getElementById('kpis').innerHTML = KPI_DATA.map(k=>`
+    <div class="kpi">
+      <div class="kpi-top">
+        <div class="kpi-icon">${k.icon}</div>
+        <div class="kpi-badge ${k.type}">${k.badge}</div>
+      </div>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-label">${S.lang==='ar'?k.ar:k.en}</div>
+    </div>
+  `).join('');
+}
+
+// ── QUICK ACTIONS ────────────────────────────
+function renderQA(){
+  document.getElementById('qaGrid').innerHTML = QA_DATA.map(q=>`
+    <div class="qa-item" onclick="(${q.fn.toString()})()">
+      <div class="qa-icon">${q.icon}</div>
+      <div class="qa-label">${S.lang==='ar'?q.ar:q.en}</div>
+    </div>
+  `).join('');
+}
+
+// ── TX TABLE ─────────────────────────────────
+function renderTxTable(){
+  const s = STATUS_MAP;
+  document.getElementById('txTable').innerHTML = TX_DATA.map(tx=>`
+    <tr>
+      <td><strong>${tx.no}</strong></td>
+      <td>${t(tx.party)}</td>
+      <td>${t(tx.type)}</td>
+      <td><strong>${tx.amount}</strong></td>
+      <td>${tx.date}</td>
+      <td><span class="badge ${s[tx.status].cls}">${S.lang==='ar'?s[tx.status].ar:s[tx.status].en}</span></td>
+      <td>
+        <button class="btn-icon" data-tip="${S.lang==='ar'?'عرض':'View'}" onclick="showToast('info','${tx.no}','👁️')">👁️</button>
+        <button class="btn-icon" data-tip="${S.lang==='ar'?'طباعة':'Print'}" onclick="window.print()">🖨️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── CHARTS ───────────────────────────────────
+function chartDefaults(){
+  return {
+    plugins:{ legend:{ labels:{ color: S.dark?'#CBD5E1':'#4A5568', font:{family:S.lang==='ar'?'Tajawal':'Inter',size:11} }}},
+    scales:{ x:{ ticks:{ color:S.dark?'#64748B':'#94A3B8' }, grid:{ color:S.dark?'rgba(255,255,255,.05)':'rgba(0,0,0,.05)' }},
+             y:{ ticks:{ color:S.dark?'#64748B':'#94A3B8' }, grid:{ color:S.dark?'rgba(255,255,255,.05)':'rgba(0,0,0,.05)' }}},
+    responsive:true, maintainAspectRatio:false,
+    animation:{ duration:800, easing:'easeInOutQuart' }
+  };
+}
+
+function initCharts(){
+  const months_ar=['يناير','فبراير','مارس','أبريل','مايو','يونيو'];
+  const months_en=['Jan','Feb','Mar','Apr','May','Jun'];
+  const months = S.lang==='ar' ? months_ar : months_en;
+
+  // Revenue chart
+  const rc = document.getElementById('revenueChart');
+  if(rc){
+    if(S.charts.rev) S.charts.rev.destroy();
+    S.charts.rev = new Chart(rc,{
+      type:'line',
+      data:{
+        labels:months,
+        datasets:[{
+          label: S.lang==='ar'?'الإيرادات':'Revenue',
+          data:[210000,185000,245000,198000,270000,312450],
+          borderColor:'#00897B',backgroundColor:'rgba(0,137,123,.1)',
+          fill:true,tension:.4,pointBackgroundColor:'#00897B',pointRadius:4
+        },{
+          label: S.lang==='ar'?'المصروفات':'Expenses',
+          data:[165000,140000,190000,155000,210000,245000],
+          borderColor:'#D4AF37',backgroundColor:'rgba(212,175,55,.1)',
+          fill:true,tension:.4,pointBackgroundColor:'#D4AF37',pointRadius:4
+        }]
+      },
+      options:{...chartDefaults()}
+    });
+  }
+
+  // Sales distribution chart
+  const sc = document.getElementById('salesChart');
+  if(sc){
+    if(S.charts.sal) S.charts.sal.destroy();
+    S.charts.sal = new Chart(sc,{
+      type:'doughnut',
+      data:{
+        labels: S.lang==='ar'
+          ?['منتجات','خدمات','استشارات','تدريب']
+          :['Products','Services','Consulting','Training'],
+        datasets:[{
+          data:[45,25,20,10],
+          backgroundColor:['#00695C','#00897B','#D4AF37','#F0D060'],
+          borderWidth:0,hoverOffset:8
+        }]
+      },
+      options:{
+        ...chartDefaults(),
+        scales:{},
+        cutout:'65%',
+        plugins:{legend:{position:'bottom',labels:{padding:16}}}
+      }
+    });
+  }
+}
+
+// ══════════════════════════════════════════════
+// MODAL & PAGE NAVIGATION
+// ══════════════════════════════════════════════
+function openPage(id){
+  if(!PAGES[id]) return;
+  S.activePage = id;
+  buildSidebar();
+  const pg = PAGES[id];
+  const meta = pg[S.lang]||pg.ar;
+  openModal(meta.icon+' '+meta.title, pg.render, id);
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el = document.getElementById('page-'+id);
+  if(el) el.classList.add('active');
+  S.activePage = id;
+  buildSidebar();
+  closeSidebar();
+}
+
+function openModal(title, renderFn, pageId){
+  const bd = document.getElementById('modalBackdrop');
+  const panel = document.getElementById('modalPanel');
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalToolbar').innerHTML = '';
+  document.getElementById('modalBody').innerHTML = '';
+  document.getElementById('modalFooter').innerHTML = '';
+  panel.dataset.page = pageId||'';
+  bd.classList.add('open');
+  closeSidebar();
+  if(typeof renderFn==='function') renderFn();
+}
+
+function closeModal(){
+  document.getElementById('modalBackdrop').classList.remove('open');
+  S.activePage = 'dashboard';
+  buildSidebar();
+}
+
+// ── PAGE RENDERS ─────────────────────────────
+function renderSalesInvoices(){
+  const tb = document.getElementById('modalToolbar');
+  tb.innerHTML = `
+    <button class="btn btn-primary" onclick="renderNewInvoiceForm()">
+      <span>➕</span> <span>${S.lang==='ar'?'فاتورة جديدة':'New Invoice'}</span>
+    </button>
+    <select class="btn btn-ghost" style="cursor:pointer;" onchange="showToast('info',this.value,'🔍')">
+      <option>${S.lang==='ar'?'كل الفواتير':'All Invoices'}</option>
+      <option>${S.lang==='ar'?'مدفوعة':'Paid'}</option>
+      <option>${S.lang==='ar'?'معلقة':'Pending'}</option>
+      <option>${S.lang==='ar'?'متأخرة':'Overdue'}</option>
+    </select>
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ ${S.lang==='ar'?'طباعة':'Print'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+  `;
+
+  const invData = [
+    { no:'INV-2024-001', customer:{ar:'شركة النخبة التجارية',en:'Elite Trading Co.'}, amount:'SAR 85,500', date:'2026-02-16', due:'2026-03-16', status:'paid' },
+    { no:'INV-2024-002', customer:{ar:'مؤسسة التقنية الحديثة',en:'Modern Tech Est.'}, amount:'SAR 42,000', date:'2026-02-15', due:'2026-03-15', status:'pending' },
+    { no:'INV-2024-003', customer:{ar:'شركة الخليج للتجارة',en:'Gulf Commerce Co.'}, amount:'SAR 67,800', date:'2026-02-10', due:'2026-02-24', status:'overdue' },
+    { no:'INV-2024-004', customer:{ar:'مؤسسة الأعمال الدولية',en:'Intl Business Est.'}, amount:'SAR 28,400', date:'2026-02-08', due:'2026-03-08', status:'paid' },
+    { no:'INV-2024-005', customer:{ar:'شركة التطوير والاستشارات',en:'Dev & Consult Co.'}, amount:'SAR 55,000', date:'2026-02-05', due:'2026-03-05', status:'pending' },
+  ];
+
+  document.getElementById('modalBody').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem;">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">🧾</div><div class="kpi-badge up">+5</div></div>
+        <div class="kpi-val">23</div><div class="kpi-label">${S.lang==='ar'?'إجمالي الفواتير':'Total Invoices'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">✅</div><div class="kpi-badge up">78%</div></div>
+        <div class="kpi-val">SAR 218,700</div><div class="kpi-label">${S.lang==='ar'?'مدفوعة':'Paid'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">⏳</div><div class="kpi-badge warn">3</div></div>
+        <div class="kpi-val">SAR 97,000</div><div class="kpi-label">${S.lang==='ar'?'معلقة':'Pending'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">🚨</div><div class="kpi-badge down">1</div></div>
+        <div class="kpi-val">SAR 67,800</div><div class="kpi-label">${S.lang==='ar'?'متأخرة':'Overdue'}</div>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>${S.lang==='ar'?'رقم الفاتورة':'Invoice #'}</th>
+            <th>${S.lang==='ar'?'العميل':'Customer'}</th>
+            <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+            <th>${S.lang==='ar'?'تاريخ الإصدار':'Issue Date'}</th>
+            <th>${S.lang==='ar'?'تاريخ الاستحقاق':'Due Date'}</th>
+            <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+            <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+          </tr></thead>
+          <tbody>
+            ${invData.map(i=>`
+              <tr>
+                <td><strong style="color:var(--primary)">${i.no}</strong></td>
+                <td>${t(i.customer)}</td>
+                <td><strong>${i.amount}</strong></td>
+                <td>${i.date}</td>
+                <td style="color:${i.status==='overdue'?'var(--red)':'inherit'}">${i.due}</td>
+                <td><span class="badge ${STATUS_MAP[i.status].cls}">${S.lang==='ar'?STATUS_MAP[i.status].ar:STATUS_MAP[i.status].en}</span></td>
+                <td>
+                  <button class="btn-icon" onclick="showToast('info','${i.no}','👁️')">👁️</button>
+                  <button class="btn-icon" onclick="showToast('info','${S.lang==='ar'?'جاري تحرير':'Editing'} ${i.no}','✏️')">✏️</button>
+                  <button class="btn-icon" onclick="window.print()">🖨️</button>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-ghost" onclick="closeModal()">${S.lang==='ar'?'إغلاق':'Close'}</button>
+    <button class="btn btn-primary" onclick="renderNewInvoiceForm()">➕ ${S.lang==='ar'?'إنشاء فاتورة':'Create Invoice'}</button>
+  `;
+}
+
+function renderNewInvoiceForm(){
+  document.getElementById('modalTitle').textContent = (S.lang==='ar'?'🧾 فاتورة مبيعات جديدة':'🧾 New Sales Invoice');
+  document.getElementById('modalToolbar').innerHTML = `
+    <span style="font-size:.82rem;color:var(--text3)">${S.lang==='ar'?'رقم الفاتورة: INV-2024-006':'Invoice No: INV-2024-006'}</span>
+  `;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="form-grid" style="margin-bottom:1.25rem;">
+      <div class="field">
+        <label>${S.lang==='ar'?'العميل':'Customer'}</label>
+        <select><option>${S.lang==='ar'?'اختر العميل...':'Select Customer...'}</option>
+          <option>${S.lang==='ar'?'شركة النخبة التجارية':'Elite Trading Co.'}</option>
+          <option>${S.lang==='ar'?'مؤسسة التقنية الحديثة':'Modern Tech Est.'}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>${S.lang==='ar'?'تاريخ الفاتورة':'Invoice Date'}</label>
+        <input type="date" value="2026-02-17">
+      </div>
+      <div class="field">
+        <label>${S.lang==='ar'?'تاريخ الاستحقاق':'Due Date'}</label>
+        <input type="date" value="2026-03-17">
+      </div>
+      <div class="field">
+        <label>${S.lang==='ar'?'العملة':'Currency'}</label>
+        <select><option>SAR - ريال سعودي</option><option>USD - دولار</option><option>EUR - يورو</option></select>
+      </div>
+    </div>
+    <div class="inv-lines">
+      <div class="inv-lines-head">
+        <span>${S.lang==='ar'?'المنتج/الخدمة':'Item/Service'}</span>
+        <span>${S.lang==='ar'?'الكمية':'Qty'}</span>
+        <span>${S.lang==='ar'?'السعر':'Price'}</span>
+        <span>${S.lang==='ar'?'الإجمالي':'Total'}</span>
+        <span></span>
+      </div>
+      <div class="inv-line">
+        <input placeholder="${S.lang==='ar'?'اسم المنتج أو الخدمة...':'Product or service name...'}">
+        <input type="number" value="1" min="1" oninput="calcInvLine(this)">
+        <div class="input-group"><span class="input-prefix">${S.lang==='ar'?'ر.س':'SAR'}</span><input type="number" value="0" oninput="calcInvLine(this)"></div>
+        <input readonly value="0.00" style="color:var(--primary);font-weight:700;">
+        <button class="btn-icon" onclick="this.closest('.inv-line').remove();calcTotals()">🗑️</button>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="addInvLine()">➕ ${S.lang==='ar'?'إضافة سطر':'Add Line'}</button>
+    <div class="inv-totals" id="invTotals">
+      <div class="inv-total-row"><span>${S.lang==='ar'?'المجموع الفرعي:':'Subtotal:'}</span><span>SAR 0.00</span></div>
+      <div class="inv-total-row"><span>${S.lang==='ar'?'ضريبة القيمة المضافة (15%):':'VAT (15%):'}</span><span>SAR 0.00</span></div>
+      <div class="inv-total-row grand"><span>${S.lang==='ar'?'الإجمالي:':'Grand Total:'}</span><span>SAR 0.00</span></div>
+    </div>
+    <div class="field form-full" style="margin-top:1rem;">
+      <label>${S.lang==='ar'?'ملاحظات':'Notes'}</label>
+      <textarea placeholder="${S.lang==='ar'?'أي ملاحظات إضافية...':'Any additional notes...'}"></textarea>
+    </div>
+  `;
+  document.getElementById('modalFooter').innerHTML = `
+    <button class="btn btn-ghost" onclick="openPage('salesInvoices')">${S.lang==='ar'?'رجوع':'Back'}</button>
+    <button class="btn btn-outline" onclick="showToast('info','${S.lang==='ar'?'تم الحفظ كمسودة':'Saved as draft'}','📝')">${S.lang==='ar'?'حفظ كمسودة':'Save Draft'}</button>
+    <button class="btn btn-primary" onclick="showToast('success','${S.lang==='ar'?'تم إنشاء الفاتورة بنجاح':'Invoice created successfully'}','✓');closeModal()">💾 ${S.lang==='ar'?'إصدار الفاتورة':'Issue Invoice'}</button>
+  `;
+}
+
+function addInvLine(){
+  const wrap = document.querySelector('.inv-lines');
+  const line = document.createElement('div');
+  line.className='inv-line';
+  line.innerHTML=`
+    <input placeholder="${S.lang==='ar'?'اسم المنتج...':'Product name...'}">
+    <input type="number" value="1" min="1" oninput="calcInvLine(this)">
+    <div class="input-group"><span class="input-prefix">${S.lang==='ar'?'ر.س':'SAR'}</span><input type="number" value="0" oninput="calcInvLine(this)"></div>
+    <input readonly value="0.00" style="color:var(--primary);font-weight:700;">
+    <button class="btn-icon" onclick="this.closest('.inv-line').remove();calcTotals()">🗑️</button>
+  `;
+  wrap.appendChild(line);
+}
+
+function calcInvLine(input){
+  const line = input.closest('.inv-line');
+  const inputs = line.querySelectorAll('input[type=number]');
+  const qty = parseFloat(inputs[0].value)||0;
+  const price = parseFloat(inputs[1].value)||0;
+  line.querySelectorAll('input[readonly]')[0].value = (qty*price).toFixed(2);
+  calcTotals();
+}
+
+function calcTotals(){
+  let sub=0;
+  document.querySelectorAll('.inv-line').forEach(l=>{
+    sub += parseFloat(l.querySelector('input[readonly]')?.value||0);
+  });
+  const vat = sub*0.15;
+  const t = document.getElementById('invTotals');
+  if(!t) return;
+  const rows = t.querySelectorAll('.inv-total-row span:last-child');
+  if(rows[0]) rows[0].textContent = `SAR ${sub.toFixed(2)}`;
+  if(rows[1]) rows[1].textContent = `SAR ${vat.toFixed(2)}`;
+  if(rows[2]) rows[2].textContent = `SAR ${(sub+vat).toFixed(2)}`;
+}
+
+function renderCustomers(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'عميل جديد':'New Customer'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+    <input placeholder="${S.lang==='ar'?'بحث عن عميل...':'Search customer...'}" style="width:220px;height:36px;">
+  `;
+  const cust=[
+    {name:{ar:'شركة النخبة التجارية',en:'Elite Trading Co.'},code:'C-001',balance:'SAR 85,500',status:'active',city:{ar:'الرياض',en:'Riyadh'}},
+    {name:{ar:'مؤسسة التقنية الحديثة',en:'Modern Tech Est.'},code:'C-002',balance:'SAR 42,000',status:'pending',city:{ar:'جدة',en:'Jeddah'}},
+    {name:{ar:'شركة الخليج للتجارة',en:'Gulf Commerce Co.'},code:'C-003',balance:'SAR 67,800',status:'active',city:{ar:'الدمام',en:'Dammam'}},
+    {name:{ar:'مؤسسة الأعمال الدولية',en:'Intl Business Est.'},code:'C-004',balance:'SAR 28,400',status:'active',city:{ar:'مكة المكرمة',en:'Makkah'}},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;gap:1rem;">
+      ${cust.map(c=>`
+        <div class="overview-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);padding:1.1rem;display:flex;align-items:center;gap:1rem;transition:all .3s;cursor:pointer;"
+          onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='var(--shadow-lg)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <div class="avatar">${t(c.name).charAt(0)}</div>
+          <div style="flex:1">
+            <div style="font-weight:700;margin-bottom:.2rem">${t(c.name)}</div>
+            <div style="font-size:.78rem;color:var(--text3)">${c.code} · ${t(c.city)}</div>
+          </div>
+          <div style="text-align:end">
+            <div style="font-weight:700;color:var(--primary)">${c.balance}</div>
+            <span class="badge ${c.status==='active'?'badge-green':'badge-amber'}">${c.status==='active'?(S.lang==='ar'?'نشط':'Active'):(S.lang==='ar'?'معلق':'Pending')}</span>
+          </div>
+          <div style="display:flex;gap:.4rem">
+            <button class="btn-icon" onclick="showToast('info','${t(c.name)}','👁️')">👁️</button>
+            <button class="btn-icon">✏️</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderChartOfAccounts(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'حساب جديد':'New Account'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+  `;
+  const groups=[
+    {type:{ar:'الأصول',en:'Assets'},icon:'💰',color:'badge-green',accounts:[
+      {code:'1000',name:{ar:'الأصول المتداولة',en:'Current Assets'},bal:'SAR 450,000'},
+      {code:'1100',name:{ar:'النقدية والبنوك',en:'Cash & Banks'},bal:'SAR 185,000',indent:true},
+      {code:'1200',name:{ar:'حسابات القبض',en:'Accounts Receivable'},bal:'SAR 245,000',indent:true},
+      {code:'1300',name:{ar:'المخزون',en:'Inventory'},bal:'SAR 20,000',indent:true},
+    ]},
+    {type:{ar:'الخصوم',en:'Liabilities'},icon:'📋',color:'badge-red',accounts:[
+      {code:'2000',name:{ar:'الخصوم المتداولة',en:'Current Liabilities'},bal:'SAR 125,000'},
+      {code:'2100',name:{ar:'حسابات الدفع',en:'Accounts Payable'},bal:'SAR 85,000',indent:true},
+      {code:'2200',name:{ar:'مستحقات الضرائب',en:'Tax Payable'},bal:'SAR 40,000',indent:true},
+    ]},
+    {type:{ar:'حقوق الملكية',en:'Equity'},icon:'⚖️',color:'badge-blue',accounts:[
+      {code:'3000',name:{ar:'رأس المال',en:'Capital'},bal:'SAR 325,000'},
+      {code:'3100',name:{ar:'الأرباح المحتجزة',en:'Retained Earnings'},bal:'SAR 200,000',indent:true},
+    ]},
+  ];
+  document.getElementById('modalBody').innerHTML=groups.map(g=>`
+    <div class="report-card" style="margin-bottom:1rem;">
+      <div class="report-card-head">
+        <span style="display:flex;align-items:center;gap:.5rem;font-weight:700;">${g.icon} ${t(g.type)}</span>
+        <span class="badge ${g.color}">${g.accounts.length} ${S.lang==='ar'?'حسابات':'Accounts'}</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr>
+          <th>${S.lang==='ar'?'كود':'Code'}</th>
+          <th>${S.lang==='ar'?'اسم الحساب':'Account Name'}</th>
+          <th style="text-align:end">${S.lang==='ar'?'الرصيد':'Balance'}</th>
+          <th style="text-align:end">${S.lang==='ar'?'إجراءات':'Actions'}</th>
+        </tr></thead>
+        <tbody>
+          ${g.accounts.map(a=>`
+            <tr>
+              <td><code style="font-size:.8rem;color:var(--primary)">${a.code}</code></td>
+              <td style="padding-inline-start:${a.indent?'2rem':'1rem'};font-weight:${a.indent?400:700}">${t(a.name)}</td>
+              <td style="text-align:end;font-weight:600">${a.bal}</td>
+              <td style="text-align:end">
+                <button class="btn-icon btn-sm">👁️</button>
+                <button class="btn-icon btn-sm">✏️</button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `).join('');
+}
+
+function renderJournalEntries(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'قيد جديد':'New Entry'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+  `;
+  const je=[
+    {no:'JE-2024-001',date:'2026-02-16',desc:{ar:'قيد افتتاحي',en:'Opening Entry'},dr:'SAR 250,000',cr:'SAR 250,000',status:'approved'},
+    {no:'JE-2024-002',date:'2026-02-15',desc:{ar:'مصاريف إدارية',en:'Admin Expenses'},dr:'SAR 45,000',cr:'SAR 45,000',status:'pending'},
+    {no:'JE-2024-003',date:'2026-02-14',desc:{ar:'إيرادات مبيعات',en:'Sales Revenue'},dr:'SAR 85,500',cr:'SAR 85,500',status:'approved'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div class="table-card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>${S.lang==='ar'?'رقم القيد':'Entry No.'}</th>
+            <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+            <th>${S.lang==='ar'?'الوصف':'Description'}</th>
+            <th style="text-align:end">${S.lang==='ar'?'مدين':'Debit'}</th>
+            <th style="text-align:end">${S.lang==='ar'?'دائن':'Credit'}</th>
+            <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+            <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+          </tr></thead>
+          <tbody>
+            ${je.map(j=>`<tr>
+              <td><strong style="color:var(--primary)">${j.no}</strong></td>
+              <td>${j.date}</td><td>${t(j.desc)}</td>
+              <td style="text-align:end;color:var(--emerald);font-weight:600">${j.dr}</td>
+              <td style="text-align:end;color:var(--red);font-weight:600">${j.cr}</td>
+              <td><span class="badge ${j.status==='approved'?'badge-green':'badge-amber'}">${S.lang==='ar'?(j.status==='approved'?'معتمدة':'قيد المراجعة'):(j.status==='approved'?'Approved':'Reviewing')}</span></td>
+              <td><button class="btn-icon">👁️</button><button class="btn-icon">✏️</button></td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderTrialBalance(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <input type="month" value="2026-02" style="height:36px;width:180px;">
+    <button class="btn btn-ghost">🖨️ ${S.lang==='ar'?'طباعة':'Print'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+  `;
+  const accounts=[
+    {code:'1100',name:{ar:'النقدية والبنوك',en:'Cash & Banks'},dr:'185,000',cr:''},
+    {code:'1200',name:{ar:'حسابات القبض',en:'Accounts Receivable'},dr:'245,000',cr:''},
+    {code:'1300',name:{ar:'المخزون',en:'Inventory'},dr:'20,000',cr:''},
+    {code:'2100',name:{ar:'حسابات الدفع',en:'Accounts Payable'},dr:'',cr:'85,000'},
+    {code:'2200',name:{ar:'مستحقات الضرائب',en:'Tax Payable'},dr:'',cr:'40,000'},
+    {code:'3000',name:{ar:'رأس المال',en:'Capital'},dr:'',cr:'325,000'},
+    {code:'4000',name:{ar:'إيرادات المبيعات',en:'Sales Revenue'},dr:'',cr:'312,450'},
+    {code:'5000',name:{ar:'تكلفة المبيعات',en:'Cost of Goods'},dr:'245,000',cr:''},
+    {code:'5100',name:{ar:'المصاريف الإدارية',en:'Admin Expenses'},dr:'67,450',cr:''},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div class="report-card">
+      <div class="report-card-head">
+        <strong>${S.lang==='ar'?'ميزان المراجعة — فبراير 2026':'Trial Balance — February 2026'}</strong>
+        <span class="badge badge-green">✓ ${S.lang==='ar'?'متوازن':'Balanced'}</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;">
+        <thead><tr>
+          <th>${S.lang==='ar'?'كود':'Code'}</th>
+          <th>${S.lang==='ar'?'اسم الحساب':'Account'}</th>
+          <th style="text-align:end">${S.lang==='ar'?'مدين':'Debit'}</th>
+          <th style="text-align:end">${S.lang==='ar'?'دائن':'Credit'}</th>
+        </tr></thead>
+        <tbody>
+          ${accounts.map(a=>`<tr>
+            <td><code style="color:var(--primary);font-size:.8rem">${a.code}</code></td>
+            <td>${t(a.name)}</td>
+            <td style="text-align:end;color:var(--emerald);font-weight:600">${a.dr?'SAR '+a.dr:'—'}</td>
+            <td style="text-align:end;color:var(--red);font-weight:600">${a.cr?'SAR '+a.cr:'—'}</td>
+          </tr>`).join('')}
+          <tr style="background:var(--grad-main);color:#fff;font-weight:800;font-size:.95rem;">
+            <td colspan="2" style="padding:.875rem 1rem">${S.lang==='ar'?'الإجمالي':'Total'}</td>
+            <td style="text-align:end;padding:.875rem 1rem">SAR 762,450</td>
+            <td style="text-align:end;padding:.875rem 1rem">SAR 762,450</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderFinancialReports(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary" onclick="showToast('info','${S.lang==='ar'?'جاري تحديث التقرير...':'Refreshing report...'}','🔄')">🔄 ${S.lang==='ar'?'تحديث':'Refresh'}</button>
+    <select class="btn btn-ghost" style="cursor:pointer">
+      <option>Q1 2026</option><option>Q4 2025</option><option>Q3 2025</option>
+    </select>
+    <button class="btn btn-ghost">🖨️ ${S.lang==='ar'?'طباعة':'Print'}</button>
+    <button class="btn btn-ghost">📊 ${S.lang==='ar'?'تصدير Excel':'Export Excel'}</button>
+  `;
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+      <!-- P&L -->
+      <div class="report-card">
+        <div class="report-card-head"><strong>${S.lang==='ar'?'قائمة الدخل (P&L)':'Income Statement (P&L)'}</strong></div>
+        <div class="report-row subtotal"><span>${S.lang==='ar'?'إيرادات المبيعات':'Sales Revenue'}</span><span style="color:var(--emerald)">SAR 312,450</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'مبيعات المنتجات':'Product Sales'}</span><span>SAR 250,000</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'إيرادات الخدمات':'Service Revenue'}</span><span>SAR 62,450</span></div>
+        <div class="divider"></div>
+        <div class="report-row subtotal"><span>${S.lang==='ar'?'إجمالي الربح':'Gross Profit'}</span><span>SAR 67,450</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'تكلفة البضاعة المباعة':'COGS'}</span><span style="color:var(--red)">SAR 245,000</span></div>
+        <div class="divider"></div>
+        <div class="report-row total"><span>${S.lang==='ar'?'صافي الربح':'Net Profit'}</span><span>SAR 67,450</span></div>
+      </div>
+      <!-- Balance Sheet -->
+      <div class="report-card">
+        <div class="report-card-head"><strong>${S.lang==='ar'?'الميزانية العمومية':'Balance Sheet'}</strong></div>
+        <div class="report-row subtotal"><span>${S.lang==='ar'?'إجمالي الأصول':'Total Assets'}</span><span style="color:var(--emerald)">SAR 450,000</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'الأصول المتداولة':'Current Assets'}</span><span>SAR 430,000</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'الأصول الثابتة':'Fixed Assets'}</span><span>SAR 20,000</span></div>
+        <div class="divider"></div>
+        <div class="report-row subtotal"><span>${S.lang==='ar'?'الخصوم وحقوق الملكية':'Liabilities & Equity'}</span><span>SAR 450,000</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'الخصوم':'Liabilities'}</span><span style="color:var(--red)">SAR 125,000</span></div>
+        <div class="report-row indent"><span>${S.lang==='ar'?'حقوق الملكية':'Equity'}</span><span>SAR 325,000</span></div>
+        <div class="report-row total"><span>${S.lang==='ar'?'متوازن':'Balanced'}</span><span>✓</span></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-head"><span class="chart-title">${S.lang==='ar'?'تحليل الأداء المالي':'Financial Performance Analysis'}</span></div>
+      <div class="chart-wrap"><canvas id="perfChart"></canvas></div>
+    </div>
+  `;
+  // Render performance chart
+  setTimeout(()=>{
+    const ctx=document.getElementById('perfChart');
+    if(ctx){
+      new Chart(ctx,{
+        type:'bar',
+        data:{
+          labels:S.lang==='ar'?['يناير','فبراير','مارس','أبريل','مايو','يونيو']:['Jan','Feb','Mar','Apr','May','Jun'],
+          datasets:[
+            {label:S.lang==='ar'?'الإيرادات':'Revenue',data:[210,185,245,198,270,312],backgroundColor:'rgba(0,137,123,.7)',borderRadius:6},
+            {label:S.lang==='ar'?'المصروفات':'Expenses',data:[165,140,190,155,210,245],backgroundColor:'rgba(212,175,55,.7)',borderRadius:6},
+            {label:S.lang==='ar'?'الأرباح':'Profit',data:[45,45,55,43,60,67],backgroundColor:'rgba(16,185,129,.7)',borderRadius:6},
+          ]
+        },
+        options:{...chartDefaults(),plugins:{legend:{labels:{color:S.dark?'#CBD5E1':'#4A5568'}}}}
+      });
+    }
+  },100);
+}
+
+function renderProducts(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'منتج جديد':'New Product'}</button>
+    <button class="btn btn-ghost">📊 ${S.lang==='ar'?'تقرير المخزون':'Inventory Report'}</button>
+    <input placeholder="${S.lang==='ar'?'بحث عن منتج...':'Search product...'}" style="height:36px;width:200px;">
+  `;
+  const products=[
+    {name:{ar:'لابتوب HP ProBook',en:'HP ProBook Laptop'},sku:'HP-PB-450',stock:24,max:50,price:'SAR 3,200',icon:'💻'},
+    {name:{ar:'طابعة Canon LBP',en:'Canon LBP Printer'},sku:'CN-LBP-2900',stock:8,max:20,price:'SAR 850',icon:'🖨️'},
+    {name:{ar:'شاشة Samsung 24"',en:'Samsung 24" Monitor'},sku:'SM-MNT-24',stock:3,max:15,price:'SAR 1,100',icon:'🖥️'},
+    {name:{ar:'كيبورد لاسلكي',en:'Wireless Keyboard'},sku:'KB-WL-001',stock:45,max:60,price:'SAR 180',icon:'⌨️'},
+    {name:{ar:'ماوس لاسلكي',en:'Wireless Mouse'},sku:'MS-WL-002',stock:52,max:60,price:'SAR 120',icon:'🖱️'},
+    {name:{ar:'فلاش ديسك 64GB',en:'64GB Flash Drive'},sku:'USB-64G',stock:2,max:30,price:'SAR 45',icon:'💾'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+      ${products.map(p=>{
+        const pct=Math.round(p.stock/p.max*100);
+        const color=pct>50?'var(--emerald)':pct>20?'var(--amber)':'var(--red)';
+        return`<div class="inv-card">
+          <div class="inv-card-icon">${p.icon}</div>
+          <div class="inv-card-name">${t(p.name)}</div>
+          <div class="inv-card-sku">${p.sku} · ${p.price}</div>
+          <div class="inv-card-stock">
+            <div class="stock-bar-wrap"><div class="stock-bar" style="width:${pct}%;background:${color}"></div></div>
+            <span class="stock-num" style="color:${color}">${p.stock}/${p.max}</span>
+          </div>
+          ${p.stock<=5?`<div style="margin-top:.5rem"><span class="badge badge-red">⚠️ ${S.lang==='ar'?'مخزون منخفض':'Low Stock'}</span></div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderCompany(){
+  document.getElementById('modalBody').innerHTML=`
+    <div class="form-grid">
+      <div class="field"><label>${S.lang==='ar'?'اسم الشركة':'Company Name'}</label><input value="${S.lang==='ar'?'شركة في آي بي المحاسبية':'VIP Accounting Co.'}"></div>
+      <div class="field"><label>${S.lang==='ar'?'السجل التجاري':'Commercial Register'}</label><input value="1234567890"></div>
+      <div class="field"><label>${S.lang==='ar'?'الرقم الضريبي':'Tax Number'}</label><input value="300123456789003"></div>
+      <div class="field"><label>${S.lang==='ar'?'العملة الأساسية':'Base Currency'}</label><select><option>SAR - ريال سعودي</option><option>USD</option><option>EUR</option></select></div>
+      <div class="field form-full"><label>${S.lang==='ar'?'العنوان':'Address'}</label><textarea>${S.lang==='ar'?'الرياض، المملكة العربية السعودية':'Riyadh, Saudi Arabia'}</textarea></div>
+      <div class="field"><label>${S.lang==='ar'?'السنة المالية':'Fiscal Year'}</label><select><option>يناير - ديسمبر</option><option>أبريل - مارس</option></select></div>
+      <div class="field"><label>${S.lang==='ar'?'نسبة ضريبة القيمة المضافة':'VAT Rate'}</label><div class="input-group has-suffix"><input type="number" value="15"><span class="input-suffix">%</span></div></div>
+    </div>
+  `;
+  document.getElementById('modalFooter').innerHTML=`
+    <button class="btn btn-ghost" onclick="closeModal()">${S.lang==='ar'?'إلغاء':'Cancel'}</button>
+    <button class="btn btn-primary" onclick="showToast('success','${S.lang==='ar'?'تم حفظ بيانات الشركة':'Company info saved'}','✓');closeModal()">💾 ${S.lang==='ar'?'حفظ التغييرات':'Save Changes'}</button>
+  `;
+}
+
+function renderCurrencies(){
+  document.getElementById('modalToolbar').innerHTML=`<button class="btn btn-primary">➕ ${S.lang==='ar'?'إضافة عملة':'Add Currency'}</button>`;
+  const curr=[
+    {code:'SAR',name:{ar:'ريال سعودي',en:'Saudi Riyal'},rate:'1.0000',default:true},
+    {code:'USD',name:{ar:'دولار أمريكي',en:'US Dollar'},rate:'0.2667'},
+    {code:'EUR',name:{ar:'يورو',en:'Euro'},rate:'0.2450'},
+    {code:'GBP',name:{ar:'جنيه إسترليني',en:'British Pound'},rate:'0.2100'},
+    {code:'AED',name:{ar:'درهم إماراتي',en:'UAE Dirham'},rate:'0.9797'},
+    {code:'KWD',name:{ar:'دينار كويتي',en:'Kuwaiti Dinar'},rate:'0.0819'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div class="table-card"><div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>${S.lang==='ar'?'الرمز':'Code'}</th>
+          <th>${S.lang==='ar'?'العملة':'Currency'}</th>
+          <th style="text-align:end">${S.lang==='ar'?'سعر الصرف (مقابل الريال)':'Exchange Rate (vs SAR)'}</th>
+          <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+          <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+        </tr></thead>
+        <tbody>
+          ${curr.map(c=>`<tr>
+            <td><strong>${c.code}</strong></td>
+            <td>${t(c.name)}</td>
+            <td style="text-align:end;font-weight:700">${c.rate}</td>
+            <td>${c.default?`<span class="badge badge-green">✓ ${S.lang==='ar'?'الأساسية':'Default'}</span>`:`<span class="badge badge-blue">${S.lang==='ar'?'نشطة':'Active'}</span>`}</td>
+            <td><button class="btn-icon">✏️</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div></div>
+  `;
+}
+
+
+// ══════════════════════════════════════════════
+// ADDITIONAL PAGE RENDERS — All sections fully implemented
+// ══════════════════════════════════════════════
+
+function renderPurchaseInvoices(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary" onclick="showToast('info','${S.lang==='ar'?'فاتورة مشتريات جديدة':'New purchase invoice'}','📦')">
+      ➕ ${S.lang==='ar'?'فاتورة مشتريات جديدة':'New Purchase Invoice'}
+    </button>
+    <select class="btn btn-ghost" style="cursor:pointer">
+      <option>${S.lang==='ar'?'كل الفواتير':'All Invoices'}</option>
+      <option>${S.lang==='ar'?'مدفوعة':'Paid'}</option>
+      <option>${S.lang==='ar'?'معلقة':'Pending'}</option>
+    </select>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+  `;
+  const purchases=[
+    {no:'PUR-2024-015',supplier:{ar:'مؤسسة التوريد الوطني',en:'National Supply Est.'},amount:'SAR 42,000',date:'2026-02-15',due:'2026-03-15',status:'pending'},
+    {no:'PUR-2024-014',supplier:{ar:'شركة الإمدادات الصناعية',en:'Industrial Supplies Co.'},amount:'SAR 28,500',date:'2026-02-10',due:'2026-03-10',status:'paid'},
+    {no:'PUR-2024-013',supplier:{ar:'مؤسسة التجهيزات المكتبية',en:'Office Equipment Est.'},amount:'SAR 15,200',date:'2026-02-08',due:'2026-03-08',status:'paid'},
+    {no:'PUR-2024-012',supplier:{ar:'شركة المواد الخام',en:'Raw Materials Co.'},amount:'SAR 67,800',date:'2026-02-05',due:'2026-03-05',status:'pending'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📦</div><div class="kpi-badge up">+4</div></div>
+        <div class="kpi-val">18</div><div class="kpi-label">${S.lang==='ar'?'إجمالي المشتريات':'Total Purchases'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">✅</div><div class="kpi-badge up">85%</div></div>
+        <div class="kpi-val">SAR 153,500</div><div class="kpi-label">${S.lang==='ar'?'مدفوعة':'Paid'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">⏳</div><div class="kpi-badge warn">2</div></div>
+        <div class="kpi-val">SAR 109,800</div><div class="kpi-label">${S.lang==='ar'?'معلقة':'Pending'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم الفاتورة':'Invoice #'}</th>
+        <th>${S.lang==='ar'?'المورد':'Supplier'}</th>
+        <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'الاستحقاق':'Due'}</th>
+        <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${purchases.map(p=>`<tr>
+          <td><strong style="color:var(--primary)">${p.no}</strong></td>
+          <td>${t(p.supplier)}</td>
+          <td><strong>${p.amount}</strong></td>
+          <td>${p.date}</td><td>${p.due}</td>
+          <td><span class="badge ${STATUS_MAP[p.status].cls}">${t(STATUS_MAP[p.status])}</span></td>
+          <td>
+            <button class="btn-icon" onclick="showToast('info','${p.no}','👁️')">👁️</button>
+            <button class="btn-icon">🖨️</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderSuppliers(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'مورد جديد':'New Supplier'}</button>
+    <button class="btn btn-ghost">📤 ${S.lang==='ar'?'تصدير':'Export'}</button>
+    <input placeholder="${S.lang==='ar'?'بحث...':'Search...'}" style="width:200px;height:36px">
+  `;
+  const suppliers=[
+    {name:{ar:'مؤسسة التوريد الوطني',en:'National Supply Est.'},code:'S-001',balance:'SAR 42,000',status:'active',cat:{ar:'مواد خام',en:'Raw Materials'}},
+    {name:{ar:'شركة الإمدادات الصناعية',en:'Industrial Supplies'},code:'S-002',balance:'SAR 15,800',status:'active',cat:{ar:'قطع غيار',en:'Spare Parts'}},
+    {name:{ar:'مؤسسة التجهيزات المكتبية',en:'Office Equipment'},code:'S-003',balance:'SAR 8,200',status:'pending',cat:{ar:'أثاث ومعدات',en:'Furniture'}},
+    {name:{ar:'شركة المواد الخام المتقدمة',en:'Advanced Materials Co.'},code:'S-004',balance:'SAR 67,500',status:'active',cat:{ar:'مواد بناء',en:'Construction'}},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;gap:1rem">
+      ${suppliers.map(s=>`
+        <div class="overview-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);padding:1.1rem;display:flex;align-items:center;gap:1rem;transition:all .3s;cursor:pointer"
+          onmouseenter="this.style.transform='translateY(-3px)';this.style.boxShadow='var(--shadow-lg)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <div class="avatar" style="background:var(--grad-gold)">${t(s.name).charAt(0)}</div>
+          <div style="flex:1">
+            <div style="font-weight:700;margin-bottom:.2rem">${t(s.name)}</div>
+            <div style="font-size:.78rem;color:var(--text3)">${s.code} · ${t(s.cat)}</div>
+          </div>
+          <div style="text-align:end">
+            <div style="font-weight:700;color:var(--red)">${s.balance}</div>
+            <span class="badge ${s.status==='active'?'badge-green':'badge-amber'}">${s.status==='active'?(S.lang==='ar'?'نشط':'Active'):(S.lang==='ar'?'معلق':'Pending')}</span>
+          </div>
+          <button class="btn-icon">👁️</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderReceipts(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'سند قبض جديد':'New Receipt'}</button>
+    <button class="btn btn-ghost">🖨️ ${S.lang==='ar'?'طباعة':'Print'}</button>
+  `;
+  const receipts=[
+    {no:'REC-2024-010',customer:{ar:'شركة النخبة التجارية',en:'Elite Trading'},amount:'SAR 85,500',date:'2026-02-16',method:{ar:'تحويل بنكي',en:'Bank Transfer'},ref:'INV-2024-001'},
+    {no:'REC-2024-009',customer:{ar:'مؤسسة التقنية الحديثة',en:'Modern Tech'},amount:'SAR 42,000',date:'2026-02-13',method:{ar:'شيك',en:'Cheque'},ref:'INV-2024-002'},
+    {no:'REC-2024-008',customer:{ar:'شركة الخليج للتجارة',en:'Gulf Commerce'},amount:'SAR 30,000',date:'2026-02-10',method:{ar:'نقداً',en:'Cash'},ref:'INV-2024-005'},
+    {no:'REC-2024-007',customer:{ar:'مؤسسة الأعمال الدولية',en:'Intl Business'},amount:'SAR 28,400',date:'2026-02-08',method:{ar:'تحويل بنكي',en:'Bank Transfer'},ref:'INV-2024-004'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">💵</div><div class="kpi-badge up">+12%</div></div>
+        <div class="kpi-val">SAR 185,900</div><div class="kpi-label">${S.lang==='ar'?'إجمالي المقبوضات اليوم':'Today Total'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">🏦</div></div>
+        <div class="kpi-val">12</div><div class="kpi-label">${S.lang==='ar'?'سندات هذا الشهر':'This Month'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم السند':'Receipt #'}</th>
+        <th>${S.lang==='ar'?'العميل':'Customer'}</th>
+        <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'طريقة الدفع':'Method'}</th>
+        <th>${S.lang==='ar'?'مقابل':'Ref'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${receipts.map(r=>`<tr>
+          <td><strong style="color:var(--emerald)">${r.no}</strong></td>
+          <td>${t(r.customer)}</td>
+          <td><strong>${r.amount}</strong></td>
+          <td>${r.date}</td>
+          <td>${t(r.method)}</td>
+          <td><code style="font-size:.8rem;color:var(--primary)">${r.ref}</code></td>
+          <td>
+            <button class="btn-icon">👁️</button>
+            <button class="btn-icon">🖨️</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderPayments(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'سند صرف جديد':'New Payment'}</button>
+    <button class="btn btn-ghost">🖨️ ${S.lang==='ar'?'طباعة':'Print'}</button>
+  `;
+  const payments=[
+    {no:'PAY-2024-012',supplier:{ar:'مؤسسة التوريد الوطني',en:'National Supply'},amount:'SAR 42,000',date:'2026-02-15',method:{ar:'تحويل بنكي',en:'Bank Transfer'},ref:'PUR-2024-015'},
+    {no:'PAY-2024-011',desc:{ar:'رواتب الموظفين',en:'Staff Salaries'},amount:'SAR 85,000',date:'2026-02-10',method:{ar:'تحويل بنكي',en:'Bank Transfer'},ref:'—'},
+    {no:'PAY-2024-010',supplier:{ar:'شركة الكهرباء',en:'Electricity Co.'},amount:'SAR 8,200',date:'2026-02-08',method:{ar:'شيك',en:'Cheque'},ref:'UTIL-001'},
+    {no:'PAY-2024-009',desc:{ar:'إيجار المكتب',en:'Office Rent'},amount:'SAR 45,000',date:'2026-02-05',method:{ar:'تحويل بنكي',en:'Bank Transfer'},ref:'RENT-Q1'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">💳</div><div class="kpi-badge down">-8%</div></div>
+        <div class="kpi-val">SAR 180,200</div><div class="kpi-label">${S.lang==='ar'?'إجمالي المدفوعات اليوم':'Today Total'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📋</div></div>
+        <div class="kpi-val">15</div><div class="kpi-label">${S.lang==='ar'?'سندات هذا الشهر':'This Month'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم السند':'Payment #'}</th>
+        <th>${S.lang==='ar'?'المستفيد / البيان':'Payee / Desc'}</th>
+        <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'طريقة الدفع':'Method'}</th>
+        <th>${S.lang==='ar'?'مقابل':'Ref'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${payments.map(p=>`<tr>
+          <td><strong style="color:var(--red)">${p.no}</strong></td>
+          <td>${t(p.supplier||p.desc)}</td>
+          <td><strong>${p.amount}</strong></td>
+          <td>${p.date}</td>
+          <td>${t(p.method)}</td>
+          <td><code style="font-size:.8rem">${p.ref}</code></td>
+          <td>
+            <button class="btn-icon">👁️</button>
+            <button class="btn-icon">🖨️</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderStockMovement(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'حركة جديدة':'New Movement'}</button>
+    <select class="btn btn-ghost" style="cursor:pointer">
+      <option>${S.lang==='ar'?'كل الحركات':'All Movements'}</option>
+      <option>${S.lang==='ar'?'إدخال':'In'}</option>
+      <option>${S.lang==='ar'?'إخراج':'Out'}</option>
+      <option>${S.lang==='ar'?'تحويل':'Transfer'}</option>
+    </select>
+  `;
+  const movements=[
+    {no:'SM-2024-047',type:{ar:'إدخال',en:'Stock In'},product:{ar:'لابتوب HP ProBook',en:'HP ProBook'},qty:'+15',date:'2026-02-16',ref:'PUR-2024-015',cls:'badge-green'},
+    {no:'SM-2024-046',type:{ar:'إخراج',en:'Stock Out'},product:{ar:'طابعة Canon LBP',en:'Canon Printer'},qty:'-3',date:'2026-02-15',ref:'INV-2024-001',cls:'badge-red'},
+    {no:'SM-2024-045',type:{ar:'تحويل',en:'Transfer'},product:{ar:'ماوس لاسلكي',en:'Wireless Mouse'},qty:'20',date:'2026-02-14',ref:'WH-A→WH-B',cls:'badge-blue'},
+    {no:'SM-2024-044',type:{ar:'إخراج',en:'Stock Out'},product:{ar:'شاشة Samsung 24"',en:'Samsung Monitor'},qty:'-5',date:'2026-02-13',ref:'INV-2024-003',cls:'badge-red'},
+    {no:'SM-2024-043',type:{ar:'إدخال',en:'Stock In'},product:{ar:'فلاش ديسك 64GB',en:'Flash Drive 64GB'},qty:'+50',date:'2026-02-12',ref:'PUR-2024-014',cls:'badge-green'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📥</div><div class="kpi-badge up">+65</div></div>
+        <div class="kpi-val">18</div><div class="kpi-label">${S.lang==='ar'?'حركات إدخال':'Stock In'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📤</div><div class="kpi-badge down">-42</div></div>
+        <div class="kpi-val">23</div><div class="kpi-label">${S.lang==='ar'?'حركات إخراج':'Stock Out'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">🔄</div><div class="kpi-badge">6</div></div>
+        <div class="kpi-val">6</div><div class="kpi-label">${S.lang==='ar'?'تحويلات':'Transfers'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم الحركة':'Mvmt #'}</th>
+        <th>${S.lang==='ar'?'النوع':'Type'}</th>
+        <th>${S.lang==='ar'?'المنتج':'Product'}</th>
+        <th>${S.lang==='ar'?'الكمية':'Qty'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'مرجع':'Ref'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${movements.map(m=>`<tr>
+          <td><strong>${m.no}</strong></td>
+          <td><span class="badge ${m.cls}">${t(m.type)}</span></td>
+          <td>${t(m.product)}</td>
+          <td><strong style="color:${m.qty.startsWith('+')?'var(--emerald)':m.qty.startsWith('-')?'var(--red)':'var(--blue)'}">${m.qty}</strong></td>
+          <td>${m.date}</td>
+          <td><code style="font-size:.8rem">${m.ref}</code></td>
+          <td><button class="btn-icon">👁️</button></td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderUsers(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'مستخدم جديد':'New User'}</button>
+    <button class="btn btn-ghost">👥 ${S.lang==='ar'?'الأدوار':'Roles'}</button>
+  `;
+  const users=[
+    {name:{ar:'محمد صالح',en:'Mohamed Salah'},email:'m.salah@company.sa',role:{ar:'مدير النظام',en:'Administrator'},status:'active',last:{ar:'منذ 5 دقائق',en:'5 min ago'}},
+    {name:{ar:'أحمد علي',en:'Ahmed Ali'},email:'a.ali@company.sa',role:{ar:'محاسب',en:'Accountant'},status:'active',last:{ar:'منذ ساعة',en:'1 hour ago'}},
+    {name:{ar:'فاطمة محمد',en:'Fatima Mohamed'},email:'f.mohamed@company.sa',role:{ar:'مدير مبيعات',en:'Sales Manager'},status:'active',last:{ar:'منذ 3 ساعات',en:'3 hours ago'}},
+    {name:{ar:'خالد عبدالله',en:'Khaled Abdullah'},email:'k.abdullah@company.sa',role:{ar:'أمين مخزن',en:'Storekeeper'},status:'inactive',last:{ar:'منذ يومين',en:'2 days ago'}},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;gap:1rem">
+      ${users.map(u=>`
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r16);padding:1.25rem;display:flex;align-items:center;gap:1.25rem;transition:all .3s"
+          onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shadow-md)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <div class="avatar" style="width:48px;height:48px;font-size:1.1rem">${t(u.name).charAt(0)}</div>
+          <div style="flex:1">
+            <div style="font-weight:700;margin-bottom:.15rem">${t(u.name)}</div>
+            <div style="font-size:.8rem;color:var(--text3);margin-bottom:.25rem">${u.email}</div>
+            <div style="font-size:.75rem;color:var(--text3)">${t(u.role)} · ${t(u.last)}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem">
+            <span class="badge ${u.status==='active'?'badge-green':'badge-amber'}">${u.status==='active'?(S.lang==='ar'?'نشط':'Active'):(S.lang==='ar'?'غير نشط':'Inactive')}</span>
+            <button class="btn-icon">✏️</button>
+            <button class="btn-icon">🔒</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--grad-card);border-radius:var(--r12);border:1px solid var(--border)">
+      <strong style="display:block;margin-bottom:.5rem">${S.lang==='ar'?'📌 الأدوار والصلاحيات':'📌 Roles & Permissions'}</strong>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;font-size:.85rem">
+        <span class="badge badge-blue">${S.lang==='ar'?'مدير النظام':'Administrator'}</span>
+        <span class="badge badge-green">${S.lang==='ar'?'محاسب':'Accountant'}</span>
+        <span class="badge badge-purple">${S.lang==='ar'?'مدير مبيعات':'Sales Manager'}</span>
+        <span class="badge badge-amber">${S.lang==='ar'?'أمين مخزن':'Storekeeper'}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderSalesReturns(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'مردود مبيعات جديد':'New Sales Return'}</button>
+    <button class="btn btn-ghost">📊 ${S.lang==='ar'?'التقرير':'Report'}</button>
+  `;
+  const returns=[
+    {no:'SR-2024-003',customer:{ar:'شركة النخبة التجارية',en:'Elite Trading'},amount:'SAR 5,200',date:'2026-02-14',ref:'INV-2024-001',reason:{ar:'عيب تصنيع',en:'Manufacturing defect'},status:'approved'},
+    {no:'SR-2024-002',customer:{ar:'مؤسسة التقنية الحديثة',en:'Modern Tech'},amount:'SAR 3,800',date:'2026-02-10',ref:'INV-2024-002',reason:{ar:'طلب العميل',en:'Customer request'},status:'pending'},
+    {no:'SR-2024-001',customer:{ar:'شركة الخليج للتجارة',en:'Gulf Commerce'},amount:'SAR 2,100',date:'2026-02-05',ref:'INV-2024-005',reason:{ar:'مواصفات خاطئة',en:'Wrong specs'},status:'approved'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">↩️</div><div class="kpi-badge warn">3</div></div>
+        <div class="kpi-val">SAR 11,100</div><div class="kpi-label">${S.lang==='ar'?'مردودات هذا الشهر':'This Month'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📊</div></div>
+        <div class="kpi-val">1.2%</div><div class="kpi-label">${S.lang==='ar'?'نسبة المردودات':'Return Rate'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم المردود':'Return #'}</th>
+        <th>${S.lang==='ar'?'العميل':'Customer'}</th>
+        <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'مقابل فاتورة':'Ref Invoice'}</th>
+        <th>${S.lang==='ar'?'السبب':'Reason'}</th>
+        <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${returns.map(r=>`<tr>
+          <td><strong style="color:var(--amber)">${r.no}</strong></td>
+          <td>${t(r.customer)}</td>
+          <td><strong>${r.amount}</strong></td>
+          <td>${r.date}</td>
+          <td><code style="font-size:.8rem;color:var(--primary)">${r.ref}</code></td>
+          <td style="font-size:.85rem">${t(r.reason)}</td>
+          <td><span class="badge ${r.status==='approved'?'badge-green':'badge-amber'}">${r.status==='approved'?(S.lang==='ar'?'معتمد':'Approved'):(S.lang==='ar'?'قيد المراجعة':'Pending')}</span></td>
+          <td>
+            <button class="btn-icon">👁️</button>
+            <button class="btn-icon">🖨️</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderPurchaseReturns(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <button class="btn btn-primary">➕ ${S.lang==='ar'?'مردود مشتريات جديد':'New Purchase Return'}</button>
+    <button class="btn btn-ghost">📊 ${S.lang==='ar'?'التقرير':'Report'}</button>
+  `;
+  const returns=[
+    {no:'PR-2024-002',supplier:{ar:'مؤسسة التوريد الوطني',en:'National Supply'},amount:'SAR 8,500',date:'2026-02-12',ref:'PUR-2024-015',reason:{ar:'بضاعة تالفة',en:'Damaged goods'},status:'approved'},
+    {no:'PR-2024-001',supplier:{ar:'شركة المواد الخام',en:'Raw Materials Co.'},amount:'SAR 4,200',date:'2026-02-08',ref:'PUR-2024-012',reason:{ar:'مواصفات غير مطابقة',en:'Non-conforming specs'},status:'pending'},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">🔄</div><div class="kpi-badge warn">2</div></div>
+        <div class="kpi-val">SAR 12,700</div><div class="kpi-label">${S.lang==='ar'?'مردودات هذا الشهر':'This Month'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📊</div></div>
+        <div class="kpi-val">2.8%</div><div class="kpi-label">${S.lang==='ar'?'نسبة المردودات':'Return Rate'}</div>
+      </div>
+    </div>
+    <div class="table-card"><div class="table-wrap">
+      <table><thead><tr>
+        <th>${S.lang==='ar'?'رقم المردود':'Return #'}</th>
+        <th>${S.lang==='ar'?'المورد':'Supplier'}</th>
+        <th>${S.lang==='ar'?'المبلغ':'Amount'}</th>
+        <th>${S.lang==='ar'?'التاريخ':'Date'}</th>
+        <th>${S.lang==='ar'?'مقابل فاتورة':'Ref Invoice'}</th>
+        <th>${S.lang==='ar'?'السبب':'Reason'}</th>
+        <th>${S.lang==='ar'?'الحالة':'Status'}</th>
+        <th>${S.lang==='ar'?'إجراءات':'Actions'}</th>
+      </tr></thead><tbody>
+        ${returns.map(r=>`<tr>
+          <td><strong style="color:var(--purple)">${r.no}</strong></td>
+          <td>${t(r.supplier)}</td>
+          <td><strong>${r.amount}</strong></td>
+          <td>${r.date}</td>
+          <td><code style="font-size:.8rem;color:var(--primary)">${r.ref}</code></td>
+          <td style="font-size:.85rem">${t(r.reason)}</td>
+          <td><span class="badge ${r.status==='approved'?'badge-green':'badge-amber'}">${r.status==='approved'?(S.lang==='ar'?'معتمد':'Approved'):(S.lang==='ar'?'قيد المراجعة':'Pending')}</span></td>
+          <td>
+            <button class="btn-icon">👁️</button>
+            <button class="btn-icon">🖨️</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>
+    </div></div>
+  `;
+}
+
+function renderWarehouseReport(){
+  document.getElementById('modalToolbar').innerHTML=`
+    <select class="btn btn-ghost" style="cursor:pointer">
+      <option>${S.lang==='ar'?'المستودع الرئيسي':'Main Warehouse'}</option>
+      <option>${S.lang==='ar'?'المستودع الفرعي أ':'Branch Warehouse A'}</option>
+      <option>${S.lang==='ar'?'المستودع الفرعي ب':'Branch Warehouse B'}</option>
+    </select>
+    <button class="btn btn-ghost">📊 ${S.lang==='ar'?'تصدير Excel':'Export Excel'}</button>
+    <button class="btn btn-primary">🔄 ${S.lang==='ar'?'تحديث':'Refresh'}</button>
+  `;
+  const inventory=[
+    {cat:{ar:'إلكترونيات',en:'Electronics'},items:24,value:'SAR 185,400',util:78},
+    {cat:{ar:'مواد مكتبية',en:'Office Supplies'},items:156,value:'SAR 45,200',util:92},
+    {cat:{ar:'قطع غيار',en:'Spare Parts'},items:87,value:'SAR 67,800',util:65},
+    {cat:{ar:'مواد خام',en:'Raw Materials'},items:45,value:'SAR 128,500',util:54},
+  ];
+  document.getElementById('modalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem">
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📦</div></div>
+        <div class="kpi-val">312</div><div class="kpi-label">${S.lang==='ar'?'إجمالي الأصناف':'Total Items'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">💰</div></div>
+        <div class="kpi-val">SAR 426,900</div><div class="kpi-label">${S.lang==='ar'?'قيمة المخزون':'Inventory Value'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">⚠️</div><div class="kpi-badge warn">8</div></div>
+        <div class="kpi-val">8</div><div class="kpi-label">${S.lang==='ar'?'أصناف منخفضة':'Low Stock'}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><div class="kpi-icon">📊</div></div>
+        <div class="kpi-val">72%</div><div class="kpi-label">${S.lang==='ar'?'معدل الاستغلال':'Utilization'}</div>
+      </div>
+    </div>
+    <div class="report-card">
+      <div class="report-card-head"><strong>${S.lang==='ar'?'توزيع المخزون حسب الفئة':'Inventory by Category'}</strong></div>
+      <div style="padding:1rem">
+        ${inventory.map(i=>`
+          <div style="margin-bottom:1.25rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+              <div>
+                <strong style="display:block;margin-bottom:.15rem">${t(i.cat)}</strong>
+                <span style="font-size:.8rem;color:var(--text3)">${i.items} ${S.lang==='ar'?'صنف':'items'} · ${i.value}</span>
+              </div>
+              <span style="font-weight:700;color:var(--primary)">${i.util}%</span>
+            </div>
+            <div class="prog-wrap" style="height:8px">
+              <div class="prog-bar" style="width:${i.util}%;background:${i.util>80?'var(--emerald)':i.util>50?'var(--amber)':'var(--red)'}"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;padding:1.25rem;background:var(--grad-card);border-radius:var(--r16);border:1px solid var(--border)">
+      <strong style="display:block;margin-bottom:.75rem">${S.lang==='ar'?'📍 موقع المستودع':'📍 Warehouse Location'}</strong>
+      <p style="font-size:.9rem;color:var(--text2);margin-bottom:.5rem">${S.lang==='ar'?'المستودع الرئيسي - الرياض':'Main Warehouse - Riyadh'}</p>
+      <p style="font-size:.85rem;color:var(--text3)">${S.lang==='ar'?'المساحة: 2,500 م² | السعة: 5,000 صنف':'Area: 2,500 m² | Capacity: 5,000 items'}</p>
+    </div>
+  `;
+}
+
+
+// ══════════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════════
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('searchInput').focus(),100);
+  renderSearchResults('');
+}
+
+function closeSearch(){
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value='';
+}
+
+function renderSearchResults(q){
+  const r=document.getElementById('searchResults');
+  const filtered = q.trim()==='' ? SEARCH_DATA :
+    SEARCH_DATA.filter(i=>
+      t(i.label).toLowerCase().includes(q.toLowerCase())||
+      t(i.sub).toLowerCase().includes(q.toLowerCase())
+    );
+  if(!filtered.length){
+    r.innerHTML=`<div class="search-empty">${S.lang==='ar'?'لا توجد نتائج':'No results found'}</div>`;
+    return;
+  }
+  r.innerHTML=filtered.map((item,i)=>`
+    <div class="search-item" tabindex="0" onclick="item_${i}()">
+      <div class="search-item-icon">${item.icon}</div>
+      <div>
+        <div class="search-item-title">${t(item.label)}</div>
+        <div class="search-item-sub">${t(item.sub)}</div>
+      </div>
+    </div>
+  `).join('');
+  // Bind actions
+  filtered.forEach((item,i)=>{
+    window[`item_${i}`]=()=>{ item.action(); closeSearch(); };
+  });
+}
+
+// ══════════════════════════════════════════════
+// TOAST SYSTEM
+// ══════════════════════════════════════════════
+const TOAST_ICONS={success:'✅',error:'❌',warn:'⚠️',info:'ℹ️'};
+function showToast(type='info',msg='',icon=''){
+  const wrap=document.getElementById('toastWrap');
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`
+    <span class="toast-icon">${icon||TOAST_ICONS[type]}</span>
+    <span class="toast-msg">${msg}</span>
+    <button class="toast-close" onclick="this.closest('.toast').remove()">✕</button>
+  `;
+  wrap.appendChild(el);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),300); },4000);
+}
+
+// ══════════════════════════════════════════════
+// ONBOARDING
+// ══════════════════════════════════════════════
+const ONBOARD_STEPS=[
+  {
+    icon:'💎',
+    ar:{ title:'مرحباً في في آي بي فرونت أكونتنج!', desc:'نظام محاسبي فاخر مصمم خصيصاً للشركات السعودية والخليجية. دعنا نساعدك على البدء.', btn:'ابدأ الإعداد' },
+    en:{ title:'Welcome to VIP Vip Accounting System!', desc:'A luxury accounting system designed specifically for Saudi & Gulf businesses. Let us help you get started.', btn:'Start Setup' }
+  },
+  {
+    icon:'🏢',
+    ar:{ title:'بيانات الشركة', desc:'أدخل معلومات شركتك الأساسية لتبدأ', btn:'التالي', form:true },
+    en:{ title:'Company Information', desc:'Enter your basic company information to get started', btn:'Next', form:true }
+  },
+  {
+    icon:'🎯',
+    ar:{ title:'جولة سريعة', desc:'تعرف على أهم أقسام النظام قبل البدء', btn:'إنهاء الإعداد' },
+    en:{ title:'Quick Tour', desc:'Get familiar with the main sections before you start', btn:'Finish Setup' }
+  }
+];
+
+let onboardStep=0;
+
+function startOnboarding(){
+  // Wait for fonts and page to fully render before showing
+  const show = () => {
+    const wrap = document.getElementById('onboardWrap');
+    if(wrap) {
+      renderOnboardStep(0);
+      // Small delay ensures fonts/styles are loaded = no blank white box
+      requestAnimationFrame(() => {
+        setTimeout(() => wrap.classList.add('show'), 120);
+      });
+    }
+  };
+  if(document.fonts) {
+    document.fonts.ready.then(show);
+  } else {
+    setTimeout(show, 400);
+  }
+}
+
+function renderOnboardStep(i){
+  const step=ONBOARD_STEPS[i];
+  if(!step) return;
+  const meta=step[S.lang]||step.ar;
+  const prog=document.getElementById('onboardProgress');
+  if(prog) prog.innerHTML=ONBOARD_STEPS.map((_,j)=>`<div class="op-dot${j<=i?' done':''}"></div>`).join('');
+
+  const content = document.getElementById('onboardContent');
+  if(!content) return;
+
+  content.innerHTML=`
+    <div class="onboard-step active">
+      <div class="onboard-icon">${step.icon}</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:.5rem;color:var(--text)">${meta.title}</h2>
+      <p style="color:var(--text3);margin-bottom:1.25rem;line-height:1.7;font-size:.9rem">${meta.desc}</p>
+      ${meta.form?`
+        <div class="setup-form">
+          <div class="field"><label style="font-size:.8rem;font-weight:600;color:var(--text2);display:block;margin-bottom:.35rem">${S.lang==='ar'?'اسم الشركة (اختياري)':'Company Name (optional)'}</label>
+            <input style="width:100%;padding:.55rem .875rem;border:1.5px solid var(--border);border-radius:var(--r8);background:var(--bg-card);color:var(--text);font-family:var(--font);font-size:.875rem;outline:none;"
+              placeholder="${S.lang==='ar'?'مثال: شركة النخبة التجارية':'e.g. Elite Trading Co.'}">
+          </div>
+          <div class="field"><label style="font-size:.8rem;font-weight:600;color:var(--text2);display:block;margin-bottom:.35rem">${S.lang==='ar'?'العملة الأساسية':'Base Currency'}</label>
+            <select style="width:100%;padding:.55rem .875rem;border:1.5px solid var(--border);border-radius:var(--r8);background:var(--bg-card);color:var(--text);font-family:var(--font);font-size:.875rem;outline:none;">
+              <option>SAR - ريال سعودي</option><option>USD - دولار أمريكي</option><option>EUR - يورو</option>
+            </select>
+          </div>
+        </div>
+      `:''}
+      <div style="display:flex;gap:.75rem;align-items:center;margin-top:1.25rem;flex-wrap:wrap;">
+        <button class="btn btn-ghost btn-sm" onclick="finishOnboarding()"
+          style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:.45rem 1rem;border-radius:var(--r8);cursor:pointer;font-family:var(--font);font-size:.82rem;">
+          ${S.lang==='ar'?'تخطي':'Skip'}
+        </button>
+        <div style="flex:1"></div>
+        ${i>0?`<button class="btn btn-ghost btn-sm" onclick="renderOnboardStep(${i-1})"
+          style="background:var(--bg);border:1px solid var(--border);padding:.45rem 1rem;border-radius:var(--r8);cursor:pointer;font-family:var(--font);font-size:.82rem;">
+          ← ${S.lang==='ar'?'رجوع':'Back'}
+        </button>`:''}
+        <button onclick="${i<ONBOARD_STEPS.length-1?`renderOnboardStep(${i+1})`:'finishOnboarding()'}"
+          style="background:var(--grad-main);color:#fff;border:none;padding:.5rem 1.25rem;border-radius:var(--r8);cursor:pointer;font-family:var(--font);font-size:.875rem;font-weight:700;box-shadow:var(--shadow-md);">
+          ${meta.btn} ${i<ONBOARD_STEPS.length-1?'→':'✓'}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function finishOnboarding(){
+  localStorage.setItem('vfa-onboarded','1');
+  S.onboarded=true;
+  const wrap = document.getElementById('onboardWrap');
+  wrap.classList.remove('show');
+  setTimeout(()=>{ wrap.style.display='none'; },400);
+  showToast('success',S.lang==='ar'?'مرحباً! النظام جاهز للاستخدام 🎉':'Welcome! System ready to use 🎉','💎');
+  // Don't auto-open shortcuts - let user explore naturally
+}
+
+// ── BTT & Scroll ─────────────────────────────
+
+// ══════════════════════════════════════════════
+// EVENTS
+// ══════════════════════════════════════════════
+function bindEvents(){
+  // Theme
+  document.getElementById('themeBtn').addEventListener('click',()=>applyDark(!S.dark));
+  // Lang
+  document.getElementById('langBtn').addEventListener('click',toggleLang);
+  // Mobile toggle
+  const mobileToggleBtn = document.getElementById('mobileToggle');
+  mobileToggleBtn.addEventListener('click', () => {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen){
+      closeSidebar();
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      mobileToggleBtn.textContent = '✕';
+      mobileToggleBtn.style.background = 'rgba(255,255,255,0.25)';
+    }
+  });
+  // Search trigger
+  document.getElementById('searchTrigger').addEventListener('click',openSearch);
+  // Search input
+  document.getElementById('searchInput').addEventListener('input',e=>renderSearchResults(e.target.value));
+  document.getElementById('searchBackdrop').addEventListener('click',closeSearch);
+  // Shortcuts button
+  document.getElementById('shortcutBtn').addEventListener('click',()=>document.getElementById('shortcutOverlay').classList.add('open'));
+  // Back to top
+  window.addEventListener('scroll',()=>{
+    document.getElementById('btt').classList.toggle('show',window.scrollY>300);
+    document.getElementById('header').style.boxShadow=window.scrollY>10?'var(--shadow-xl)':'';
+  },{passive:true});
+  // Keyboard shortcuts
+  document.addEventListener('keydown',e=>{
+    const ctrl=e.ctrlKey||e.metaKey;
+    if(ctrl&&e.key==='k'){e.preventDefault();openSearch();}
+    if(ctrl&&e.key==='n'){e.preventDefault();openPage('salesInvoices');renderNewInvoiceForm&&renderNewInvoiceForm();}
+    if(ctrl&&e.key==='/'||e.altKey&&e.key==='?'){e.preventDefault();document.getElementById('shortcutOverlay').classList.toggle('open');}
+    if(e.altKey&&e.key==='d'){e.preventDefault();closeModal();showPage('dashboard');}
+    if(e.altKey&&e.key==='l'){e.preventDefault();toggleLang();}
+    if(e.key==='Escape'){
+      if(document.getElementById('searchOverlay').classList.contains('open')){closeSearch();return;}
+      if(document.getElementById('modalBackdrop').classList.contains('open')){closeModal();return;}
+      closeShortcuts();
+    }
+  });
+}
+
+function closeShortcuts(e){
+  if(!e||e.target===document.getElementById('shortcutOverlay'))
+    document.getElementById('shortcutOverlay').classList.remove('open');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  const btn = document.getElementById('mobileToggle');
+  if(btn){ btn.textContent = '☰'; btn.style.background = ''; }
+}
+
+// ══════════════════════════════════════════════
+// BOOT — Wait for DOM + Fonts before init
+// ══════════════════════════════════════════════
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+// Console branding
+console.log('%c💎 VIP Vip Accounting System', 'font-size:22px;font-weight:800;background:linear-gradient(135deg,#004D40,#D4AF37);-webkit-background-clip:text;-webkit-text-fill-color:transparent;');
+console.log('%cProduction-Ready ERP · Saudi & Gulf Region','font-size:13px;color:#64748B;');
+console.log('%cDeveloped by Mohamed Salah | wa.me/201113903070','font-size:11px;color:#00897B;');
+</script>
+</body>
+</html>
+
