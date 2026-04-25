@@ -1,0 +1,699 @@
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:21:[before upgrade] include(./config_db.php): Failed to open stream: No such file or directory
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:21:[before upgrade] include(): Failed opening './config_db.php' for inclusion (include_path='C:\xampp\php\PEAR')
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:30:[before upgrade] Trying to access array offset on value of type null
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:32:[before upgrade] Trying to access array offset on value of type null
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:32:[before upgrade] Trying to access array offset on value of type null
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:32:[before upgrade] Trying to access array offset on value of type null
+[22-Mar-2026 08:14:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:32:[before upgrade] Unhandled exception [1045]: Access denied for user ''@'localhost' (using password: NO).
+[22-Mar-2026 09:16:10 Europe/Berlin] 0::session.inc:554:[before upgrade] Undefined array key "company_login_name"
+[22-Mar-2026 09:16:13 Europe/Berlin] 0::session.inc:554:[before upgrade] Undefined array key "company_login_name"
+[23-Mar-2026 04:18:17 Europe/Berlin] 0:admin:class.graphic.inc:1240: Unhandled exception [0]: Call to undefined function imageftbbox().
+[23-Mar-2026 08:46:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_freight' in 'field list'.
+[23-Mar-2026 08:46:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_freight' in 'field list'.
+[23-Mar-2026 08:59:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'quantity' in 'where clause'.
+[23-Mar-2026 08:59:24 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'quantity' in 'where clause'.
+[23-Mar-2026 08:59:41 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'quantity' in 'where clause'.
+[23-Mar-2026 09:00:29 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'quantity' in 'where clause'.
+[23-Mar-2026 09:11:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:11:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:19:40 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:19:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:21:13 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:21:30 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ov_paid' in 'field list'.
+[23-Mar-2026 09:44:37 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[23-Mar-2026 09:44:37 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:16: Attempt to read property "Comments" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:17: Attempt to read property "tran_date" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:18: Attempt to read property "due_date" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:19: Attempt to read property "supp_reference" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:20: Attempt to read property "reference" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:21: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:22: Attempt to read property "dimension" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:23: Attempt to read property "dimension2" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:25: Attempt to read property "ex_rate" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:86: Attempt to read property "trans_type" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:97: Attempt to read property "trans_no" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:104: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:44:59 Europe/Berlin] 0:admin:invoice_ui.inc:35: Unhandled exception [0]: Attempt to assign property "Comments" on null.
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:16: Attempt to read property "Comments" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:17: Attempt to read property "tran_date" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:18: Attempt to read property "due_date" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:19: Attempt to read property "supp_reference" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:20: Attempt to read property "reference" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:21: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:22: Attempt to read property "dimension" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:23: Attempt to read property "dimension2" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:25: Attempt to read property "ex_rate" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:86: Attempt to read property "trans_type" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:97: Attempt to read property "trans_no" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:104: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:05 Europe/Berlin] 0:admin:invoice_ui.inc:35: Unhandled exception [0]: Attempt to assign property "Comments" on null.
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:16: Attempt to read property "Comments" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:17: Attempt to read property "tran_date" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:18: Attempt to read property "due_date" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:19: Attempt to read property "supp_reference" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:20: Attempt to read property "reference" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:21: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:22: Attempt to read property "dimension" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:23: Attempt to read property "dimension2" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:25: Attempt to read property "ex_rate" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:86: Attempt to read property "trans_type" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:97: Attempt to read property "trans_no" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:104: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:10 Europe/Berlin] 0:admin:invoice_ui.inc:35: Unhandled exception [0]: Attempt to assign property "Comments" on null.
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:16: Attempt to read property "Comments" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:17: Attempt to read property "tran_date" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:18: Attempt to read property "due_date" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:19: Attempt to read property "supp_reference" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:20: Attempt to read property "reference" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:21: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:22: Attempt to read property "dimension" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:23: Attempt to read property "dimension2" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:25: Attempt to read property "ex_rate" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:86: Attempt to read property "trans_type" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:97: Attempt to read property "trans_no" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:104: Attempt to read property "supplier_id" on null
+[23-Mar-2026 09:45:12 Europe/Berlin] 0:admin:invoice_ui.inc:35: Unhandled exception [0]: Attempt to assign property "Comments" on null.
+[23-Mar-2026 11:04:28 Europe/Berlin] 0:admin:stock_transfers_ui.inc:135: Trying to access array offset on value of type bool
+[23-Mar-2026 11:04:28 Europe/Berlin] 0:admin:stock_transfers_ui.inc:137: Trying to access array offset on value of type bool
+[23-Mar-2026 11:08:19 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:08:19 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:08:19 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:08:59 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:08:59 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:08:59 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:07 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:07 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:07 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:10 Europe/Berlin] 0:admin:stock_transfers_ui.inc:135: Trying to access array offset on value of type bool
+[23-Mar-2026 11:09:10 Europe/Berlin] 0:admin:stock_transfers_ui.inc:137: Trying to access array offset on value of type bool
+[23-Mar-2026 11:09:18 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:18 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:18 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:44 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:44 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:44 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:55 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:55 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 11:09:55 Europe/Berlin] 0:admin:renderer.php:466: Undefined variable $is_arabic
+[23-Mar-2026 13:31:49 Europe/Berlin] 0:admin:application.php:110: Unhandled exception [0]: Too few arguments to function application::__construct(), 0 passed in C:\xampp\htdocs\frontaccounting\frontaccounting.php on line 237 and at least 2 expected.
+[23-Mar-2026 13:31:58 Europe/Berlin] 0:admin:application.php:110: Unhandled exception [0]: Too few arguments to function application::__construct(), 0 passed in C:\xampp\htdocs\frontaccounting\frontaccounting.php on line 237 and at least 2 expected.
+[23-Mar-2026 13:32:34 Europe/Berlin] 0:admin:application.php:110: Unhandled exception [0]: Too few arguments to function application::__construct(), 0 passed in C:\xampp\htdocs\frontaccounting\frontaccounting.php on line 237 and at least 2 expected.
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[23-Mar-2026 13:53:02 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[23-Mar-2026 13:53:11 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[23-Mar-2026 13:53:11 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[23-Mar-2026 13:54:58 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[23-Mar-2026 13:54:58 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[23-Mar-2026 13:56:30 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[23-Mar-2026 14:30:00 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[23-Mar-2026 22:40:19 Europe/Berlin] 0:admin:search.php:97: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 22:42:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 22:42:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 22:57:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 22:57:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 23:01:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 23:48:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 23:48:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[23-Mar-2026 23:48:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[24-Mar-2026 00:13:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[24-Mar-2026 00:20:32 Europe/Berlin] 0:admin:renderer.php:911: Unhandled exception [0]: syntax error, unexpected token "private".
+[24-Mar-2026 00:51:44 Europe/Berlin] 0::main.inc:120:[before upgrade] fopen(../company/0/js_cache/0/JsHttpRequest.js): Failed to open stream: Permission denied
+[28-Mar-2026 06:50:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 07:30:29 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'sm.reorder_level' in 'where clause'.
+[28-Mar-2026 07:30:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'sm.reorder_level' in 'where clause'.
+[28-Mar-2026 07:30:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'sm.reorder_level' in 'where clause'.
+[28-Mar-2026 07:31:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'sm.reorder_level' in 'where clause'.
+[28-Mar-2026 07:33:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'sm.reorder_level' in 'where clause'.
+[28-Mar-2026 08:45:26 Europe/Berlin] 0:admin:dashboard.inc:19: Unhandled exception [0]: syntax error, unexpected token "...".
+[28-Mar-2026 08:45:58 Europe/Berlin] 0:admin:dashboard.inc:1648: Unhandled exception [0]: Unclosed '{' on line 17.
+[28-Mar-2026 08:48:05 Europe/Berlin] 0:admin:dashboard.inc:1648: Unhandled exception [0]: Unclosed '{' on line 17.
+[28-Mar-2026 08:50:19 Europe/Berlin] 0:admin:customer_invoice.php:46: Undefined array key "page_title"
+[28-Mar-2026 09:05:22 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:05:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:06:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:07:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:08:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:09:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:17:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:18:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:18:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:34:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-system LIKE '0_%'' at line 1.
+[28-Mar-2026 09:35:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 09:37:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 10:11:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 10:40:11 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:01:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:08:42 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:09:48 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:10:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:10:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:12:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:18:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[28-Mar-2026 11:42:33 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 11:43:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 11:58:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:00:03 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 12:00:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 12:18:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:21:10 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:21:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:29:48 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:32:40 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:34:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:34:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:41:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 12:45:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 14:29:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 14:32:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 14:50:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 14:52:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 14:55:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 14:55:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 14:59:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:00:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:00:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:00 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:03 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:01:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:06:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:06:42 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:07:24 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:11:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:12:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:12:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:12:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:12:40 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:12:40 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:19:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 15:20:31 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 15:20:31 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'email' in 'field list'.
+[28-Mar-2026 16:07:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:15:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:29:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:31:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:32:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:34:30 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:36:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:42:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:54:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 16:54:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 17:07:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 17:20:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 17:21:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[28-Mar-2026 17:29:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[28-Mar-2026 17:36:05 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[28-Mar-2026 17:38:16 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[28-Mar-2026 17:45:19 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 17:47:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 17:53:37 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:05:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:22:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:23:41 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[28-Mar-2026 18:23:41 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[28-Mar-2026 18:23:42 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[28-Mar-2026 18:23:42 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[28-Mar-2026 18:23:42 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[28-Mar-2026 18:23:42 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[28-Mar-2026 18:23:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:24:57 Europe/Berlin] Rounding error 1.0E-10 encountered for trans_type:4,trans_no:1
+[28-Mar-2026 18:26:24 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:26:24 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:26:34 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:26:34 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:26:36 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:26:36 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:26:39 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:26:39 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:26:40 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:26:41 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:28:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[28-Mar-2026 18:30:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:33:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:33:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:33:33 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:35:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:35:34 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:35:34 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:35:38 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:35:38 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:35:40 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[28-Mar-2026 18:35:40 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[28-Mar-2026 18:35:44 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[28-Mar-2026 18:35:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:01:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:07:36 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:23:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:25:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[29-Mar-2026 03:25:17 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[29-Mar-2026 03:25:46 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[29-Mar-2026 03:43:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:52:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 03:53:31 Europe/Berlin] 0::main.inc:120:[before upgrade] fopen(../company/0/js_cache/0/JsHttpRequest.js): Failed to open stream: Permission denied
+[29-Mar-2026 04:01:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 09:40:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 09:41:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 13:43:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 13:44:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 13:46:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 13:46:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[29-Mar-2026 13:46:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[29-Mar-2026 13:46:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[29-Mar-2026 13:46:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[29-Mar-2026 13:48:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:10:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:19:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:21:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:22:47 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 14:23:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:23:13 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 14:24:42 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 14:24:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:27:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 14:28:13 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 14:40:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:29:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:31:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:32:19 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 15:34:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:39:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[29-Mar-2026 15:40:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[29-Mar-2026 15:41:43 Europe/Berlin] 0:admin:customer_invoice.php:46: Undefined array key "page_title"
+[29-Mar-2026 15:42:34 Europe/Berlin] 0:admin:customer_invoice.php:46: Undefined array key "page_title"
+[29-Mar-2026 15:44:55 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[29-Mar-2026 15:44:56 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[29-Mar-2026 15:45:44 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[29-Mar-2026 15:46:22 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[29-Mar-2026 15:53:03 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 15:53:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:53:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 15:53:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1064]: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '2026-01-01''
+        AND bt.tran_date <= ''2026-12-31''
+    GROUP BY coa.acco...' at line 9.
+[29-Mar-2026 15:54:50 Europe/Berlin] 0:admin:gl_journal_ui.inc:22: Attempt to read property "order_id" on null
+[29-Mar-2026 15:54:50 Europe/Berlin] 0:admin:gl_journal_ui.inc:107: Unhandled exception [0]: Call to a member function has_sub_accounts() on null.
+[29-Mar-2026 15:56:06 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 15:59:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:00:24 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:00:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:01:13 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:02:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:04:18 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 16:07:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:08:03 Europe/Berlin] 0:admin:ui_controls.inc:25: Unhandled exception [0]: Call to undefined function input_num().
+[29-Mar-2026 16:10:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:13:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:14:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:14:22 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:14:30 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:15:19 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:16:31 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:32:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:39:00 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:40:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:58:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 16:59:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:02:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:03:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:07:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:11:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:12:10 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:21:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:23:17 Europe/Berlin] 0:admin:dashboard.php:304: Undefined variable $month_name
+[29-Mar-2026 17:23:17 Europe/Berlin] 0:admin:dashboard.php:388: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated
+[29-Mar-2026 17:23:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:45:23 Europe/Berlin] 0:admin:dashboard.php:304: Undefined variable $month_name
+[29-Mar-2026 17:45:23 Europe/Berlin] 0:admin:dashboard.php:388: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated
+[29-Mar-2026 17:45:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 17:45:45 Europe/Berlin] 0:admin:dashboard.php:304: Undefined variable $month_name
+[29-Mar-2026 17:45:45 Europe/Berlin] 0:admin:dashboard.php:388: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated
+[29-Mar-2026 17:45:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 18:09:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 18:10:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 18:11:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 18:11:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 18:11:39 Europe/Berlin] 0:admin:dashboard.php:304: Undefined variable $month_name
+[29-Mar-2026 18:11:39 Europe/Berlin] 0:admin:dashboard.php:388: htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated
+[29-Mar-2026 18:11:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 19:45:42 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'ba.currency_code' in 'field list'.
+[29-Mar-2026 19:51:02 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:02 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:02 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 19:51:30 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:30 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:30 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 19:51:55 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:55 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:51:55 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 19:56:45 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:56:45 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 19:56:45 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:01:10 Europe/Berlin] 0:admin:index.php:23: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:02:09 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:02:09 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:02:09 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:02:41 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:02:41 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:02:41 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:03:08 Europe/Berlin] 0:admin:header.inc:115: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:03:08 Europe/Berlin] 0:admin:header.inc:128: page_header(): The script tried to access a property on an incomplete object. Please ensure that the class definition &quot;front_accounting&quot; of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition
+[29-Mar-2026 20:03:08 Europe/Berlin] 0:admin:header.inc:127: Unhandled exception [0]: The script tried to modify a property on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:03:25 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:05:29 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:08:12 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:12:24 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:12:59 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:17:27 Europe/Berlin] 0:admin:index.php:25: Unhandled exception [0]: The script tried to call a method on an incomplete object. Please ensure that the class definition "front_accounting" of the object you are trying to operate on was loaded _before_ unserialize() gets called or provide an autoloader to load the class definition.
+[29-Mar-2026 20:27:22 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[29-Mar-2026 20:43:53 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:14:30 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:15:17 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:18:05 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:22:44 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:24:37 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:25:41 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:26:09 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:28:15 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:30:43 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:33:14 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:33:29 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:34:22 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:35:42 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:36:42 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:37:53 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:38:55 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:39:47 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:40:03 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:42:40 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:43:56 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:45:10 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:45:18 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:45:40 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:45:51 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:46:26 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:46:32 Europe/Berlin] 0:admin:session.inc:588: Unhandled exception [0]: Class "front_accounting" not found.
+[30-Mar-2026 03:50:41 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 03:51:42 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 03:56:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:03:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:05:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:07:42 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:08:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:57:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 04:57:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 05:01:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 05:37:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 05:58:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 05:59:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:00:10 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:01:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:02:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:03:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:03:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:04:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:04:07 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:04:11 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:04:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:05:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:07:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:08:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:09:46 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:10:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:13:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:13:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:17:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:33:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:34:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:41:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:42:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:42:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:42:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 06:59:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 07:04:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 07:05:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 07:07:24 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 07:17:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 07:20:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:01:22 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:01:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:03:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:03:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:04:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:16:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+                                                                                                                                                     [30-Mar-2026 08:22:03 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:24:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:41:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:43:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:43:36 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:43:55 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:44:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:44:58 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:44:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:44:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:45:11 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:46:15 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:46:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:48:37 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 08:53:22 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:09:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:09:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:10:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:10:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:10:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:11:13 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:11:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:13:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:13:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:15:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:15:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:23:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:24:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:28:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:28:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:28:54 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:28:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:28:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:00 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:01 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:03 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:29:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:32:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:34:19 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:37:10 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:52:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:52:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:52:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:52:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:53:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:53:32 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:55:13 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:55:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:55:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:56:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:56:44 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 09:57:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:02:35 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:41 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:50 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:04:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:08:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1271]: Illegal mix of collations for operation 'UNION'.
+[30-Mar-2026 10:09:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:35:[before upgrade] Unhandled exception [1049]: Unknown database 'vip-system'.
+[30-Mar-2026 10:09:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:35:[before upgrade] Unhandled exception [1049]: Unknown database 'vip-system'.
+[30-Mar-2026 10:11:23 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68:[before upgrade] Unhandled exception [1146]: Table 'vip-system.0_sys_prefs' doesn't exist.
+[30-Mar-2026 10:14:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:14:39 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:15:20 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:16:38 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:16:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:18:04 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:18:46 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:19:33 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:22:13 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:46:25 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:46:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:38: Undefined array key "PARAM_0"
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:39: Undefined array key "PARAM_1"
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:40: Undefined array key "PARAM_2"
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:41: Undefined array key "PARAM_3"
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:42: Undefined array key "PARAM_4"
+[30-Mar-2026 10:49:53 Europe/Berlin] 0:admin:rep111.php:43: Undefined array key "PARAM_5"
+[30-Mar-2026 10:54:53 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 11:14:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 11:17:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 11:25:01 Europe/Berlin] 0:admin:reports_main.php:256: Unhandled exception [0]: Undefined constant "RC_MANUFACTURING".
+[30-Mar-2026 11:27:00 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 11:47:34 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[30-Mar-2026 12:32:14 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:32:26 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:32:56 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:33:11 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:34:18 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:34:18 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:34:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:34:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:34:49 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:17 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:17 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:17 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:45 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:45 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:35:45 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:05 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:06 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:06 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:15 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:15 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:15 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:29 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:29 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:29 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:38 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:42 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:42 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:36:42 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:10 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:10 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:10 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:33 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:33 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:37:33 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:05 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:05 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:05 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:18 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:18 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:38:18 Europe/Berlin] 0:admin:users.php:138: strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated
+[30-Mar-2026 12:46:28 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:21:31 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:23:52 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:24:05 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:24:08 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:26:59 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:32:45 Europe/Berlin] 0:admin:ui_view.inc:514: Undefined array key "tax_type_name"
+[02-Apr-2026 06:33:17 Europe/Berlin] 0:admin:ui_view.inc:514: Undefined array key "tax_type_name"
+[02-Apr-2026 06:33:28 Europe/Berlin] 0:admin:gl_db_rates.inc:145: file_get_contents(): php_network_getaddresses: getaddrinfo for www.ecb.europa.eu failed: No such host is known. 
+[02-Apr-2026 06:33:28 Europe/Berlin] 0:admin:gl_db_rates.inc:145: file_get_contents(https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml): Failed to open stream: php_network_getaddresses: getaddrinfo for www.ecb.europa.eu failed: No such host is known. 
+[02-Apr-2026 06:33:28 Europe/Berlin] 0:admin:ui_view.inc:519: Undefined array key "tax_type_name"
+[02-Apr-2026 06:33:33 Europe/Berlin] 0:admin:ui_view.inc:519: Undefined array key "tax_type_name"
+[02-Apr-2026 06:36:43 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:36:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:37:20 Europe/Berlin] 0:admin:ui_view.inc:514: Undefined array key "tax_type_name"
+[02-Apr-2026 06:38:27 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:38:47 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 06:39:18 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 07:42:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 07:44:30 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 08:27:06 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 19:59:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 20:04:46 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 20:20:10 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 20:50:19 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[02-Apr-2026 21:06:21 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[03-Apr-2026 17:36:41 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[03-Apr-2026 17:39:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[03-Apr-2026 17:40:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[03-Apr-2026 17:59:14 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[03-Apr-2026 18:01:12 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[04-Apr-2026 08:39:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[04-Apr-2026 08:39:49 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[04-Apr-2026 10:16:51 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[04-Apr-2026 11:26:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[04-Apr-2026 13:24:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 09:27:09 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 09:33:57 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 09:49:19 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 13:09:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 16:14:02 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[05-Apr-2026 16:17:31 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 11:41:07 Europe/Berlin] 0::connect_db_mysqli.inc:35:[before upgrade] Unhandled exception [1049]: Unknown database 'vip-system'.
+[09-Apr-2026 11:50:26 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 11:52:17 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 11:52:44 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 11:52:45 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 11:52:46 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 12:04:56 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
+[09-Apr-2026 12:35:16 Europe/Berlin] 0:admin:connect_db_mysqli.inc:68: Unhandled exception [1054]: Unknown column 'reorders.reorder_level' in 'having clause'.
