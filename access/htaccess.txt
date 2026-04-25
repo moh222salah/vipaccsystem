@@ -1,0 +1,3 @@
+# Force UTF-8 encoding for all PHP pages
+AddDefaultCharset UTF-8
+php_value default_charset "UTF-8"
