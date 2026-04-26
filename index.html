@@ -3,682 +3,787 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>VIP Acc System</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<title>VIP Acc System — دقّة ماليّة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --gold:#D4AF37; --gold-light:#F0D060; --gold-dim:#8B6914;
-  --cyan:#00E5FF; --bg-void:#050508; --bg-deep:#080B14;
-  --bg-card:rgba(255,255,255,0.04); --bg-glass:rgba(212,175,55,0.06);
-  --border-gold:rgba(212,175,55,0.25); --border-glass:rgba(255,255,255,0.08);
-  --text-primary:#F5F0E8; --text-secondary:rgba(245,240,232,0.6);
-  --text-dim:rgba(245,240,232,0.35); --red:#FF4D4D; --green:#00E676;
+/* ═══════════════════════════════════════════════════
+   ROOT TOKENS
+═══════════════════════════════════════════════════ */
+:root{
+  --g:#C9A84C; --g2:#E8C96A; --g3:#8B6914; --g4:rgba(201,168,76,0.12);
+  --c:#00D4FF; --c2:rgba(0,212,255,0.08);
+  --v0:#020205; --v1:#07080F; --v2:#0D0F1A; --v3:#131520;
+  --t1:#F0EAD6; --t2:rgba(240,234,214,0.55); --t3:rgba(240,234,214,0.28); --t4:rgba(240,234,214,0.12);
+  --b1:rgba(201,168,76,0.18); --b2:rgba(201,168,76,0.08); --b3:rgba(255,255,255,0.06);
+  --r:#E8453C; --gr:#00C880;
+  --rad:3px; --rad2:6px;
+  --font-ar:'Cairo',sans-serif;
+  --font-en:'Inter',sans-serif;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;font-size:16px}
+
 body{
-  background:var(--bg-void); color:var(--text-primary);
-  font-family:'Cairo',sans-serif; overflow-x:hidden; line-height:1.7;
-  transition:opacity 0.35s ease, font-family 0.2s;
+  background:var(--v0);color:var(--t1);
+  font-family:var(--font-ar);overflow-x:hidden;line-height:1.75;
+  transition:opacity .3s ease;
 }
-[data-lang="en"] body,[data-lang="en"] *:not(.force-cairo){
-  font-family:'Inter','Cairo',sans-serif;
-}
-body.lang-switching{opacity:0; pointer-events:none}
+[data-lang="en"] body{font-family:var(--font-en)}
+body.switching{opacity:0;pointer-events:none}
 
-#canvas-bg{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg-deep)}
-::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--v1)}
+::-webkit-scrollbar-thumb{background:var(--g3);border-radius:2px}
 
-/* ── LANG TOGGLE ─────────────────────────────────── */
-.lang-toggle{
-  display:flex; align-items:center; gap:0;
-  border:1px solid var(--border-gold); border-radius:3px;
-  overflow:hidden; background:transparent;
-  height:34px;
-}
-.lang-btn{
-  padding:0 14px; height:100%;
-  font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
-  border:none; cursor:pointer; transition:all 0.25s ease;
-  background:transparent; color:var(--text-dim);
-  font-family:'Inter',sans-serif;
-  display:flex; align-items:center; gap:6px;
-}
-.lang-btn.active{
-  background:linear-gradient(135deg,var(--gold),#B8941E);
-  color:#000;
-}
-.lang-btn:not(.active):hover{
-  background:var(--bg-glass); color:var(--gold);
-}
-.lang-flag{font-size:14px}
+/* ── CANVAS ─────────────────────────────────────── */
+#bg{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
 
-/* ── REVEAL ANIMATIONS ───────────────────────────── */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal.visible{opacity:1;transform:none}
-.reveal-left{opacity:0;transform:translateX(-50px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal-left.visible{opacity:1;transform:none}
-.reveal-right{opacity:0;transform:translateX(50px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal-right.visible{opacity:1;transform:none}
+/* ── NOISE OVERLAY ──────────────────────────────── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* ── UTIL ────────────────────────────────────────── */
+.z{position:relative;z-index:1}
+.cinzel{font-family:'Cinzel',serif!important}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
+.rv.on{opacity:1;transform:none}
+.rvl{opacity:0;transform:translateX(-40px);transition:opacity .75s ease,transform .75s ease}
+.rvl.on{opacity:1;transform:none}
+.rvr{opacity:0;transform:translateX(40px);transition:opacity .75s ease,transform .75s ease}
+.rvr.on{opacity:1;transform:none}
 
 /* ── NAV ─────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:1.2rem 3rem;
+#nav{
+  position:fixed;top:0;inset-inline:0;z-index:200;
+  height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  transition:all 0.4s ease;
+  padding:0 3rem;
+  transition:all .35s ease;
 }
-nav.scrolled{
-  background:rgba(5,5,8,0.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border-glass);padding:0.9rem 3rem;
+#nav.up{
+  background:rgba(2,2,5,0.88);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(201,168,76,0.12);
+  height:56px;
 }
-.nav-logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:var(--gold);text-decoration:none}
-.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
-.nav-links a{
-  font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-dim);text-decoration:none;
-  font-family:'Inter',sans-serif;transition:color 0.3s;
+.nav-logo{
+  font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;
+  color:var(--g);letter-spacing:.15em;text-decoration:none;
+  display:flex;align-items:center;gap:10px;
 }
-.nav-links a:hover{color:var(--gold)}
-@media(max-width:700px){.nav-links li:not(:last-child){display:none} nav{padding:1rem 1.5rem}}
+.nav-logo-dot{
+  width:28px;height:28px;border:1.5px solid var(--g);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:var(--g);font-weight:700;letter-spacing:.05em;
+}
+.nav-center{
+  display:flex;align-items:center;gap:2.5rem;list-style:none;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+[data-lang="ar"] .nav-center{left:auto;right:50%;transform:translateX(50%)}
+.nav-center a{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t3);text-decoration:none;font-family:'Inter',sans-serif;
+  transition:color .25s;padding-bottom:2px;border-bottom:1px solid transparent;
+  transition:all .25s;
+}
+.nav-center a:hover{color:var(--g);border-bottom-color:rgba(201,168,76,.4)}
+.nav-end{display:flex;align-items:center;gap:16px}
+
+/* ── LANG TOGGLE — NEW DESIGN ────────────────────── */
+.lang-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:0 16px;height:36px;
+  border:1px solid var(--b1);
+  border-radius:50px;
+  background:var(--b2);
+  backdrop-filter:blur(12px);
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t2);
+  transition:all .3s ease;
+  position:relative;overflow:hidden;
+}
+.lang-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.15),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.lang-btn:hover{border-color:rgba(201,168,76,.5);color:var(--g);box-shadow:0 0 20px rgba(201,168,76,.12)}
+.lang-btn:hover::before{opacity:1}
+.lang-btn:active{transform:scale(.97)}
+.lang-globe{
+  width:18px;height:18px;position:relative;
+  border:1.5px solid currentColor;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;flex-shrink:0;
+}
+.lang-globe::before{
+  content:'';position:absolute;
+  width:1.5px;height:100%;background:currentColor;top:0;left:50%;transform:translateX(-50%);
+}
+.lang-globe::after{
+  content:'';position:absolute;
+  height:1.5px;width:100%;background:currentColor;top:50%;left:0;transform:translateY(-50%);
+}
+.lang-label{font-family:inherit}
 
 /* ── HERO ────────────────────────────────────────── */
 .hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  position:relative;z-index:1;padding:2rem;overflow:hidden;
+  min-height:100vh;
+  display:grid;grid-template-rows:1fr auto;
+  align-items:center;justify-items:center;
+  text-align:center;
+  position:relative;z-index:1;
+  padding:0 2rem;
+  overflow:hidden;
 }
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,175,55,0.12) 0%,transparent 70%);
-  animation:breathe 6s ease-in-out infinite;
-}
-@keyframes breathe{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 
-.hero-badge{
+/* radial glow bg */
+.hero-glow{
+  position:absolute;
+  width:900px;height:900px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-52%);
+  pointer-events:none;
+  animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:translate(-50%,-52%) scale(1)}50%{transform:translate(-50%,-52%) scale(1.12)}}
+
+.hero-inner{padding-top:100px;padding-bottom:3rem}
+
+/* eyebrow */
+.eyebrow{
   display:inline-flex;align-items:center;gap:10px;
-  padding:8px 24px;border:1px solid var(--border-gold);border-radius:50px;
-  background:var(--bg-glass);backdrop-filter:blur(20px);
-  font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
-  margin-bottom:2.5rem;animation:fadeDown 1s ease 0.2s both;
-  font-family:'Inter',sans-serif;
+  margin-bottom:2.8rem;
+  animation:fdown .9s ease .1s both;
 }
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+.eyebrow-line{width:32px;height:1px;background:linear-gradient(to right,transparent,var(--g))}
+.eyebrow-text{
+  font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--g);font-weight:500;
+}
+[data-lang="ar"] .eyebrow-line:last-child{background:linear-gradient(to left,transparent,var(--g))}
+[data-lang="en"] .eyebrow-line:first-child{background:linear-gradient(to right,transparent,var(--g))}
 
+@keyframes fdown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes fup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* main title */
 .hero-title{
-  font-family:'Cinzel',serif!important;
-  font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-2px;line-height:1;
-  margin-bottom:0.5rem;animation:fadeUp 1s ease 0.4s both;
-  background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 40%,#A87820 100%);
+  font-family:'Cinzel',serif;
+  font-size:clamp(3.5rem,9vw,8.5rem);
+  font-weight:900;line-height:.92;letter-spacing:-.02em;
+  margin-bottom:2rem;
+  animation:fup .9s ease .25s both;
+  background:linear-gradient(160deg,#F5E070 0%,#D4AF37 35%,#9A7020 65%,#C89B2A 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 60px rgba(201,168,76,.15));
 }
+
 .hero-subtitle{
-  font-size:clamp(1.3rem,3vw,2.1rem);font-weight:700;color:var(--text-primary);
-  margin-bottom:0.8rem;animation:fadeUp 1s ease 0.5s both;
+  font-size:clamp(1.2rem,2.5vw,1.75rem);font-weight:600;
+  color:var(--t1);margin-bottom:1.4rem;
+  animation:fup .9s ease .35s both;
+  letter-spacing:.01em;
 }
+
 .hero-tagline{
-  font-size:clamp(0.9rem,2vw,1.1rem);color:var(--text-secondary);
-  max-width:680px;margin:0 auto 3rem;font-weight:300;
-  animation:fadeUp 1s ease 0.6s both;line-height:1.9;
+  font-size:clamp(.9rem,1.6vw,1.05rem);color:var(--t2);
+  max-width:620px;margin:0 auto 2.8rem;font-weight:300;
+  animation:fup .9s ease .45s both;line-height:1.95;
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
 .hero-slogan{
-  font-size:2rem;font-weight:900;color:var(--gold);letter-spacing:4px;
-  margin-bottom:3.5rem;animation:fadeUp 1s ease 0.7s both;
-  text-shadow:0 0 40px rgba(212,175,55,0.4);
-  font-family:'Cinzel',serif!important;
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;
+  color:var(--g);letter-spacing:.2em;
+  margin-bottom:3rem;
+  animation:fup .9s ease .55s both;
+  text-shadow:0 0 50px rgba(201,168,76,.35);
 }
-.hero-cta-group{
-  display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;
-  animation:fadeUp 1s ease 0.9s both;
+
+.hero-ctas{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:fup .9s ease .65s both;
+  margin-bottom:4rem;
 }
-.btn-primary{
-  padding:16px 40px;
-  background:linear-gradient(135deg,var(--gold),#B8941E);
-  color:#000;font-weight:700;font-size:1rem;
-  border:none;border-radius:4px;cursor:pointer;letter-spacing:1px;
-  transition:all 0.3s ease;position:relative;overflow:hidden;
+
+/* BUTTONS */
+.btn-g{
+  height:52px;padding:0 36px;
+  background:linear-gradient(135deg,var(--g2),var(--g),#9A7020);
+  color:#000;font-weight:700;font-size:.95rem;letter-spacing:.05em;
+  border:none;border-radius:var(--rad);cursor:pointer;
+  position:relative;overflow:hidden;transition:all .3s ease;
+  font-family:inherit;
 }
-.btn-primary::before{
+.btn-g::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.3),transparent);
-  opacity:0;transition:opacity 0.3s;
+  background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);
+  opacity:0;transition:opacity .3s;
 }
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(212,175,55,0.4)}
-.btn-primary:hover::before{opacity:1}
-.btn-outline{
-  padding:16px 40px;background:transparent;color:var(--gold);
-  font-weight:600;font-size:1rem;border:1px solid var(--border-gold);
-  border-radius:4px;cursor:pointer;letter-spacing:1px;
-  transition:all 0.3s ease;backdrop-filter:blur(10px);
-}
-.btn-outline:hover{
-  background:var(--bg-glass);border-color:var(--gold);
-  transform:translateY(-3px);box-shadow:0 20px 60px rgba(212,175,55,0.15);
-}
+.btn-g:hover{transform:translateY(-3px);box-shadow:0 16px 50px rgba(201,168,76,.35)}
+.btn-g:hover::after{opacity:1}
+.btn-g:active{transform:translateY(0)}
 
-.scroll-hint{
-  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  animation:fadeUp 1s ease 1.5s both;
+.btn-o{
+  height:52px;padding:0 36px;
+  background:transparent;color:var(--g);
+  font-weight:600;font-size:.95rem;letter-spacing:.05em;
+  border:1px solid var(--b1);border-radius:var(--rad);cursor:pointer;
+  transition:all .3s ease;backdrop-filter:blur(8px);
+  font-family:inherit;
 }
-.scroll-hint span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif}
-.scroll-line{
-  width:1px;height:60px;
-  background:linear-gradient(to bottom,var(--gold),transparent);
-  animation:scrollLine 2s ease infinite;
-}
-@keyframes scrollLine{
-  0%{transform:scaleY(0);transform-origin:top}
-  50%{transform:scaleY(1);transform-origin:top}
-  51%{transform-origin:bottom}
-  100%{transform:scaleY(0);transform-origin:bottom}
-}
+.btn-o:hover{background:var(--b2);border-color:rgba(201,168,76,.45);transform:translateY(-3px);box-shadow:0 16px 50px rgba(201,168,76,.12)}
 
-/* ── GLOW LINE ───────────────────────────────────── */
-.glow-line{
-  height:1px;position:relative;z-index:1;
-  background:linear-gradient(to right,transparent,var(--gold),var(--cyan),var(--gold),transparent);
-  background-size:200% 100%;animation:glowMove 4s linear infinite;
+/* scroll line */
+.scroll-down{
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding-bottom:2.5rem;
+  animation:fup .9s ease 1.2s both;
 }
-@keyframes glowMove{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.scroll-down span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--t3);font-family:'Inter',sans-serif}
+.scroll-track{width:1px;height:52px;background:linear-gradient(to bottom,var(--g),transparent);animation:strack 2s ease infinite}
+@keyframes strack{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* ── STATS BAR ───────────────────────────────────── */
-.stats-bar{
+/* ── MARQUEE ─────────────────────────────────────── */
+.marquee-wrap{
   position:relative;z-index:1;
-  background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(0,229,255,0.04));
-  border-top:1px solid var(--border-gold);border-bottom:1px solid var(--border-gold);
-  padding:3rem 2rem;
+  border-top:1px solid rgba(201,168,76,.12);
+  border-bottom:1px solid rgba(201,168,76,.12);
+  overflow:hidden;padding:14px 0;background:var(--v1);
 }
-.stats-grid{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;text-align:center;
+.marquee-track{
+  display:flex;gap:0;width:max-content;
+  animation:marquee 30s linear infinite;
 }
-.stat-num{
-  font-family:'Cinzel',serif!important;font-size:3rem;font-weight:700;color:var(--gold);
-  display:block;text-shadow:0 0 30px rgba(212,175,55,0.3);
+[data-lang="ar"] .marquee-track{animation-direction:reverse}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{
+  display:flex;align-items:center;gap:10px;padding:0 3rem;
+  font-size:10px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--t3);font-family:'Inter',sans-serif;white-space:nowrap;
 }
-.stat-label{font-size:0.85rem;color:var(--text-secondary);letter-spacing:1px;margin-top:6px}
+.marquee-item strong{color:var(--g);font-weight:600}
+.marquee-sep{color:var(--g3);font-size:1rem}
 
-/* ── SECTION BASE ────────────────────────────────── */
-section{position:relative;z-index:1;padding:7rem 2rem}
-.section-label{
-  display:inline-block;font-size:11px;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);font-family:'Inter',sans-serif;
-  margin-bottom:1.2rem;border-bottom:1px solid var(--gold-dim);padding-bottom:6px;
+/* ── NUMBERS ROW ─────────────────────────────────── */
+.nums-section{
+  position:relative;z-index:1;padding:7rem 2rem;
+  background:linear-gradient(to bottom,var(--v1),var(--v0));
 }
-.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1.2rem}
-.section-desc{font-size:1.05rem;color:var(--text-secondary);max-width:640px;line-height:1.9}
-.gold-divider{height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
+.nums-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;background:rgba(201,168,76,.08);
+  border:1px solid rgba(201,168,76,.08);
+  border-radius:var(--rad2);overflow:hidden;
+}
+@media(max-width:860px){.nums-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.nums-grid{grid-template-columns:repeat(2,1fr)}}
+.num-cell{
+  background:var(--v1);padding:2.5rem 1.5rem;text-align:center;
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.num-cell::before{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;background:linear-gradient(to right,transparent,var(--g),transparent);
+  transition:width .4s ease;
+}
+.num-cell:hover{background:var(--v2)}
+.num-cell:hover::before{width:70%}
+.num-big{
+  font-family:'Cinzel',serif;font-size:2.8rem;font-weight:700;
+  color:var(--g);display:block;line-height:1;margin-bottom:.6rem;
+  text-shadow:0 0 30px rgba(201,168,76,.25);
+}
+.num-label{font-size:.78rem;color:var(--t3);letter-spacing:.08em;line-height:1.4}
+
+/* ── SECTION HEADER ──────────────────────────────── */
+.sh{max-width:1080px;margin:0 auto 4.5rem}
+.sh.center{text-align:center;margin-inline:auto}
+.sh-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:1.2rem;
+  font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--g);
+}
+.sh-eyebrow-line{width:24px;height:1px;background:var(--g);opacity:.5}
+.sh-title{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+.sh-desc{font-size:.98rem;color:var(--t2);line-height:1.9;max-width:580px}
+.sh.center .sh-desc{margin-inline:auto}
 
 /* ── FEATURES ────────────────────────────────────── */
-.features-section{background:var(--bg-deep)}
-.features-intro{max-width:1100px;margin:0 auto 5rem}
-.features-grid{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;
+.feat-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--v1)}
+.feat-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.04);border-radius:var(--rad2);overflow:hidden;
 }
-.feature-card{
-  background:var(--bg-card);border:1px solid var(--border-glass);border-radius:2px;
-  padding:2.2rem;transition:all 0.4s ease;position:relative;overflow:hidden;
+@media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.feat-grid{grid-template-columns:1fr}}
+.feat-cell{
+  background:var(--v1);padding:2.8rem 2.2rem;
+  position:relative;overflow:hidden;transition:all .35s ease;cursor:default;
 }
-.feature-card::before{
-  content:'';position:absolute;top:0;right:0;width:100%;height:2px;
-  background:linear-gradient(to left,transparent,var(--gold),transparent);
-  transform:scaleX(0);transform-origin:right;transition:transform 0.4s ease;
+.feat-cell::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%,rgba(201,168,76,.06),transparent 70%);
+  opacity:0;transition:opacity .4s;
 }
-.feature-card:hover{
-  border-color:var(--border-gold);background:rgba(212,175,55,0.05);
-  transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(212,175,55,.05);
+.feat-cell:hover{background:var(--v2)}
+.feat-cell:hover::after{opacity:1}
+.feat-accent{
+  width:3px;height:40px;border-radius:2px;
+  background:linear-gradient(to bottom,var(--g),transparent);
+  margin-bottom:1.6rem;
 }
-.feature-card:hover::before{transform:scaleX(1);transform-origin:left}
-.feature-icon{
-  width:52px;height:52px;border:1px solid var(--border-gold);border-radius:2px;
-  display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;
-  font-size:1.5rem;background:var(--bg-glass);transition:all 0.3s ease;
-}
-.feature-card:hover .feature-icon{background:rgba(212,175,55,.15);border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.2)}
-.feature-title{font-size:1.15rem;font-weight:700;color:var(--text-primary);margin-bottom:0.3rem}
-.feature-en-label{
-  font-size:9px;color:var(--gold-dim);font-family:'Inter',sans-serif;
-  letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;
-}
-.feature-desc{font-size:0.92rem;color:var(--text-secondary);line-height:1.8}
-.feature-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem}
-.tag{
-  font-size:10px;letter-spacing:1px;text-transform:uppercase;
-  padding:3px 10px;border:1px solid var(--border-glass);border-radius:2px;
-  color:var(--text-dim);font-family:'Inter',sans-serif;
+.feat-icon{font-size:1.6rem;margin-bottom:1.2rem}
+.feat-title{font-size:1rem;font-weight:700;margin-bottom:.4rem;color:var(--t1)}
+.feat-en{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g3);font-family:'Inter',sans-serif;margin-bottom:1rem}
+.feat-desc{font-size:.88rem;color:var(--t2);line-height:1.85}
+.feat-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:1.4rem}
+.ftag{
+  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 9px;border:1px solid var(--b3);border-radius:50px;
+  color:var(--t3);font-family:'Inter',sans-serif;
 }
 
-/* ── WHY SECTION ─────────────────────────────────── */
-.why-section{background:linear-gradient(to bottom,var(--bg-void),var(--bg-deep))}
-.why-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-@media(max-width:768px){.why-grid{grid-template-columns:1fr}}
-.why-visual{
-  position:relative;height:450px;border:1px solid var(--border-gold);
-  border-radius:2px;overflow:hidden;background:var(--bg-card);
+/* ── WHY ─────────────────────────────────────────── */
+.why-section{position:relative;z-index:1;padding:8rem 2rem;background:var(--v0)}
+.why-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+@media(max-width:820px){.why-inner{grid-template-columns:1fr;gap:4rem}}
+
+/* Dashboard mockup */
+.dash-mock{
+  border:1px solid var(--b1);border-radius:var(--rad2);overflow:hidden;
+  background:var(--v2);position:relative;
 }
-.why-visual-inner{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:1rem;padding:2rem;
+.dash-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06);
+  background:var(--v3);
 }
-.kpi-row{width:100%;display:flex;gap:1rem}
-.kpi-mini{
-  flex:1;padding:1.2rem;border:1px solid var(--border-glass);
-  border-radius:2px;background:rgba(255,255,255,0.03);transition:all 0.3s ease;
+.dash-dots{display:flex;gap:6px}
+.dash-dot{width:9px;height:9px;border-radius:50%}
+.dash-dot:nth-child(1){background:#E8453C}.dash-dot:nth-child(2){background:#F0B429}.dash-dot:nth-child(3){background:#00C880}
+.dash-tabs{display:flex;gap:1.5rem}
+.dash-tab{font-size:10px;color:var(--t3);font-family:'Inter',sans-serif;padding-bottom:2px;cursor:pointer}
+.dash-tab.act{color:var(--g);border-bottom:1px solid var(--g)}
+.dash-body{padding:1.4rem}
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1rem}
+.kpi-box{
+  background:var(--v1);border:1px solid rgba(255,255,255,.05);
+  border-radius:4px;padding:.9rem 1rem;
 }
-.kpi-mini:hover{border-color:var(--border-gold);background:rgba(212,175,55,.05)}
-.kpi-mini-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:'Inter',sans-serif}
-.kpi-mini-value{font-size:1.3rem;font-weight:700;font-family:'Inter',sans-serif}
-.kpi-mini-value.cyan{color:var(--cyan)}.kpi-mini-value.gold{color:var(--gold)}
-.kpi-mini-value.green{color:var(--green)}.kpi-mini-value.red{color:var(--red)}
-.mini-chart{width:100%;height:80px;border:1px solid var(--border-glass);border-radius:2px;background:rgba(255,255,255,0.02);position:relative;overflow:hidden}
-.mini-chart svg{width:100%;height:100%}
-.why-list{list-style:none;display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
-.why-item{
-  display:flex;align-items:flex-start;gap:1.2rem;padding:1.2rem;
-  border:1px solid var(--border-glass);border-radius:2px;background:var(--bg-card);
-  transition:all 0.3s ease;
+.kpi-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);margin-bottom:.4rem;font-family:'Inter',sans-serif}
+.kpi-val{font-size:1.1rem;font-weight:700;font-family:'Inter',sans-serif}
+.kv-c{color:var(--c)}.kv-g{color:var(--g)}.kv-r{color:var(--r)}.kv-gr{color:var(--gr)}
+.kpi-delta{font-size:9px;color:var(--gr);font-family:'Inter',sans-serif;margin-top:3px}
+.chart-bar{
+  background:var(--v1);border:1px solid rgba(255,255,255,.05);
+  border-radius:4px;padding:1rem;margin-bottom:8px;
 }
-[data-lang="ar"] .why-item:hover{transform:translateX(-8px)}
-[data-lang="en"] .why-item:hover{transform:translateX(8px)}
-.why-bullet{
-  width:32px;height:32px;min-width:32px;border:1px solid var(--gold-dim);
-  border-radius:2px;display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--gold);background:rgba(212,175,55,.08);
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.chart-title{font-size:9px;color:var(--t2);font-family:'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.chart-period{font-size:8px;color:var(--g);font-family:'Inter',sans-serif;border:1px solid rgba(201,168,76,.2);padding:2px 8px;border-radius:50px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bar-name{font-size:8px;color:var(--t3);font-family:'Inter',sans-serif;min-width:48px;text-align:right}
+[data-lang="en"] .bar-name{text-align:left}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width 1.5s ease}
+.bar-val{font-size:8px;color:var(--t2);font-family:'Inter',sans-serif;min-width:40px}
+.dash-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.6rem 1.2rem;border-top:1px solid rgba(255,255,255,.04);
+  background:var(--v3);
 }
-.why-text-title{font-size:.95rem;font-weight:700;margin-bottom:3px}
-.why-text-desc{font-size:.85rem;color:var(--text-secondary)}
+.dash-status{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--gr);font-family:'Inter',sans-serif}
+.dash-pulse{width:5px;height:5px;border-radius:50%;background:var(--gr);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.dash-ver{font-size:8px;color:var(--t3);font-family:'Inter',sans-serif}
+
+/* why list */
+.why-items{display:flex;flex-direction:column;gap:1.2rem;margin-top:3rem}
+.why-row{
+  display:flex;gap:1.2rem;align-items:flex-start;padding:1.3rem 1.5rem;
+  border:1px solid var(--b3);border-radius:var(--rad2);background:var(--v1);
+  transition:all .3s ease;
+}
+.why-row:hover{border-color:var(--b1);background:var(--v2);transform:translateX(-6px)}
+[data-lang="en"] .why-row:hover{transform:translateX(6px)}
+.why-ico{
+  width:36px;height:36px;min-width:36px;
+  border:1px solid rgba(201,168,76,.25);border-radius:var(--rad);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--b2);font-size:15px;
+}
+.why-tt{font-size:.9rem;font-weight:700;margin-bottom:3px}
+.why-dd{font-size:.82rem;color:var(--t2)}
 
 /* ── MODULES ─────────────────────────────────────── */
-.modules-section{background:var(--bg-void)}
-.modules-header{text-align:center;max-width:700px;margin:0 auto 5rem}
-.modules-grid{
-  max-width:1100px;margin:0 auto;
-  display:grid;grid-template-columns:repeat(5,1fr);
-  gap:1px;border:1px solid var(--border-glass);background:var(--border-glass);
+.mods-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--v1)}
+.mods-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  border:1px solid rgba(255,255,255,.04);border-radius:var(--rad6);overflow:hidden;
+  background:rgba(255,255,255,.04);
 }
-@media(max-width:900px){.modules-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:550px){.modules-grid{grid-template-columns:repeat(2,1fr)}}
-.module-cell{
-  background:var(--bg-deep);padding:2rem 1.5rem;text-align:center;
-  transition:all 0.3s ease;position:relative;
+@media(max-width:880px){.mods-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.mods-grid{grid-template-columns:repeat(2,1fr)}}
+.mod-cell{
+  background:var(--v1);padding:2.2rem 1rem;text-align:center;
+  transition:background .3s;position:relative;
 }
-.module-cell:hover{background:rgba(212,175,55,.06);z-index:2}
-.module-cell::after{
-  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:0;height:2px;background:var(--gold);transition:width 0.3s ease;
+.mod-cell:hover{background:var(--v2)}
+.mod-cell::after{
+  content:'';position:absolute;inset-inline:20%;bottom:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--g),transparent);
+  transform:scaleX(0);transition:transform .3s ease;transform-origin:center;
 }
-.module-cell:hover::after{width:60%}
-.module-emoji{font-size:1.8rem;margin-bottom:.8rem;display:block}
-.module-name{font-size:.88rem;font-weight:700;margin-bottom:3px}
-.module-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif}
+.mod-cell:hover::after{transform:scaleX(1)}
+.mod-em{font-size:1.7rem;margin-bottom:.7rem}
+.mod-ar{font-size:.85rem;font-weight:700;margin-bottom:.25rem}
+.mod-en{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);font-family:'Inter',sans-serif}
 
 /* ── TECH ────────────────────────────────────────── */
-.tech-section{background:var(--bg-deep);padding:7rem 2rem}
-.tech-inner{max-width:1100px;margin:0 auto}
-.tech-header{text-align:center;max-width:700px;margin:0 auto 1rem}
-.tech-cols{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:4rem}
-@media(max-width:768px){.tech-cols{grid-template-columns:1fr}}
-.tech-block-title{
-  font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
-  margin-bottom:1.5rem;font-family:'Inter',sans-serif;
-  padding-bottom:8px;border-bottom:1px solid var(--border-gold);
+.tech-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--v0)}
+.tech-inner{max-width:1080px;margin:0 auto}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:5rem}
+@media(max-width:760px){.tech-grid{grid-template-columns:1fr}}
+.t-block-lbl{
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--g);
+  font-family:'Inter',sans-serif;margin-bottom:1.4rem;
+  padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,.15);
 }
-.tech-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
-.tech-pill{
-  padding:6px 16px;border:1px solid var(--border-glass);border-radius:2px;
-  font-size:.82rem;color:var(--text-secondary);font-family:'Inter',sans-serif;
-  transition:all 0.3s ease;background:rgba(255,255,255,.02);
+.pill-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2.5rem}
+.pill{
+  padding:5px 14px;border:1px solid var(--b3);border-radius:50px;
+  font-size:11px;color:var(--t2);font-family:'Inter',sans-serif;
+  transition:all .25s;background:rgba(255,255,255,.02);
 }
-.tech-pill:hover{border-color:var(--border-gold);color:var(--gold);background:var(--bg-glass)}
-.tech-pill.accent{border-color:var(--border-gold);color:var(--gold)}
-.db-row{
-  display:flex;justify-content:space-between;padding:10px;
-  border:1px solid var(--border-glass);border-radius:2px;font-size:.85rem;margin-bottom:8px;
+.pill:hover{border-color:var(--b1);color:var(--g);background:var(--b2)}
+.pill.hi{border-color:rgba(201,168,76,.3);color:var(--g)}
+.db-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.db-table tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s}
+.db-table tr:hover{background:rgba(255,255,255,.02)}
+.db-table td{padding:10px 12px}
+.db-table td:first-child{color:var(--t3);font-family:'Inter',sans-serif}
+.db-table td:last-child{text-align:right;font-family:'Inter',sans-serif;font-weight:500}
+.sec-list{display:flex;flex-direction:column;gap:9px;margin-bottom:2.5rem}
+.sec-li{display:flex;align-items:center;gap:10px;font-size:.87rem;color:var(--t2)}
+.sec-chk{
+  width:18px;height:18px;min-width:18px;border-radius:50%;
+  background:rgba(0,200,128,.08);border:1px solid rgba(0,200,128,.25);
+  display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gr);
 }
-.db-key{color:var(--text-dim);font-family:'Inter',sans-serif}
-.security-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-.sec-item{display:flex;align-items:center;gap:12px;font-size:.9rem;color:var(--text-secondary)}
-.sec-icon{
-  width:20px;height:20px;min-width:20px;border-radius:50%;
-  background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.3);
-  display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--green);
-}
+.ver-list{display:flex;flex-direction:column;gap:7px}
 .ver-row{
-  display:flex;align-items:center;justify-content:space-between;padding:10px;
-  border:1px solid var(--border-glass);border-radius:2px;font-size:.85rem;margin-bottom:8px;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 14px;border:1px solid var(--b3);border-radius:var(--rad);font-size:.82rem;
 }
-.ver-row.latest{border-color:var(--border-gold);background:rgba(212,175,55,.05)}
-.ver-tag{color:var(--gold);font-family:'Inter',sans-serif;font-size:11px}
-
-/* ── QUOTE ───────────────────────────────────────── */
-.arabic-quote{max-width:900px;margin:0 auto;text-align:center;padding:5rem 2rem;position:relative;z-index:1}
-.quote-marks{font-family:'Cinzel',serif!important;font-size:8rem;line-height:.5;color:rgba(212,175,55,.1);margin-bottom:1rem}
-.quote-text{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;line-height:1.6;color:var(--text-primary);margin-bottom:1.5rem}
-.quote-sub{font-size:.9rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-family:'Inter',sans-serif}
+.ver-row.cur{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.04)}
+.ver-tag{color:var(--g);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em}
 
 /* ── CTA ─────────────────────────────────────────── */
-.cta-section{background:var(--bg-void);text-align:center;padding:8rem 2rem;position:relative;overflow:hidden}
-.cta-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(212,175,55,.08) 0%,transparent 70%);
+.cta-section{
+  position:relative;z-index:1;padding:9rem 2rem;
+  background:var(--v1);text-align:center;overflow:hidden;
 }
-.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  animation:breathe 8s ease-in-out infinite;
+}
+.cta-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
 .cta-title{
-  font-family:'Cinzel',serif!important;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
-  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,5vw,3.8rem);font-weight:700;
+  background:linear-gradient(135deg,var(--g2),var(--g));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  margin-bottom:1.5rem;
+  margin-bottom:1.5rem;line-height:1.1;
 }
-.cta-desc{font-size:1.05rem;color:var(--text-secondary);line-height:1.9;margin-bottom:3rem}
-.cta-line{width:120px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 3rem}
+.cta-desc{font-size:1.02rem;color:var(--t2);line-height:1.9;margin-bottom:3rem}
+.cta-hr{width:80px;height:1px;background:linear-gradient(to right,transparent,var(--g),transparent);margin:0 auto 2.5rem}
 
-/* ── VERSION STRIP + FOOTER ──────────────────────── */
-.version-strip{
-  background:rgba(0,0,0,.6);border-top:1px solid var(--border-glass);
-  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;
-  gap:2rem;flex-wrap:wrap;position:relative;z-index:1;
+/* ── FOOTER ──────────────────────────────────────── */
+.version-bar{
+  position:relative;z-index:1;
+  background:rgba(0,0,0,.5);border-top:1px solid rgba(255,255,255,.04);
+  padding:1.4rem 3rem;
+  display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;
 }
-.v-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-family:'Inter',sans-serif;color:var(--text-dim);letter-spacing:2px}
-.v-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-footer{background:#020204;border-top:1px solid var(--border-glass);padding:2rem;text-align:center;position:relative;z-index:1}
-.footer-logo{font-family:'Cinzel',serif!important;font-size:1.5rem;font-weight:700;color:var(--gold);margin-bottom:.5rem}
-.footer-sub{font-size:.8rem;color:var(--text-dim);letter-spacing:2px}
+.vb-item{
+  display:flex;align-items:center;gap:7px;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t3);font-family:'Inter',sans-serif;
+}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:pulse 2s infinite}
+footer.site-footer{
+  position:relative;z-index:1;background:var(--v0);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.foot-logo{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--g);letter-spacing:.1em}
+.foot-slogan{font-size:11px;color:var(--t3);letter-spacing:.15em;font-family:'Cairo',sans-serif}
+.foot-links{display:flex;gap:2rem}
+.foot-links a{font-size:10px;color:var(--t3);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;font-family:'Inter',sans-serif;transition:color .2s}
+.foot-links a:hover{color:var(--g)}
+
+/* ── GLOW DIVIDER ────────────────────────────────── */
+.glow-div{
+  height:1px;position:relative;z-index:1;
+  background:linear-gradient(to right,transparent,var(--g),var(--c),var(--g),transparent);
+  background-size:300% 100%;animation:glow-move 5s linear infinite;
+}
+@keyframes glow-move{0%{background-position:200%}100%{background-position:-200%}}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:768px){
+  #nav{padding:0 1.5rem}
+  .nav-center{display:none}
+  .hero-title{letter-spacing:-.03em}
+}
 </style>
 </head>
 <body>
-
-<canvas id="canvas-bg"></canvas>
+<canvas id="bg"></canvas>
 
 <!-- ══ NAV ══════════════════════════════════════════ -->
-<nav id="navbar">
-  <a class="nav-logo force-cairo" href="#">VAS</a>
-  <ul class="nav-links">
-    <li><a href="#features" data-i18n="nav.features">المميزات</a></li>
-    <li><a href="#modules" data-i18n="nav.modules">الوحدات</a></li>
-    <li><a href="#tech" data-i18n="nav.tech">التقنية</a></li>
-    <li><a href="#cta" data-i18n="nav.start">ابدأ الآن</a></li>
-    <li>
-      <div class="lang-toggle" role="group" aria-label="Language switcher">
-        <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')" aria-pressed="true">
-          <span class="lang-flag">🇸🇦</span> AR
-        </button>
-        <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-pressed="false">
-          <span class="lang-flag">🇬🇧</span> EN
-        </button>
-      </div>
-    </li>
+<nav id="nav" class="z">
+  <a class="nav-logo cinzel" href="#">
+    <div class="nav-logo-dot">VAS</div>
+    VIP ACC
+  </a>
+
+  <ul class="nav-center">
+    <li><a href="#features" data-i18n="n.feat">المميزات</a></li>
+    <li><a href="#modules" data-i18n="n.mods">الوحدات</a></li>
+    <li><a href="#tech" data-i18n="n.tech">التقنية</a></li>
+    <li><a href="#cta" data-i18n="n.start">ابدأ</a></li>
   </ul>
+
+  <div class="nav-end">
+    <!-- Smart toggle: shows opposite lang -->
+    <button class="lang-btn" id="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+      <div class="lang-globe"></div>
+      <span class="lang-label" id="lang-label">EN</span>
+    </button>
+  </div>
 </nav>
 
 <!-- ══ HERO ══════════════════════════════════════════ -->
-<section class="hero">
-  <div class="hero-badge">
-    <span>⚡</span>
-    <span data-i18n="hero.badge">نظام ERP محاسبي متكامل</span>
-    <span style="opacity:.5">|</span>
-    <span style="font-family:'Inter',sans-serif">Enterprise-Grade</span>
-  </div>
-  <h1 class="hero-title force-cairo">VIP ACC SYSTEM</h1>
-  <h2 class="hero-subtitle" data-i18n="hero.subtitle">نظام المحاسبة الذكي للشركات المحترفة</h2>
-  <p class="hero-tagline" data-i18n="hero.tagline">
-    منصة ERP محاسبية متكاملة ومفتوحة المصدر، مُصممة خصيصًا للشركات العربية.<br/>
-    تجمع بين قوة الأنظمة العالمية وبساطة الواجهة العربية — بيانات دقيقة، تقارير فورية، وتحكم كامل.
-  </p>
-  <div class="hero-slogan force-cairo" data-i18n="hero.slogan">دقّة ماليّة</div>
-  <div class="hero-cta-group">
-    <button class="btn-primary" data-i18n="hero.cta1">ابدأ الآن مجانًا</button>
-    <button class="btn-outline" data-i18n="hero.cta2">استعراض التوثيق ←</button>
-  </div>
-  <div class="scroll-hint">
-    <span data-i18n="hero.scroll">تمرير</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+<section class="hero z">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text" data-i18n="h.eyebrow">نظام ERP محاسبي متكامل للمؤسسات</span>
+      <div class="eyebrow-line"></div>
+    </div>
 
-<div class="glow-line"></div>
+    <h1 class="hero-title cinzel">VIP ACC<br/>SYSTEM</h1>
 
-<!-- ══ STATS ══════════════════════════════════════════ -->
-<div class="stats-bar">
-  <div class="stats-grid">
-    <div class="reveal">
-      <span class="stat-num" data-target="10">0</span>
-      <div class="stat-label" data-i18n="stats.modules">وحدة ERP متكاملة</div>
-    </div>
-    <div class="reveal">
-      <span class="stat-num" data-target="70" data-suffix="+">0</span>
-      <div class="stat-label" data-i18n="stats.tables">جدول قاعدة بيانات</div>
-    </div>
-    <div class="reveal">
-      <span class="stat-num" data-target="40" data-suffix="+">0</span>
-      <div class="stat-label" data-i18n="stats.langs">لغة مدعومة</div>
-    </div>
-    <div class="reveal">
-      <span class="stat-num" data-target="100" data-suffix="%">0</span>
-      <div class="stat-label" data-i18n="stats.rtl">دعم العربية RTL</div>
-    </div>
-    <div class="reveal">
-      <span class="stat-num" data-target="8" data-suffix=".0+">0</span>
-      <div class="stat-label" data-i18n="stats.php">PHP المتوافقة</div>
+    <h2 class="hero-subtitle" data-i18n="h.sub">نظام المحاسبة الذكي للشركات المحترفة</h2>
+
+    <p class="hero-tagline" data-i18n="h.tag">
+      منصة ERP محاسبية متكاملة ومفتوحة المصدر، مصممة للشركات الطموحة.<br/>
+      دقة في الأرقام. وضوح في القرارات. تحكم كامل في كل تفاصيل أعمالك.
+    </p>
+
+    <div class="hero-slogan cinzel" data-i18n="h.slogan">دقّة ماليّة</div>
+
+    <div class="hero-ctas">
+      <button class="btn-g" data-i18n="h.cta1">ابدأ الآن — مجانًا</button>
+      <button class="btn-o" data-i18n="h.cta2">استعراض الإمكانيات ←</button>
     </div>
   </div>
-</div>
 
-<!-- ══ QUOTE ══════════════════════════════════════════ -->
-<div class="arabic-quote">
-  <div class="quote-marks force-cairo">"</div>
-  <p class="quote-text reveal" data-i18n="quote.text">
-    لأن قرارات الأعمال الكبرى تُبنى على أرقام دقيقة —<br/>نحن نمنحك الأرقام، والرؤية، والتحكم الكامل.
-  </p>
-  <p class="quote-sub reveal" data-i18n="quote.sub">دقة · وضوح · تحكم</p>
-</div>
-
-<div class="gold-divider"></div>
-
-<!-- ══ FEATURES ═══════════════════════════════════════ -->
-<section class="features-section" id="features">
-  <div class="features-intro reveal">
-    <div class="section-label" data-i18n="features.label">Core Features</div>
-    <h2 class="section-title" data-i18n="features.title">كل ما تحتاجه لإدارة أعمالك بالكامل</h2>
-    <p class="section-desc" data-i18n="features.desc">من الفاتورة الأولى إلى التقرير السنوي — VIPAccSystem يغطي كل دورة مالية بدقة واحترافية.</p>
-  </div>
-  <div class="features-grid">
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title" data-i18n="f1.title">لوحة تحكم ذكية</div>
-      <div class="feature-en-label">Intelligent Dashboard</div>
-      <p class="feature-desc" data-i18n="f1.desc">لوحة بيانات تفاعلية بالوقت الفعلي تعرض KPIs المالية، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.</p>
-      <div class="feature-tags"><span class="tag">Real-time</span><span class="tag">Chart.js</span><span class="tag">RTL Ready</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">🛒</div>
-      <div class="feature-title" data-i18n="f2.title">المبيعات والعملاء</div>
-      <div class="feature-en-label">Sales & Receivables</div>
-      <p class="feature-desc" data-i18n="f2.desc">إصدار فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع الذمم المدينة مع تحليل عمر الديون.</p>
-      <div class="feature-tags"><span class="tag">AR Aging</span><span class="tag">Quotations</span><span class="tag">Receipts</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">🏪</div>
-      <div class="feature-title" data-i18n="f3.title">المشتريات والموردين</div>
-      <div class="feature-en-label">Purchasing & Payables</div>
-      <p class="feature-desc" data-i18n="f3.desc">دورة المشتريات الكاملة من أمر الشراء حتى دفع الفاتورة، مع مطابقة الكميات والأسعار تلقائيًا.</p>
-      <div class="feature-tags"><span class="tag">PO Management</span><span class="tag">GRN</span><span class="tag">AP Aging</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">📦</div>
-      <div class="feature-title" data-i18n="f4.title">إدارة المخزون والأصناف</div>
-      <div class="feature-en-label">Inventory Management</div>
-      <p class="feature-desc" data-i18n="f4.desc">تتبع الأصناف والتحركات المخزنية، حساب التكلفة بالمتوسط المرجح، وتقارير تقييم المخزون.</p>
-      <div class="feature-tags"><span class="tag">FIFO/Average</span><span class="tag">Valuation</span><span class="tag">Categories</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">📒</div>
-      <div class="feature-title" data-i18n="f5.title">الأستاذ العام والقيود</div>
-      <div class="feature-en-label">General Ledger</div>
-      <p class="feature-desc" data-i18n="f5.desc">شجرة حسابات مرنة متعددة المستويات، قيود اليومية، ميزان المراجعة، والميزانية العمومية مع Audit Trail كامل.</p>
-      <div class="feature-tags"><span class="tag">Chart of Accounts</span><span class="tag">Audit Trail</span><span class="tag">Multi-level</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">🏦</div>
-      <div class="feature-title" data-i18n="f6.title">البنوك والتسوية</div>
-      <div class="feature-en-label">Banking & Reconciliation</div>
-      <p class="feature-desc" data-i18n="f6.desc">إدارة الحسابات البنكية المتعددة، تسجيل العمليات، التسوية مع كشف الحساب، وعرض الوضع النقدي اللحظي.</p>
-      <div class="feature-tags"><span class="tag">Multi-bank</span><span class="tag">Reconciliation</span><span class="tag">Cash Position</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">🏭</div>
-      <div class="feature-title" data-i18n="f7.title">التصنيع وقوائم المواد</div>
-      <div class="feature-en-label">Manufacturing & BOM</div>
-      <p class="feature-desc" data-i18n="f7.desc">إدارة قوائم المواد (BOM)، أوامر الإنتاج، تتبع التكاليف الفعلية، وتحديث المخزون تلقائيًا عند الإنتاج.</p>
-      <div class="feature-tags"><span class="tag">BOM</span><span class="tag">Work Orders</span><span class="tag">Cost Tracking</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">📐</div>
-      <div class="feature-title" data-i18n="f8.title">الأبعاد ومراكز التكلفة</div>
-      <div class="feature-en-label">Dimensions & Cost Centers</div>
-      <p class="feature-desc" data-i18n="f8.desc">تقسيم النتائج المالية على مراكز التكلفة والربح والمشاريع، مع تحليل الأداء لكل بُعد على حدة.</p>
-      <div class="feature-tags"><span class="tag">Profit Centers</span><span class="tag">Projects</span><span class="tag">Analytics</span></div>
-    </div>
-
-    <div class="feature-card reveal">
-      <div class="feature-icon">🏗️</div>
-      <div class="feature-title" data-i18n="f9.title">الأصول الثابتة</div>
-      <div class="feature-en-label">Fixed Assets</div>
-      <p class="feature-desc" data-i18n="f9.desc">سجل الأصول الثابتة، حساب الاستهلاك التلقائي، تتبع القيمة الدفترية، وقيود الاستهلاك الدورية الآلية.</p>
-      <div class="feature-tags"><span class="tag">Depreciation</span><span class="tag">Asset Register</span><span class="tag">Auto-GL</span></div>
-    </div>
-
+  <div class="scroll-down">
+    <span data-i18n="h.scroll">تمرير للاستكشاف</span>
+    <div class="scroll-track"></div>
   </div>
 </section>
 
-<div class="gold-divider"></div>
+<!-- ══ MARQUEE ════════════════════════════════════════ -->
+<div class="marquee-wrap z">
+  <div class="marquee-track" id="marquee">
+    <!-- items duplicated in JS -->
+  </div>
+</div>
+
+<!-- ══ NUMBERS ════════════════════════════════════════ -->
+<section class="nums-section">
+  <div class="nums-grid rv">
+    <div class="num-cell"><span class="num-big" data-target="10">0</span><div class="num-label" data-i18n="s.mods">وحدة ERP<br/>متكاملة</div></div>
+    <div class="num-cell"><span class="num-big" data-target="70" data-sfx="+">0</span><div class="num-label" data-i18n="s.tbl">جدول في<br/>قاعدة البيانات</div></div>
+    <div class="num-cell"><span class="num-big" data-target="40" data-sfx="+">0</span><div class="num-label" data-i18n="s.lang">لغة<br/>مدعومة</div></div>
+    <div class="num-cell"><span class="num-big" data-target="100" data-sfx="%">0</span><div class="num-label" data-i18n="s.rtl">دعم العربية<br/>RTL كامل</div></div>
+    <div class="num-cell"><span class="num-big cinzel" style="font-size:1.4rem">2.4.19</span><div class="num-label" data-i18n="s.ver">أحدث<br/>إصدار</div></div>
+  </div>
+</section>
+
+<div class="glow-div"></div>
+
+<!-- ══ FEATURES ════════════════════════════════════════ -->
+<section class="feat-section" id="features">
+  <div class="sh center rv">
+    <div class="sh-eyebrow"><div class="sh-eyebrow-line"></div><span data-i18n="f.lbl">المميزات الأساسية</span><div class="sh-eyebrow-line"></div></div>
+    <h2 class="sh-title" data-i18n="f.ttl">كل أدوات المحاسبة الاحترافية في مكان واحد</h2>
+    <p class="sh-desc" data-i18n="f.dsc">من الفاتورة الأولى إلى الإقفال السنوي — غطاء مالي شامل بدقة لا مثيل لها.</p>
+  </div>
+
+  <div class="feat-grid">
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">📊</div><div class="feat-title" data-i18n="fc1.t">لوحة تحكم ذكية</div><div class="feat-en">Intelligent Dashboard</div><p class="feat-desc" data-i18n="fc1.d">KPIs مالية بالوقت الفعلي، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين — كل شيء في لوحة واحدة.</p><div class="feat-tags"><span class="ftag">Real-time</span><span class="ftag">Chart.js</span><span class="ftag">RTL</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">🛒</div><div class="feat-title" data-i18n="fc2.t">المبيعات والعملاء</div><div class="feat-en">Sales & Receivables</div><p class="feat-desc" data-i18n="fc2.d">فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع كامل للذمم المدينة مع تحليل عمر الديون.</p><div class="feat-tags"><span class="ftag">AR Aging</span><span class="ftag">Invoicing</span><span class="ftag">CRM</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">🏪</div><div class="feat-title" data-i18n="fc3.t">المشتريات والموردين</div><div class="feat-en">Purchasing & Payables</div><p class="feat-desc" data-i18n="fc3.d">دورة مشتريات كاملة من أمر الشراء حتى السداد، مع مطابقة الكميات والأسعار تلقائيًا وإشعارات التجاوز.</p><div class="feat-tags"><span class="ftag">PO</span><span class="ftag">GRN</span><span class="ftag">AP Aging</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">📦</div><div class="feat-title" data-i18n="fc4.t">إدارة المخزون</div><div class="feat-en">Inventory Management</div><p class="feat-desc" data-i18n="fc4.d">تتبع الأصناف وتحركات المخزون، تكلفة المتوسط المرجح، تقييم المخزون، وتنبيهات الحد الأدنى تلقائيًا.</p><div class="feat-tags"><span class="ftag">FIFO/Avg</span><span class="ftag">Valuation</span><span class="ftag">Alerts</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">📒</div><div class="feat-title" data-i18n="fc5.t">الأستاذ العام</div><div class="feat-en">General Ledger</div><p class="feat-desc" data-i18n="fc5.d">شجرة حسابات متعددة المستويات، قيود اليومية، ميزان المراجعة، القوائم المالية، وAudit Trail كامل.</p><div class="feat-tags"><span class="ftag">CoA</span><span class="ftag">Audit Trail</span><span class="ftag">Reports</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">🏦</div><div class="feat-title" data-i18n="fc6.t">البنوك والتسوية</div><div class="feat-en">Banking & Reconciliation</div><p class="feat-desc" data-i18n="fc6.d">حسابات بنكية متعددة، تسجيل العمليات، تسوية كشوف الحساب، وعرض الوضع النقدي اللحظي.</p><div class="feat-tags"><span class="ftag">Multi-bank</span><span class="ftag">Recon.</span><span class="ftag">Cash</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">🏭</div><div class="feat-title" data-i18n="fc7.t">التصنيع وقوائم المواد</div><div class="feat-en">Manufacturing & BOM</div><p class="feat-desc" data-i18n="fc7.d">قوائم المواد، أوامر الإنتاج، تكاليف التصنيع الفعلية، وتحديث المخزون التلقائي عند الانتهاء.</p><div class="feat-tags"><span class="ftag">BOM</span><span class="ftag">Work Orders</span><span class="ftag">Costing</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">📐</div><div class="feat-title" data-i18n="fc8.t">مراكز التكلفة والأبعاد</div><div class="feat-en">Dimensions & Cost Centers</div><p class="feat-desc" data-i18n="fc8.d">توزيع النتائج المالية على مراكز التكلفة، الربح، والمشاريع مع تحليل دقيق لكل وحدة.</p><div class="feat-tags"><span class="ftag">Cost Centers</span><span class="ftag">Projects</span><span class="ftag">P&L</span></div></div>
+    <div class="feat-cell rv"><div class="feat-accent"></div><div class="feat-icon">🏗️</div><div class="feat-title" data-i18n="fc9.t">الأصول الثابتة</div><div class="feat-en">Fixed Assets</div><p class="feat-desc" data-i18n="fc9.d">سجل الأصول، استهلاك تلقائي، قيمة دفترية لحظية، وقيود محاسبية دورية آلية بدون تدخل يدوي.</p><div class="feat-tags"><span class="ftag">Depreciation</span><span class="ftag">Register</span><span class="ftag">Auto-GL</span></div></div>
+  </div>
+</section>
+
+<div class="glow-div"></div>
 
 <!-- ══ WHY ════════════════════════════════════════════ -->
-<section class="why-section">
-  <div class="why-grid">
-    <div class="why-visual reveal-right">
-      <div class="why-visual-inner">
-        <div class="kpi-row">
-          <div class="kpi-mini"><div class="kpi-mini-label">Revenue MTD</div><div class="kpi-mini-value cyan" id="kpi1">USD 0</div></div>
-          <div class="kpi-mini"><div class="kpi-mini-label">Net Profit</div><div class="kpi-mini-value green" id="kpi2">USD 0</div></div>
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <!-- Dashboard mockup -->
+    <div class="dash-mock rvl">
+      <div class="dash-topbar">
+        <div class="dash-dots"><div class="dash-dot"></div><div class="dash-dot"></div><div class="dash-dot"></div></div>
+        <div class="dash-tabs">
+          <span class="dash-tab act" data-i18n="db.overview">نظرة عامة</span>
+          <span class="dash-tab" data-i18n="db.reports">التقارير</span>
+          <span class="dash-tab" data-i18n="db.journal">القيود</span>
         </div>
-        <div class="kpi-row">
-          <div class="kpi-mini"><div class="kpi-mini-label">Payables</div><div class="kpi-mini-value red" id="kpi3">USD 0</div></div>
-          <div class="kpi-mini"><div class="kpi-mini-label">Receivables</div><div class="kpi-mini-value gold" id="kpi4">USD 0</div></div>
-        </div>
-        <div class="mini-chart">
-          <svg viewBox="0 0 300 80" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/>
-                <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,70 L30,60 L60,45 L90,50 L120,30 L150,40 L180,20 L210,25 L240,10 L270,15 L300,5 L300,80 L0,80Z" fill="url(#lg1)"/>
-            <path d="M0,70 L30,60 L60,45 L90,50 L120,30 L150,40 L180,20 L210,25 L240,10 L270,15 L300,5" fill="none" stroke="#D4AF37" stroke-width="2"/>
-            <path d="M0,75 L30,70 L60,65 L90,68 L120,55 L150,60 L180,50 L210,52 L240,45 L270,48 L300,42" fill="none" stroke="#FF4D4D" stroke-width="1.5" stroke-dasharray="4,3"/>
-          </svg>
-        </div>
-        <div style="font-size:9px;color:var(--text-dim);display:flex;gap:1.5rem;font-family:'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase;">
-          <span style="color:var(--gold)">■ <span data-i18n="kpi.revenue">الإيرادات</span></span>
-          <span style="color:var(--red)">■ <span data-i18n="kpi.expenses">المصروفات</span></span>
+        <div style="font-size:8px;color:var(--gr);font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px">
+          <div class="dash-pulse"></div>Live
         </div>
       </div>
-      <div style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif;white-space:nowrap" data-i18n="kpi.preview">Live Dashboard Preview</div>
+      <div class="dash-body">
+        <div class="kpi-grid">
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.rev">الإيرادات</div><div class="kpi-val kv-c" id="k1">0</div><div class="kpi-delta">↑ 12.4%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.net">صافي الربح</div><div class="kpi-val kv-gr" id="k2">0</div><div class="kpi-delta">↑ 8.1%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.pay">المدفوعات</div><div class="kpi-val kv-r" id="k3">0</div><div class="kpi-delta" style="color:var(--r)">↓ 3.2%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.rec">المستحقات</div><div class="kpi-val kv-g" id="k4">0</div><div class="kpi-delta">↑ 5.7%</div></div>
+        </div>
+        <div class="chart-bar">
+          <div class="chart-header">
+            <span class="chart-title" data-i18n="db.monthly">الإيرادات الشهرية مقابل المصروفات</span>
+            <span class="chart-period" data-i18n="db.fy">السنة المالية</span>
+          </div>
+          <div class="bar-row"><span class="bar-name" data-i18n="m.jan">يناير</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(to right,var(--g),var(--g2))" data-w="82"></div></div><span class="bar-val" style="color:var(--g)">$82K</span></div>
+          <div class="bar-row"><span class="bar-name" data-i18n="m.feb">فبراير</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(to right,var(--c),#0090bb)" data-w="67"></div></div><span class="bar-val" style="color:var(--c)">$67K</span></div>
+          <div class="bar-row"><span class="bar-name" data-i18n="m.mar">مارس</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(to right,var(--gr),#00905e)" data-w="95"></div></div><span class="bar-val" style="color:var(--gr)">$95K</span></div>
+          <div class="bar-row"><span class="bar-name" data-i18n="m.apr">أبريل</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(to right,var(--r),#b02020)" data-w="58"></div></div><span class="bar-val" style="color:var(--r)">$58K</span></div>
+        </div>
+      </div>
+      <div class="dash-footer">
+        <div class="dash-status"><div class="dash-pulse"></div><span data-i18n="db.live">البيانات محدّثة الآن</span></div>
+        <div class="dash-ver">VIPAccSystem v2.4.19</div>
+      </div>
     </div>
 
-    <div class="reveal-left">
-      <div class="section-label" data-i18n="why.label">Why VIPAccSystem?</div>
-      <h2 class="section-title" data-i18n="why.title">لماذا يختار المحترفون VIPAccSystem؟</h2>
-      <p class="section-desc" data-i18n="why.desc">لم نبنِ مجرد برنامج محاسبة — بنينا أداةً تمنح صاحب القرار رؤية 360° على أعماله في لحظة.</p>
-      <ul class="why-list">
-        <li class="why-item"><div class="why-bullet">🌍</div><div><div class="why-text-title" data-i18n="why1.t">ثنائية اللغة بالكامل — عربي وإنجليزي</div><div class="why-text-desc" data-i18n="why1.d">دعم RTL أصيل مع ترميز UTF-8 الكامل، وقوائم وتقارير وفواتير باللغتين.</div></div></li>
-        <li class="why-item"><div class="why-bullet">⚡</div><div><div class="why-text-title" data-i18n="why2.t">أداء عالٍ — قاعدة بيانات محسّنة</div><div class="why-text-desc" data-i18n="why2.d">InnoDB + utf8mb4_unicode_ci مع بادئة جداول قابلة للتخصيص لأداء وأمان أعلى.</div></div></li>
-        <li class="why-item"><div class="why-bullet">🔐</div><div><div class="why-text-title" data-i18n="why3.t">أمان متعدد الطبقات</div><div class="why-text-desc" data-i18n="why3.d">حماية Brute Force، Audit Trail، تحقق من الأسعار والكميات، وصلاحيات قائمة على الأدوار.</div></div></li>
-        <li class="why-item"><div class="why-bullet">🔌</div><div><div class="why-text-title" data-i18n="why4.t">قابل للتوسع — نظام الإضافات</div><div class="why-text-desc" data-i18n="why4.d">Extension Manager يتيح إضافة وحدات مخصصة دون المساس بالكود الأصلي.</div></div></li>
-        <li class="why-item"><div class="why-bullet">🆓</div><div><div class="why-text-title" data-i18n="why5.t">مفتوح المصدر — GPL v3</div><div class="why-text-desc" data-i18n="why5.d">ملكيتك الكاملة. لا رسوم ترخيص شهرية، لا قيود على المستخدمين، لا سحابة إجبارية.</div></div></li>
-      </ul>
+    <!-- Why list -->
+    <div class="rvr">
+      <div class="sh">
+        <div class="sh-eyebrow"><div class="sh-eyebrow-line"></div><span data-i18n="w.lbl">لماذا VIPAccSystem؟</span></div>
+        <h2 class="sh-title" data-i18n="w.ttl">الاختيار الذكي لأصحاب القرار</h2>
+        <p class="sh-desc" data-i18n="w.dsc">لم نبنِ مجرد برنامج — بنينا أداة تمنح قائد الأعمال رؤية مالية 360° في أي لحظة.</p>
+      </div>
+      <div class="why-items">
+        <div class="why-row"><div class="why-ico">🌍</div><div><div class="why-tt" data-i18n="w1.t">ثنائية اللغة — عربي وإنجليزي</div><div class="why-dd" data-i18n="w1.d">RTL أصيل، ترميز UTF-8 كامل، تقارير وفواتير باللغتين.</div></div></div>
+        <div class="why-row"><div class="why-ico">⚡</div><div><div class="why-tt" data-i18n="w2.t">أداء استثنائي</div><div class="why-dd" data-i18n="w2.d">InnoDB + utf8mb4 مع بادئة جداول قابلة للتخصيص لأقصى أداء وأمان.</div></div></div>
+        <div class="why-row"><div class="why-ico">🔐</div><div><div class="why-tt" data-i18n="w3.t">أمان متعدد الطبقات</div><div class="why-dd" data-i18n="w3.d">Brute Force، Audit Trail، صلاحيات RBAC، وحماية شاملة من الثغرات.</div></div></div>
+        <div class="why-row"><div class="why-ico">🔌</div><div><div class="why-tt" data-i18n="w4.t">قابل للتوسع الكامل</div><div class="why-dd" data-i18n="w4.d">نظام إضافات متقدم يتيح تخصيص النظام دون المساس بالكود الأصلي.</div></div></div>
+        <div class="why-row"><div class="why-ico">🆓</div><div><div class="why-tt" data-i18n="w5.t">مفتوح المصدر — GPL v3</div><div class="why-dd" data-i18n="w5.d">ملكيتك الكاملة. لا رسوم شهرية، لا قيود على المستخدمين.</div></div></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ══ MODULES ════════════════════════════════════════ -->
-<section class="modules-section" id="modules">
-  <div class="modules-header reveal">
-    <div class="section-label" data-i18n="mods.label">All Modules</div>
-    <h2 class="section-title" data-i18n="mods.title">١٠ وحدات — نظام واحد متكامل</h2>
-    <p class="section-desc" style="margin:0 auto" data-i18n="mods.desc">كل وحدة تعمل باستقلالية أو مدمجة مع الأخريات في تدفق مالي موحّد.</p>
+<section class="mods-section" id="modules">
+  <div class="sh center rv">
+    <div class="sh-eyebrow"><div class="sh-eyebrow-line"></div><span data-i18n="mo.lbl">جميع الوحدات</span><div class="sh-eyebrow-line"></div></div>
+    <h2 class="sh-title" data-i18n="mo.ttl">١٠ وحدات متخصصة — نظام واحد متكامل</h2>
+    <p class="sh-desc" data-i18n="mo.dsc">كل وحدة مستقلة بذاتها، ومتكاملة مع بقية النظام في تدفق مالي سلس.</p>
   </div>
-  <div class="modules-grid reveal">
-    <div class="module-cell"><span class="module-emoji">🛒</span><div class="module-name" data-i18n="m1">المبيعات</div><div class="module-sub">Sales</div></div>
-    <div class="module-cell"><span class="module-emoji">🏪</span><div class="module-name" data-i18n="m2">المشتريات</div><div class="module-sub">Purchases</div></div>
-    <div class="module-cell"><span class="module-emoji">📦</span><div class="module-name" data-i18n="m3">المخزون</div><div class="module-sub">Inventory</div></div>
-    <div class="module-cell"><span class="module-emoji">🏭</span><div class="module-name" data-i18n="m4">التصنيع</div><div class="module-sub">Manufacturing</div></div>
-    <div class="module-cell"><span class="module-emoji">📐</span><div class="module-name" data-i18n="m5">الأبعاد</div><div class="module-sub">Dimensions</div></div>
-    <div class="module-cell"><span class="module-emoji">📒</span><div class="module-name" data-i18n="m6">الأستاذ العام</div><div class="module-sub">General Ledger</div></div>
-    <div class="module-cell"><span class="module-emoji">🏦</span><div class="module-name" data-i18n="m7">البنوك</div><div class="module-sub">Banking</div></div>
-    <div class="module-cell"><span class="module-emoji">⚖️</span><div class="module-name" data-i18n="m8">ميزان المراجعة</div><div class="module-sub">Trial Balance</div></div>
-    <div class="module-cell"><span class="module-emoji">🏗️</span><div class="module-name" data-i18n="m9">الأصول الثابتة</div><div class="module-sub">Fixed Assets</div></div>
-    <div class="module-cell"><span class="module-emoji">⚙️</span><div class="module-name" data-i18n="m10">الإعدادات</div><div class="module-sub">Setup</div></div>
+  <div class="mods-grid rv">
+    <div class="mod-cell"><div class="mod-em">🛒</div><div class="mod-ar" data-i18n="md1">المبيعات</div><div class="mod-en">Sales</div></div>
+    <div class="mod-cell"><div class="mod-em">🏪</div><div class="mod-ar" data-i18n="md2">المشتريات</div><div class="mod-en">Purchases</div></div>
+    <div class="mod-cell"><div class="mod-em">📦</div><div class="mod-ar" data-i18n="md3">المخزون</div><div class="mod-en">Inventory</div></div>
+    <div class="mod-cell"><div class="mod-em">🏭</div><div class="mod-ar" data-i18n="md4">التصنيع</div><div class="mod-en">Manufacturing</div></div>
+    <div class="mod-cell"><div class="mod-em">📐</div><div class="mod-ar" data-i18n="md5">الأبعاد</div><div class="mod-en">Dimensions</div></div>
+    <div class="mod-cell"><div class="mod-em">📒</div><div class="mod-ar" data-i18n="md6">الأستاذ العام</div><div class="mod-en">General Ledger</div></div>
+    <div class="mod-cell"><div class="mod-em">🏦</div><div class="mod-ar" data-i18n="md7">البنوك</div><div class="mod-en">Banking</div></div>
+    <div class="mod-cell"><div class="mod-em">⚖️</div><div class="mod-ar" data-i18n="md8">ميزان المراجعة</div><div class="mod-en">Trial Balance</div></div>
+    <div class="mod-cell"><div class="mod-em">🏗️</div><div class="mod-ar" data-i18n="md9">الأصول الثابتة</div><div class="mod-en">Fixed Assets</div></div>
+    <div class="mod-cell"><div class="mod-em">⚙️</div><div class="mod-ar" data-i18n="md10">الإعدادات</div><div class="mod-en">Setup</div></div>
   </div>
 </section>
 
-<div class="gold-divider"></div>
+<div class="glow-div"></div>
 
-<!-- ══ TECH ════════════════════════════════════════════ -->
+<!-- ══ TECH ═══════════════════════════════════════════ -->
 <section class="tech-section" id="tech">
   <div class="tech-inner">
-    <div class="tech-header reveal">
-      <div class="section-label" data-i18n="tech.label">Technology Stack</div>
-      <h2 class="section-title" data-i18n="tech.title">بُني على أساس تقني راسخ</h2>
+    <div class="sh rv">
+      <div class="sh-eyebrow"><div class="sh-eyebrow-line"></div><span data-i18n="tc.lbl">التقنية والبنية</span></div>
+      <h2 class="sh-title" data-i18n="tc.ttl">أساس تقني صلب على أعلى المعايير العالمية</h2>
     </div>
-    <div class="tech-cols">
-      <div class="reveal-left">
-        <div class="tech-block-title" data-i18n="tech.stack">Stack المستخدم</div>
-        <div class="tech-stack">
-          <span class="tech-pill accent">PHP 8.2+</span><span class="tech-pill accent">MySQL 8.0</span>
-          <span class="tech-pill accent">Apache 2.4</span><span class="tech-pill">Chart.js</span>
-          <span class="tech-pill">TCPDF</span><span class="tech-pill">MySQLi</span>
-          <span class="tech-pill">InnoDB</span><span class="tech-pill">UTF-8 / RTL</span>
-          <span class="tech-pill">Session Auth</span><span class="tech-pill">RBAC</span><span class="tech-pill">GPL v3</span>
+    <div class="tech-grid">
+      <div class="rvl">
+        <div class="t-block-lbl" data-i18n="tc.stack">التقنيات المستخدمة</div>
+        <div class="pill-wrap">
+          <span class="pill hi">PHP 8.2+</span><span class="pill hi">MySQL 8.0</span>
+          <span class="pill hi">Apache 2.4</span><span class="pill">Chart.js</span>
+          <span class="pill">TCPDF</span><span class="pill">MySQLi</span>
+          <span class="pill">InnoDB</span><span class="pill">UTF-8</span>
+          <span class="pill">Session Auth</span><span class="pill">RBAC</span>
+          <span class="pill">GPL v3</span>
         </div>
-        <div class="tech-block-title" style="margin-top:2rem" data-i18n="tech.db">مواصفات قاعدة البيانات</div>
-        <div class="db-row"><span class="db-key">Database Engine</span><span style="color:var(--gold)">InnoDB</span></div>
-        <div class="db-row"><span class="db-key">Collation</span><span style="color:var(--cyan)">utf8mb4_unicode_ci</span></div>
-        <div class="db-row"><span class="db-key">Table Prefix</span><span>0_</span></div>
-        <div class="db-row"><span class="db-key">Tables Count</span><span style="color:var(--green)">70+</span></div>
-        <div class="db-row"><span class="db-key">Schema Version</span><span style="color:var(--gold)">2.4.1</span></div>
+        <div class="t-block-lbl" data-i18n="tc.db">مواصفات قاعدة البيانات</div>
+        <table class="db-table">
+          <tr><td>Database Engine</td><td style="color:var(--g)">InnoDB</td></tr>
+          <tr><td>Collation</td><td style="color:var(--c)">utf8mb4_unicode_ci</td></tr>
+          <tr><td>Table Prefix</td><td>0_</td></tr>
+          <tr><td>Tables Count</td><td style="color:var(--gr)">70+</td></tr>
+          <tr><td>Schema Version</td><td style="color:var(--g)">2.4.1</td></tr>
+          <tr><td>Source Version</td><td style="color:var(--g)">2.4.19</td></tr>
+        </table>
       </div>
-      <div class="reveal-right">
-        <div class="tech-block-title" data-i18n="tech.sec">الأمان والحماية</div>
-        <ul class="security-list">
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec1">حماية Brute Force — 30 ثانية بين المحاولات</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec2">منع حقن path_to_root في URL</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec3">استعلامات MySQLi آمنة ضد SQL Injection</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec4">Audit Trail كامل على جميع قيود GL</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec5">نظام صلاحيات قائم على الأدوار RBAC</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec6">حماية المجلدات بـ .htaccess</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec7">تسجيل الأخطاء في ملف منفصل</span></li>
-          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec8">التحقق من الأسعار والكميات في المشتريات</span></li>
+      <div class="rvr">
+        <div class="t-block-lbl" data-i18n="tc.sec">الأمان والحماية</div>
+        <ul class="sec-list">
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc1">حماية Brute Force — 30 ثانية بين المحاولات</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc2">منع حقن path_to_root عبر URL</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc3">استعلامات MySQLi آمنة ضد SQL Injection</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc4">Audit Trail كامل على جميع قيود GL</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc5">نظام صلاحيات RBAC متكامل</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc6">حماية المجلدات بـ .htaccess</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc7">تسجيل الأخطاء في ملف آمن منفصل</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc8">التحقق من الأسعار والكميات تلقائيًا</span></li>
         </ul>
-        <div class="tech-block-title" style="margin-top:2.5rem" data-i18n="tech.versions">الإصدارات</div>
-        <div class="ver-row latest"><span style="font-weight:700">v2.4.19</span><span class="ver-tag">Nov 2025 — LATEST</span></div>
-        <div class="ver-row"><span>v2.4.18</span><span style="color:var(--text-dim);font-family:'Inter',sans-serif;font-size:11px">Apr 2024</span></div>
-        <div class="ver-row"><span>v2.4.x</span><span style="color:var(--text-dim);font-family:'Inter',sans-serif;font-size:11px" data-i18n="tech.ongoing">صيانة مستمرة</span></div>
+        <div class="t-block-lbl" data-i18n="tc.ver">الإصدارات</div>
+        <div class="ver-list">
+          <div class="ver-row cur"><span style="font-weight:700">v2.4.19</span><span class="ver-tag">Nov 2025 — LATEST ✦</span></div>
+          <div class="ver-row"><span>v2.4.18</span><span style="color:var(--t3);font-family:'Inter',sans-serif;font-size:10px">Apr 2024</span></div>
+          <div class="ver-row"><span>v2.4.1 <span style="font-size:10px;color:var(--t3)">(DB)</span></span><span style="color:var(--t3);font-family:'Inter',sans-serif;font-size:10px" data-i18n="tc.stable">مستقر</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -686,246 +791,229 @@ footer{background:#020204;border-top:1px solid var(--border-glass);padding:2rem;
 
 <!-- ══ CTA ════════════════════════════════════════════ -->
 <section class="cta-section" id="cta">
-  <div class="cta-inner">
-    <div class="reveal">
-      <div class="section-label" style="display:block;text-align:center;margin-bottom:2rem" data-i18n="cta.label">Get Started Today</div>
-      <h2 class="cta-title" data-i18n="cta.title">ابدأ رحلة الدقة المالية اليوم</h2>
-      <div class="cta-line"></div>
-      <p class="cta-desc" data-i18n="cta.desc">انضم إلى آلاف الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.</p>
-      <div class="hero-cta-group">
-        <button class="btn-primary" data-i18n="cta.btn1">تحميل النظام مجانًا</button>
-        <button class="btn-outline" data-i18n="cta.btn2">vipaccsystem.com ←</button>
-      </div>
+  <div class="cta-glow"></div>
+  <div class="cta-inner rv">
+    <div class="sh-eyebrow" style="justify-content:center;margin-bottom:2rem"><div class="sh-eyebrow-line"></div><span data-i18n="ct.lbl">ابدأ اليوم</span><div class="sh-eyebrow-line"></div></div>
+    <h2 class="cta-title cinzel" data-i18n="ct.ttl">ابدأ رحلة<br/>الدقة المالية</h2>
+    <div class="cta-hr"></div>
+    <p class="cta-desc" data-i18n="ct.dsc">انضم إلى الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية بثقة ودقة.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.</p>
+    <div class="hero-ctas" style="animation:none">
+      <button class="btn-g" data-i18n="ct.b1">تحميل النظام مجانًا</button>
+      <button class="btn-o" data-i18n="ct.b2">vipaccsystem.com ←</button>
     </div>
   </div>
 </section>
 
-<div class="version-strip">
-  <div class="v-badge"><div class="v-dot"></div><span data-i18n="vs.dev">ACTIVE DEVELOPMENT</span></div>
-  <div class="v-badge">VERSION 2.4.19</div>
-  <div class="v-badge">DB SCHEMA 2.4.1</div>
-  <div class="v-badge">GPL v3 OPEN SOURCE</div>
-  <div class="v-badge force-cairo" style="color:var(--gold);font-size:13px">دقّة ماليّة</div>
+<!-- ══ VERSION BAR ════════════════════════════════════ -->
+<div class="version-bar z">
+  <div class="vb-item"><div class="live-dot"></div><span data-i18n="vb.dev">ACTIVE DEVELOPMENT</span></div>
+  <div class="vb-item">VERSION 2.4.19</div>
+  <div class="vb-item">DB SCHEMA 2.4.1</div>
+  <div class="vb-item">GPL v3 OPEN SOURCE</div>
+  <div class="vb-item" style="color:var(--g);font-family:'Cairo',sans-serif;font-size:12px">دقّة ماليّة</div>
 </div>
 
-<footer>
-  <div class="footer-logo force-cairo">VIP ACC SYSTEM</div>
-  <div class="footer-sub" data-i18n="footer.sub">دقّة ماليّة &nbsp;|&nbsp; Financial Precision &nbsp;|&nbsp; vipaccsystem.com</div>
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div>
+    <div class="foot-logo">VIP ACC SYSTEM</div>
+    <div class="foot-slogan" data-i18n="ft.sl">دقّة ماليّة | Financial Precision</div>
+  </div>
+  <div class="foot-links">
+    <a href="#" data-i18n="ft.docs">التوثيق</a>
+    <a href="#" data-i18n="ft.sec">الأمان</a>
+    <a href="#">vipaccsystem.com</a>
+  </div>
 </footer>
 
-<!-- ════════════════════════════════════════════════════
-     JAVASCRIPT — i18n + Animations
-═════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════
+     SCRIPT
+═══════════════════════════════════════════════════ -->
 <script>
-/* ══ TRANSLATIONS ══════════════════════════════════ */
-const T = {
-  ar: {
-    "nav.features":"المميزات","nav.modules":"الوحدات","nav.tech":"التقنية","nav.start":"ابدأ الآن",
-    "hero.badge":"نظام ERP محاسبي متكامل",
-    "hero.subtitle":"نظام المحاسبة الذكي للشركات المحترفة",
-    "hero.tagline":"منصة ERP محاسبية متكاملة ومفتوحة المصدر، مُصممة خصيصًا للشركات العربية.<br/>تجمع بين قوة الأنظمة العالمية وبساطة الواجهة العربية — بيانات دقيقة، تقارير فورية، وتحكم كامل.",
-    "hero.slogan":"دقّة ماليّة","hero.cta1":"ابدأ الآن مجانًا","hero.cta2":"استعراض التوثيق ←","hero.scroll":"تمرير",
-    "stats.modules":"وحدة ERP متكاملة","stats.tables":"جدول قاعدة بيانات","stats.langs":"لغة مدعومة","stats.rtl":"دعم العربية RTL","stats.php":"PHP المتوافقة",
-    "quote.text":"لأن قرارات الأعمال الكبرى تُبنى على أرقام دقيقة —<br/>نحن نمنحك الأرقام، والرؤية، والتحكم الكامل.",
-    "quote.sub":"دقة · وضوح · تحكم",
-    "features.label":"المميزات الأساسية","features.title":"كل ما تحتاجه لإدارة أعمالك بالكامل",
-    "features.desc":"من الفاتورة الأولى إلى التقرير السنوي — VIPAccSystem يغطي كل دورة مالية بدقة واحترافية.",
-    "f1.title":"لوحة تحكم ذكية","f1.desc":"لوحة بيانات تفاعلية بالوقت الفعلي تعرض KPIs المالية، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.",
-    "f2.title":"المبيعات والعملاء","f2.desc":"إصدار فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع الذمم المدينة مع تحليل عمر الديون.",
-    "f3.title":"المشتريات والموردين","f3.desc":"دورة المشتريات الكاملة من أمر الشراء حتى دفع الفاتورة، مع مطابقة الكميات والأسعار تلقائيًا.",
-    "f4.title":"إدارة المخزون والأصناف","f4.desc":"تتبع الأصناف والتحركات المخزنية، حساب التكلفة بالمتوسط المرجح، وتقارير تقييم المخزون.",
-    "f5.title":"الأستاذ العام والقيود","f5.desc":"شجرة حسابات مرنة متعددة المستويات، قيود اليومية، ميزان المراجعة، والميزانية العمومية مع Audit Trail كامل.",
-    "f6.title":"البنوك والتسوية","f6.desc":"إدارة الحسابات البنكية المتعددة، تسجيل العمليات، التسوية مع كشف الحساب، وعرض الوضع النقدي اللحظي.",
-    "f7.title":"التصنيع وقوائم المواد","f7.desc":"إدارة قوائم المواد (BOM)، أوامر الإنتاج، تتبع التكاليف الفعلية، وتحديث المخزون تلقائيًا عند الإنتاج.",
-    "f8.title":"الأبعاد ومراكز التكلفة","f8.desc":"تقسيم النتائج المالية على مراكز التكلفة والربح والمشاريع، مع تحليل الأداء لكل بُعد على حدة.",
-    "f9.title":"الأصول الثابتة","f9.desc":"سجل الأصول الثابتة، حساب الاستهلاك التلقائي، تتبع القيمة الدفترية، وقيود الاستهلاك الدورية الآلية.",
-    "kpi.revenue":"الإيرادات","kpi.expenses":"المصروفات","kpi.preview":"معاينة اللوحة الحية",
-    "why.label":"لماذا VIPAccSystem؟","why.title":"لماذا يختار المحترفون VIPAccSystem؟",
-    "why.desc":"لم نبنِ مجرد برنامج محاسبة — بنينا أداةً تمنح صاحب القرار رؤية 360° على أعماله في لحظة.",
-    "why1.t":"ثنائية اللغة بالكامل — عربي وإنجليزي","why1.d":"دعم RTL أصيل مع ترميز UTF-8 الكامل، وقوائم وتقارير وفواتير باللغتين.",
-    "why2.t":"أداء عالٍ — قاعدة بيانات محسّنة","why2.d":"InnoDB + utf8mb4_unicode_ci مع بادئة جداول قابلة للتخصيص لأداء وأمان أعلى.",
-    "why3.t":"أمان متعدد الطبقات","why3.d":"حماية Brute Force، Audit Trail، تحقق من الأسعار والكميات، وصلاحيات قائمة على الأدوار.",
-    "why4.t":"قابل للتوسع — نظام الإضافات","why4.d":"Extension Manager يتيح إضافة وحدات مخصصة دون المساس بالكود الأصلي.",
-    "why5.t":"مفتوح المصدر — GPL v3","why5.d":"ملكيتك الكاملة. لا رسوم ترخيص شهرية، لا قيود على المستخدمين، لا سحابة إجبارية.",
-    "mods.label":"جميع الوحدات","mods.title":"١٠ وحدات — نظام واحد متكامل","mods.desc":"كل وحدة تعمل باستقلالية أو مدمجة مع الأخريات في تدفق مالي موحّد.",
-    "m1":"المبيعات","m2":"المشتريات","m3":"المخزون","m4":"التصنيع","m5":"الأبعاد",
-    "m6":"الأستاذ العام","m7":"البنوك","m8":"ميزان المراجعة","m9":"الأصول الثابتة","m10":"الإعدادات",
-    "tech.label":"التقنية المستخدمة","tech.title":"بُني على أساس تقني راسخ","tech.stack":"Stack المستخدم",
-    "tech.db":"مواصفات قاعدة البيانات","tech.sec":"الأمان والحماية","tech.versions":"الإصدارات","tech.ongoing":"صيانة مستمرة",
-    "sec1":"حماية Brute Force — 30 ثانية بين المحاولات","sec2":"منع حقن path_to_root في URL",
-    "sec3":"استعلامات MySQLi آمنة ضد SQL Injection","sec4":"Audit Trail كامل على جميع قيود GL",
-    "sec5":"نظام صلاحيات قائم على الأدوار RBAC","sec6":"حماية المجلدات بـ .htaccess",
-    "sec7":"تسجيل الأخطاء في ملف منفصل","sec8":"التحقق من الأسعار والكميات في المشتريات",
-    "cta.label":"ابدأ اليوم","cta.title":"ابدأ رحلة الدقة المالية اليوم",
-    "cta.desc":"انضم إلى آلاف الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.",
-    "cta.btn1":"تحميل النظام مجانًا","cta.btn2":"vipaccsystem.com ←",
-    "vs.dev":"قيد التطوير الفعال",
-    "footer.sub":"دقّة ماليّة &nbsp;|&nbsp; Financial Precision &nbsp;|&nbsp; vipaccsystem.com"
-  },
-  en: {
-    "nav.features":"Features","nav.modules":"Modules","nav.tech":"Technology","nav.start":"Get Started",
-    "hero.badge":"Integrated ERP Accounting System",
-    "hero.subtitle":"The Smart Accounting System for Professional Businesses",
-    "hero.tagline":"A comprehensive, open-source ERP platform purpose-built for Arabic-speaking enterprises.<br/>Combining global-grade power with seamless bilingual UX — precise data, real-time reports, full control.",
-    "hero.slogan":"Financial Precision","hero.cta1":"Start Free Now","hero.cta2":"View Documentation →","hero.scroll":"Scroll",
-    "stats.modules":"Integrated ERP Modules","stats.tables":"Database Tables","stats.langs":"Languages Supported","stats.rtl":"Arabic RTL Support","stats.php":"PHP Compatibility",
-    "quote.text":"Because major business decisions are built on accurate numbers —<br/>we give you the numbers, the vision, and complete control.",
-    "quote.sub":"Precision · Clarity · Control",
-    "features.label":"Core Features","features.title":"Everything You Need to Run Your Business",
-    "features.desc":"From the first invoice to the annual report — VIPAccSystem covers every financial cycle with accuracy and professionalism.",
-    "f1.title":"Intelligent Dashboard","f1.desc":"Real-time interactive dashboard showing financial KPIs, revenue & expense charts, cash flow analysis, and AR aging — all in one place.",
-    "f2.title":"Sales & Receivables","f2.desc":"Issue sales invoices, quotations, sales orders, collect payments, and track AR with full aging analysis and overdue alerts.",
-    "f3.title":"Purchasing & Payables","f3.desc":"Full procurement cycle from purchase order to invoice payment, with automatic quantity and price validation.",
-    "f4.title":"Inventory Management","f4.desc":"Track items and stock movements, weighted-average costing, inventory valuation reports, and low-stock alerts.",
-    "f5.title":"General Ledger","f5.desc":"Flexible multi-level chart of accounts, journal entries, trial balance, income statement, and balance sheet with full audit trail.",
-    "f6.title":"Banking & Reconciliation","f6.desc":"Manage multiple bank accounts, record transactions, reconcile with statements, and view real-time cash position.",
-    "f7.title":"Manufacturing & BOM","f7.desc":"Manage bills of materials, production orders, actual cost tracking, and automatic inventory updates upon production.",
-    "f8.title":"Dimensions & Cost Centers","f8.desc":"Allocate financial results across cost centers, profit centers, and projects with per-dimension performance analysis.",
-    "f9.title":"Fixed Assets","f9.desc":"Fixed asset register, automatic depreciation calculation, book value tracking, and automated periodic GL entries.",
-    "kpi.revenue":"Revenues","kpi.expenses":"Expenses","kpi.preview":"Live Dashboard Preview",
-    "why.label":"Why VIPAccSystem?","why.title":"Why Professionals Choose VIPAccSystem",
-    "why.desc":"We didn't just build accounting software — we built a tool that gives decision-makers a 360° view of their business in an instant.",
-    "why1.t":"Fully Bilingual — Arabic & English","why1.d":"Native RTL support with full UTF-8 encoding. Menus, reports, and invoices in both languages.",
-    "why2.t":"High Performance — Optimized Database","why2.d":"InnoDB + utf8mb4_unicode_ci with configurable table prefix for superior performance and security.",
-    "why3.t":"Multi-Layer Security","why3.d":"Brute Force protection, Audit Trail, price/quantity validation, and role-based access control.",
-    "why4.t":"Extensible — Plugin System","why4.d":"Extension Manager lets you add custom modules without touching the core codebase.",
-    "why5.t":"Open Source — GPL v3","why5.d":"Completely yours. No monthly license fees, no user limits, no forced cloud dependency.",
-    "mods.label":"All Modules","mods.title":"10 Modules — One Integrated System","mods.desc":"Each module works independently or integrated with others in a unified financial workflow.",
-    "m1":"Sales","m2":"Purchases","m3":"Inventory","m4":"Manufacturing","m5":"Dimensions",
-    "m6":"General Ledger","m7":"Banking","m8":"Trial Balance","m9":"Fixed Assets","m10":"Setup",
-    "tech.label":"Technology Stack","tech.title":"Built on a Solid Technical Foundation","tech.stack":"Technology Stack",
-    "tech.db":"Database Specifications","tech.sec":"Security & Protection","tech.versions":"Versions","tech.ongoing":"Ongoing maintenance",
-    "sec1":"Brute Force protection — 30s delay between attempts","sec2":"path_to_root injection prevention in URL",
-    "sec3":"Secure MySQLi queries against SQL Injection","sec4":"Full Audit Trail on all GL transactions",
-    "sec5":"Role-based access control system (RBAC)","sec6":"Directory protection via .htaccess",
-    "sec7":"Error logging to a separate log file","sec8":"Price and quantity validation in purchasing",
-    "cta.label":"Get Started Today","cta.title":"Begin Your Financial Precision Journey Today",
-    "cta.desc":"Join thousands of companies that trust VIPAccSystem to manage their finances.<br/>Open Source. Free. Fully customizable.",
-    "cta.btn1":"Download Free Now","cta.btn2":"vipaccsystem.com →",
-    "vs.dev":"ACTIVE DEVELOPMENT",
-    "footer.sub":"Financial Precision &nbsp;|&nbsp; دقّة ماليّة &nbsp;|&nbsp; vipaccsystem.com"
-  }
+/* ── TRANSLATIONS ───────────────────────────────── */
+const T={
+ar:{
+  "n.feat":"المميزات","n.mods":"الوحدات","n.tech":"التقنية","n.start":"ابدأ",
+  "h.eyebrow":"نظام ERP محاسبي متكامل للمؤسسات",
+  "h.sub":"نظام المحاسبة الذكي للشركات المحترفة",
+  "h.tag":"منصة ERP محاسبية متكاملة ومفتوحة المصدر، مصممة للشركات الطموحة.<br/>دقة في الأرقام. وضوح في القرارات. تحكم كامل في كل تفاصيل أعمالك.",
+  "h.slogan":"دقّة ماليّة","h.cta1":"ابدأ الآن — مجانًا","h.cta2":"استعراض الإمكانيات ←","h.scroll":"تمرير للاستكشاف",
+  "s.mods":"وحدة ERP<br/>متكاملة","s.tbl":"جدول في<br/>قاعدة البيانات","s.lang":"لغة<br/>مدعومة","s.rtl":"دعم العربية<br/>RTL كامل","s.ver":"أحدث<br/>إصدار",
+  "f.lbl":"المميزات الأساسية","f.ttl":"كل أدوات المحاسبة الاحترافية في مكان واحد",
+  "f.dsc":"من الفاتورة الأولى إلى الإقفال السنوي — غطاء مالي شامل بدقة لا مثيل لها.",
+  "fc1.t":"لوحة تحكم ذكية","fc1.d":"KPIs مالية بالوقت الفعلي، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.",
+  "fc2.t":"المبيعات والعملاء","fc2.d":"فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع كامل للذمم المدينة.",
+  "fc3.t":"المشتريات والموردين","fc3.d":"دورة مشتريات كاملة من أمر الشراء حتى السداد، مع مطابقة الكميات والأسعار تلقائيًا.",
+  "fc4.t":"إدارة المخزون","fc4.d":"تتبع الأصناف وتحركات المخزون، تكلفة المتوسط المرجح، تقييم المخزون، وتنبيهات الحد الأدنى.",
+  "fc5.t":"الأستاذ العام","fc5.d":"شجرة حسابات متعددة المستويات، قيود اليومية، ميزان المراجعة، القوائم المالية، وAudit Trail.",
+  "fc6.t":"البنوك والتسوية","fc6.d":"حسابات بنكية متعددة، تسجيل العمليات، تسوية كشوف الحساب، والوضع النقدي اللحظي.",
+  "fc7.t":"التصنيع وقوائم المواد","fc7.d":"قوائم المواد، أوامر الإنتاج، تكاليف التصنيع الفعلية، وتحديث المخزون التلقائي.",
+  "fc8.t":"مراكز التكلفة والأبعاد","fc8.d":"توزيع النتائج المالية على مراكز التكلفة، الربح، والمشاريع مع تحليل دقيق.",
+  "fc9.t":"الأصول الثابتة","fc9.d":"سجل الأصول، استهلاك تلقائي، قيمة دفترية لحظية، وقيود محاسبية دورية آلية.",
+  "k.rev":"الإيرادات","k.net":"صافي الربح","k.pay":"المدفوعات","k.rec":"المستحقات",
+  "db.overview":"نظرة عامة","db.reports":"التقارير","db.journal":"القيود",
+  "db.monthly":"الإيرادات الشهرية","db.fy":"السنة المالية","db.live":"البيانات محدّثة الآن",
+  "m.jan":"يناير","m.feb":"فبراير","m.mar":"مارس","m.apr":"أبريل",
+  "w.lbl":"لماذا VIPAccSystem؟","w.ttl":"الاختيار الذكي لأصحاب القرار",
+  "w.dsc":"لم نبنِ مجرد برنامج — بنينا أداة تمنح قائد الأعمال رؤية مالية 360° في أي لحظة.",
+  "w1.t":"ثنائية اللغة — عربي وإنجليزي","w1.d":"RTL أصيل، ترميز UTF-8 كامل، تقارير وفواتير باللغتين.",
+  "w2.t":"أداء استثنائي","w2.d":"InnoDB + utf8mb4 مع بادئة جداول قابلة للتخصيص لأقصى أداء.",
+  "w3.t":"أمان متعدد الطبقات","w3.d":"Brute Force، Audit Trail، RBAC، وحماية شاملة من الثغرات.",
+  "w4.t":"قابل للتوسع الكامل","w4.d":"نظام إضافات متقدم يتيح تخصيص النظام دون المساس بالكود.",
+  "w5.t":"مفتوح المصدر — GPL v3","w5.d":"ملكيتك الكاملة. لا رسوم شهرية، لا قيود على المستخدمين.",
+  "mo.lbl":"جميع الوحدات","mo.ttl":"١٠ وحدات متخصصة — نظام واحد متكامل",
+  "mo.dsc":"كل وحدة مستقلة بذاتها، ومتكاملة مع بقية النظام في تدفق مالي سلس.",
+  "md1":"المبيعات","md2":"المشتريات","md3":"المخزون","md4":"التصنيع","md5":"الأبعاد",
+  "md6":"الأستاذ العام","md7":"البنوك","md8":"ميزان المراجعة","md9":"الأصول الثابتة","md10":"الإعدادات",
+  "tc.lbl":"التقنية والبنية","tc.ttl":"أساس تقني صلب على أعلى المعايير العالمية",
+  "tc.stack":"التقنيات المستخدمة","tc.db":"مواصفات قاعدة البيانات",
+  "tc.sec":"الأمان والحماية","tc.ver":"الإصدارات","tc.stable":"مستقر",
+  "sc1":"حماية Brute Force — 30 ثانية بين المحاولات","sc2":"منع حقن path_to_root عبر URL",
+  "sc3":"استعلامات MySQLi آمنة ضد SQL Injection","sc4":"Audit Trail على جميع قيود GL",
+  "sc5":"نظام صلاحيات RBAC متكامل","sc6":"حماية المجلدات بـ .htaccess",
+  "sc7":"تسجيل الأخطاء في ملف آمن","sc8":"التحقق من الأسعار والكميات تلقائيًا",
+  "ct.lbl":"ابدأ اليوم","ct.ttl":"ابدأ رحلة<br/>الدقة المالية",
+  "ct.dsc":"انضم إلى الشركات التي تثق في VIPAccSystem.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.",
+  "ct.b1":"تحميل النظام مجانًا","ct.b2":"vipaccsystem.com ←",
+  "vb.dev":"قيد التطوير الفعال",
+  "ft.sl":"دقّة ماليّة | Financial Precision","ft.docs":"التوثيق","ft.sec":"الأمان"
+},
+en:{
+  "n.feat":"Features","n.mods":"Modules","n.tech":"Technology","n.start":"Get Started",
+  "h.eyebrow":"Integrated Enterprise ERP Accounting Platform",
+  "h.sub":"The Smart Accounting System for Professional Businesses",
+  "h.tag":"A comprehensive open-source ERP platform built for ambitious businesses.<br/>Precise numbers. Clear decisions. Full control over every financial detail.",
+  "h.slogan":"Financial Precision","h.cta1":"Start Now — Free","h.cta2":"Explore Features →","h.scroll":"Scroll to Explore",
+  "s.mods":"Integrated ERP<br/>Modules","s.tbl":"Database<br/>Tables","s.lang":"Languages<br/>Supported","s.rtl":"Arabic RTL<br/>Full Support","s.ver":"Latest<br/>Version",
+  "f.lbl":"Core Features","f.ttl":"Every Professional Accounting Tool, One Platform",
+  "f.dsc":"From first invoice to annual close — comprehensive financial coverage with unmatched precision.",
+  "fc1.t":"Intelligent Dashboard","fc1.d":"Real-time financial KPIs, revenue & expense charts, cash flow analysis, and AR aging — all in one view.",
+  "fc2.t":"Sales & Receivables","fc2.d":"Sales invoices, quotations, orders, payment collection, and full AR tracking with aging analysis.",
+  "fc3.t":"Purchasing & Payables","fc3.d":"Full procurement cycle from PO to payment with automatic quantity and price validation.",
+  "fc4.t":"Inventory Management","fc4.d":"Item tracking, stock movements, weighted-average costing, inventory valuation, and low-stock alerts.",
+  "fc5.t":"General Ledger","fc5.d":"Multi-level chart of accounts, journal entries, trial balance, financial statements, and full audit trail.",
+  "fc6.t":"Banking & Reconciliation","fc6.d":"Multiple bank accounts, transaction recording, statement reconciliation, and real-time cash position.",
+  "fc7.t":"Manufacturing & BOM","fc7.d":"Bills of materials, production orders, actual manufacturing costs, and automatic inventory updates.",
+  "fc8.t":"Dimensions & Cost Centers","fc8.d":"Allocate financial results across cost centers, profit centers, and projects with per-dimension analysis.",
+  "fc9.t":"Fixed Assets","fc9.d":"Asset register, automatic depreciation, real-time book value, and automated periodic GL entries.",
+  "k.rev":"Revenue","k.net":"Net Profit","k.pay":"Payables","k.rec":"Receivables",
+  "db.overview":"Overview","db.reports":"Reports","db.journal":"Journal",
+  "db.monthly":"Monthly Revenue vs Expenses","db.fy":"Fiscal Year","db.live":"Data updated live",
+  "m.jan":"January","m.feb":"February","m.mar":"March","m.apr":"April",
+  "w.lbl":"Why VIPAccSystem?","w.ttl":"The Smart Choice for Decision Makers",
+  "w.dsc":"We didn't just build software — we built a tool that gives business leaders 360° financial visibility at any moment.",
+  "w1.t":"Fully Bilingual — Arabic & English","w1.d":"Native RTL, full UTF-8 encoding. Reports and invoices in both languages.",
+  "w2.t":"Exceptional Performance","w2.d":"InnoDB + utf8mb4 with configurable table prefix for maximum performance and security.",
+  "w3.t":"Multi-Layer Security","w3.d":"Brute Force protection, Audit Trail, RBAC, and comprehensive vulnerability protection.",
+  "w4.t":"Fully Extensible","w4.d":"Advanced plugin system lets you customize the system without touching the core.",
+  "w5.t":"Open Source — GPL v3","w5.d":"Completely yours. No monthly fees, no user limits whatsoever.",
+  "mo.lbl":"All Modules","mo.ttl":"10 Specialized Modules — One Integrated System",
+  "mo.dsc":"Each module works independently and integrates seamlessly with the rest in one unified financial workflow.",
+  "md1":"Sales","md2":"Purchases","md3":"Inventory","md4":"Manufacturing","md5":"Dimensions",
+  "md6":"General Ledger","md7":"Banking","md8":"Trial Balance","md9":"Fixed Assets","md10":"Setup",
+  "tc.lbl":"Technology & Architecture","tc.ttl":"A Solid Technical Foundation Built to World Standards",
+  "tc.stack":"Technology Stack","tc.db":"Database Specifications",
+  "tc.sec":"Security & Protection","tc.ver":"Versions","tc.stable":"Stable",
+  "sc1":"Brute Force protection — 30s delay between attempts","sc2":"path_to_root injection prevention via URL",
+  "sc3":"Secure MySQLi queries against SQL Injection","sc4":"Full Audit Trail on all GL transactions",
+  "sc5":"Integrated RBAC permissions system","sc6":"Directory protection via .htaccess",
+  "sc7":"Error logging to a secure separate file","sc8":"Automatic price and quantity validation",
+  "ct.lbl":"Get Started Today","ct.ttl":"Begin Your<br/>Financial Precision Journey",
+  "ct.dsc":"Join the companies that trust VIPAccSystem to manage their finances.<br/>Open Source. Free. Fully Customizable.",
+  "ct.b1":"Download Free Now","ct.b2":"vipaccsystem.com →",
+  "vb.dev":"ACTIVE DEVELOPMENT",
+  "ft.sl":"Financial Precision | دقّة ماليّة","ft.docs":"Docs","ft.sec":"Security"
+}};
+
+/* ── MARQUEE ITEMS ──────────────────────────────── */
+const MDATA={
+  ar:["المبيعات","المشتريات","المخزون","الأستاذ العام","التصنيع","البنوك","الأصول الثابتة","ميزان المراجعة","الأبعاد","دقّة ماليّة"],
+  en:["Sales","Purchasing","Inventory","General Ledger","Manufacturing","Banking","Fixed Assets","Trial Balance","Dimensions","Financial Precision"]
 };
 
-/* ══ LANGUAGE SWITCH ENGINE ════════════════════════ */
-let currentLang = 'ar';
+function buildMarquee(lang){
+  const track=document.getElementById('marquee');
+  const items=MDATA[lang];
+  let html='';
+  for(let r=0;r<2;r++)
+    items.forEach(it=>{html+=`<div class="marquee-item"><span class="marquee-sep">✦</span><strong>${it}</strong></div>`;});
+  track.innerHTML=html;
+}
+buildMarquee('ar');
 
-function setLang(lang) {
-  if (lang === currentLang) return;
-  currentLang = lang;
+/* ── LANG ENGINE ────────────────────────────────── */
+let lang='ar';
 
-  /* 1 — fade out */
-  document.body.classList.add('lang-switching');
+function toggleLang(){
+  setLang(lang==='ar'?'en':'ar');
+}
 
-  setTimeout(() => {
-    /* 2 — swap HTML attributes */
-    const html = document.documentElement;
-    html.setAttribute('lang', lang);
-    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-    html.setAttribute('data-lang', lang);
-
-    /* 3 — translate all [data-i18n] elements */
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      const val = T[lang][key];
-      if (val !== undefined) el.innerHTML = val;
+function setLang(l){
+  if(l===lang)return;
+  lang=l;
+  document.body.classList.add('switching');
+  setTimeout(()=>{
+    const h=document.documentElement;
+    h.setAttribute('lang',l);
+    h.setAttribute('dir',l==='ar'?'rtl':'ltr');
+    h.setAttribute('data-lang',l);
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const v=T[l][el.getAttribute('data-i18n')];
+      if(v!==undefined)el.innerHTML=v;
     });
-
-    /* 4 — update page title */
-    document.title = lang === 'ar'
-      ? 'VIP Acc System — نظام المحاسبة الذكي'
-      : 'VIP Acc System — Smart Accounting ERP';
-
-    /* 5 — update toggle buttons */
-    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-ar').setAttribute('aria-pressed', lang === 'ar');
-    document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
-
-    /* 6 — fade back in */
-    document.body.classList.remove('lang-switching');
-
-  }, 320);
+    /* toggle button shows opposite lang */
+    document.getElementById('lang-label').textContent=l==='ar'?'EN':'عربي';
+    buildMarquee(l);
+    document.title=l==='ar'?'VIP Acc System — دقّة ماليّة':'VIP Acc System — Financial Precision';
+    document.body.classList.remove('switching');
+  },280);
 }
 
-/* ══ CANVAS PARTICLES ══════════════════════════════ */
-const canvas = document.getElementById('canvas-bg');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize(); window.addEventListener('resize', resize);
-class Particle {
-  constructor(){ this.reset(); }
-  reset(){
-    this.x=Math.random()*W; this.y=Math.random()*H;
-    this.r=Math.random()*1.5+0.3; this.vx=(Math.random()-0.5)*0.3;
-    this.vy=-Math.random()*0.4-0.1; this.alpha=Math.random()*0.6+0.2;
-    this.gold=Math.random()>0.6;
-  }
-  draw(){
-    ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-    ctx.fillStyle=this.gold?`rgba(212,175,55,${this.alpha})`:`rgba(0,229,255,${this.alpha*0.4})`;
-    ctx.fill();
-  }
-  update(){
-    this.x+=this.vx; this.y+=this.vy; this.alpha-=0.001;
-    if(this.y<-10||this.alpha<=0) this.reset();
-  }
+/* ── CANVAS PARTICLES ───────────────────────────── */
+const cv=document.getElementById('bg'),cx=cv.getContext('2d');
+let W,H,pts=[];
+const resize=()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight};
+resize();window.addEventListener('resize',resize);
+class P{
+  constructor(){this.r()}
+  r(){this.x=Math.random()*W;this.y=Math.random()*H;
+    this.rad=Math.random()*1.4+.2;this.vx=(Math.random()-.5)*.25;
+    this.vy=-Math.random()*.35-.08;this.a=Math.random()*.5+.15;
+    this.g=Math.random()>.55}
+  draw(){cx.beginPath();cx.arc(this.x,this.y,this.rad,0,Math.PI*2);
+    cx.fillStyle=this.g?`rgba(201,168,76,${this.a})`:`rgba(0,212,255,${this.a*.35})`;cx.fill()}
+  up(){this.x+=this.vx;this.y+=this.vy;this.a-=.0008;
+    if(this.y<-8||this.a<=0)this.r()}
 }
-for(let i=0;i<120;i++) particles.push(new Particle());
-(function loop(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(loop); })();
+for(let i=0;i<100;i++)pts.push(new P());
+(function loop(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.up();p.draw()});requestAnimationFrame(loop)})();
 
-/* ══ NAV SCROLL ════════════════════════════════════ */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>60);
-});
+/* ── NAV SCROLL ─────────────────────────────────── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('up',scrollY>50));
 
-/* ══ SCROLL REVEAL ═════════════════════════════════ */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:0.15});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el,i)=>{
-  el.style.transitionDelay=(i%4)*0.1+'s';
-  observer.observe(el);
-});
+/* ── REVEAL ─────────────────────────────────────── */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.12});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach((el,i)=>{el.style.transitionDelay=(i%5)*.08+'s';ro.observe(el)});
 
-/* ══ COUNTER ANIMATION ═════════════════════════════ */
-function animateCounter(el){
-  const target=parseInt(el.dataset.target);
-  const suffix=el.dataset.suffix||'';
-  let cur=0; const step=target/(1800/16);
-  const t=setInterval(()=>{
-    cur+=step;
-    if(cur>=target){cur=target;clearInterval(t);}
-    el.textContent=Math.floor(cur)+suffix;
-  },16);
+/* ── COUNTERS ───────────────────────────────────── */
+const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){cnt(x.target);co.unobserve(x.target)}}),{threshold:.4});
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+function cnt(el){
+  const t=+el.dataset.target,s=el.dataset.sfx||'';
+  let c=0;const step=t/(1600/16);
+  const ti=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(ti)}el.textContent=Math.floor(c)+s},16);
 }
-const cObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);cObs.unobserve(e.target);}});
-},{threshold:0.5});
-document.querySelectorAll('[data-target]').forEach(el=>cObs.observe(el));
 
-/* ══ KPI ANIMATION ═════════════════════════════════ */
-function animateKPI(id,target){
-  const el=document.getElementById(id); if(!el) return;
-  let cur=0; const step=target/80;
-  const t=setInterval(()=>{
-    cur+=step;
-    if(cur>=target){cur=target;clearInterval(t);}
-    el.textContent='USD '+Math.floor(cur).toLocaleString();
-  },20);
-}
-const kObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      animateKPI('kpi1',1010000); animateKPI('kpi2',49000);
-      animateKPI('kpi3',4095); animateKPI('kpi4',300);
-      kObs.disconnect();
-    }
-  });
-},{threshold:0.3});
-const kpiEl=document.querySelector('.why-visual');
-if(kpiEl) kObs.observe(kpiEl);
+/* ── KPI ANIMATION ──────────────────────────────── */
+const ko=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){kpis();ko.disconnect()}}),{threshold:.3});
+const dm=document.querySelector('.dash-mock');if(dm)ko.observe(dm);
+function kpi(id,t){const el=document.getElementById(id);if(!el)return;let c=0;const s=t/70;const ti=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(ti)}el.textContent='$'+Math.floor(c).toLocaleString()+'K'},20);}
+function kpis(){kpi('k1',105);kpi('k2',49);kpi('k3',56);kpi('k4',32);}
+
+/* ── BAR CHART ANIMATE ──────────────────────────── */
+const bo=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){bars();bo.disconnect()}}),{threshold:.3});
+if(dm)bo.observe(dm);
+function bars(){document.querySelectorAll('.bar-fill').forEach(el=>{const w=el.dataset.w;setTimeout(()=>el.style.width=w+'%',400)});}
 </script>
 </body>
 </html>
