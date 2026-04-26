@@ -1,984 +1,565 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>VIP Acc System — نظام المحاسبة الذكي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<title>VIP Acc System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --gold: #D4AF37;
-  --gold-light: #F0D060;
-  --gold-dim: #8B6914;
-  --cyan: #00E5FF;
-  --cyan-dim: #007799;
-  --bg-void: #050508;
-  --bg-deep: #080B14;
-  --bg-card: rgba(255,255,255,0.04);
-  --bg-glass: rgba(212,175,55,0.06);
-  --border-gold: rgba(212,175,55,0.25);
-  --border-glass: rgba(255,255,255,0.08);
-  --text-primary: #F5F0E8;
-  --text-secondary: rgba(245,240,232,0.6);
-  --text-dim: rgba(245,240,232,0.35);
-  --red-alert: #FF4D4D;
-  --green-up: #00E676;
+  --gold:#D4AF37; --gold-light:#F0D060; --gold-dim:#8B6914;
+  --cyan:#00E5FF; --bg-void:#050508; --bg-deep:#080B14;
+  --bg-card:rgba(255,255,255,0.04); --bg-glass:rgba(212,175,55,0.06);
+  --border-gold:rgba(212,175,55,0.25); --border-glass:rgba(255,255,255,0.08);
+  --text-primary:#F5F0E8; --text-secondary:rgba(245,240,232,0.6);
+  --text-dim:rgba(245,240,232,0.35); --red:#FF4D4D; --green:#00E676;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg-void); color:var(--text-primary);
+  font-family:'Cairo',sans-serif; overflow-x:hidden; line-height:1.7;
+  transition:opacity 0.35s ease, font-family 0.2s;
+}
+[data-lang="en"] body,[data-lang="en"] *:not(.force-cairo){
+  font-family:'Inter','Cairo',sans-serif;
+}
+body.lang-switching{opacity:0; pointer-events:none}
+
+#canvas-bg{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.4}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg-deep)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+
+/* ── LANG TOGGLE ─────────────────────────────────── */
+.lang-toggle{
+  display:flex; align-items:center; gap:0;
+  border:1px solid var(--border-gold); border-radius:3px;
+  overflow:hidden; background:transparent;
+  height:34px;
+}
+.lang-btn{
+  padding:0 14px; height:100%;
+  font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  border:none; cursor:pointer; transition:all 0.25s ease;
+  background:transparent; color:var(--text-dim);
+  font-family:'Inter',sans-serif;
+  display:flex; align-items:center; gap:6px;
+}
+.lang-btn.active{
+  background:linear-gradient(135deg,var(--gold),#B8941E);
+  color:#000;
+}
+.lang-btn:not(.active):hover{
+  background:var(--bg-glass); color:var(--gold);
+}
+.lang-flag{font-size:14px}
+
+/* ── REVEAL ANIMATIONS ───────────────────────────── */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(50px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:none}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.2rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.4s ease;
+}
+nav.scrolled{
+  background:rgba(5,5,8,0.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-glass);padding:0.9rem 3rem;
+}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:var(--gold);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-dim);text-decoration:none;
+  font-family:'Inter',sans-serif;transition:color 0.3s;
+}
+.nav-links a:hover{color:var(--gold)}
+@media(max-width:700px){.nav-links li:not(:last-child){display:none} nav{padding:1rem 1.5rem}}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  position:relative;z-index:1;padding:2rem;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,175,55,0.12) 0%,transparent 70%);
+  animation:breathe 6s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 24px;border:1px solid var(--border-gold);border-radius:50px;
+  background:var(--bg-glass);backdrop-filter:blur(20px);
+  font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  margin-bottom:2.5rem;animation:fadeDown 1s ease 0.2s both;
+  font-family:'Inter',sans-serif;
+}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+
+.hero-title{
+  font-family:'Cinzel',serif!important;
+  font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-2px;line-height:1;
+  margin-bottom:0.5rem;animation:fadeUp 1s ease 0.4s both;
+  background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 40%,#A87820 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:clamp(1.3rem,3vw,2.1rem);font-weight:700;color:var(--text-primary);
+  margin-bottom:0.8rem;animation:fadeUp 1s ease 0.5s both;
+}
+.hero-tagline{
+  font-size:clamp(0.9rem,2vw,1.1rem);color:var(--text-secondary);
+  max-width:680px;margin:0 auto 3rem;font-weight:300;
+  animation:fadeUp 1s ease 0.6s both;line-height:1.9;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+.hero-slogan{
+  font-size:2rem;font-weight:900;color:var(--gold);letter-spacing:4px;
+  margin-bottom:3.5rem;animation:fadeUp 1s ease 0.7s both;
+  text-shadow:0 0 40px rgba(212,175,55,0.4);
+  font-family:'Cinzel',serif!important;
+}
+.hero-cta-group{
+  display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp 1s ease 0.9s both;
+}
+.btn-primary{
+  padding:16px 40px;
+  background:linear-gradient(135deg,var(--gold),#B8941E);
+  color:#000;font-weight:700;font-size:1rem;
+  border:none;border-radius:4px;cursor:pointer;letter-spacing:1px;
+  transition:all 0.3s ease;position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.3),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(212,175,55,0.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-outline{
+  padding:16px 40px;background:transparent;color:var(--gold);
+  font-weight:600;font-size:1rem;border:1px solid var(--border-gold);
+  border-radius:4px;cursor:pointer;letter-spacing:1px;
+  transition:all 0.3s ease;backdrop-filter:blur(10px);
+}
+.btn-outline:hover{
+  background:var(--bg-glass);border-color:var(--gold);
+  transform:translateY(-3px);box-shadow:0 20px 60px rgba(212,175,55,0.15);
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg-void);
-  color: var(--text-primary);
-  font-family: 'Cairo', sans-serif;
-  overflow-x: hidden;
-  line-height: 1.7;
+.scroll-hint{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeUp 1s ease 1.5s both;
+}
+.scroll-hint span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif}
+.scroll-line{
+  width:1px;height:60px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollLine 2s ease infinite;
+}
+@keyframes scrollLine{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  51%{transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
 }
 
-/* ── CANVAS PARTICLES ─────────────────────────────── */
-#canvas-bg {
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 0;
-  opacity: 0.4;
+/* ── GLOW LINE ───────────────────────────────────── */
+.glow-line{
+  height:1px;position:relative;z-index:1;
+  background:linear-gradient(to right,transparent,var(--gold),var(--cyan),var(--gold),transparent);
+  background-size:200% 100%;animation:glowMove 4s linear infinite;
 }
+@keyframes glowMove{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ── SCROLLBAR ───────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
-
-/* ── UTILITY ──────────────────────────────────────── */
-.en { font-family: 'Inter', 'Cairo', sans-serif; direction: ltr; }
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal-left.visible { opacity: 1; transform: none; }
-.reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal-right.visible { opacity: 1; transform: none; }
-
-/* ── HERO ─────────────────────────────────────────── */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center;
-  position: relative; z-index: 1;
-  padding: 2rem;
-  overflow: hidden;
+/* ── STATS BAR ───────────────────────────────────── */
+.stats-bar{
+  position:relative;z-index:1;
+  background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(0,229,255,0.04));
+  border-top:1px solid var(--border-gold);border-bottom:1px solid var(--border-gold);
+  padding:3rem 2rem;
 }
-
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,175,55,0.12) 0%, transparent 70%);
-  animation: breathe 6s ease-in-out infinite;
+.stats-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;text-align:center;
 }
-
-@keyframes breathe {
-  0%,100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+.stat-num{
+  font-family:'Cinzel',serif!important;font-size:3rem;font-weight:700;color:var(--gold);
+  display:block;text-shadow:0 0 30px rgba(212,175,55,0.3);
 }
+.stat-label{font-size:0.85rem;color:var(--text-secondary);letter-spacing:1px;margin-top:6px}
 
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 8px 24px;
-  border: 1px solid var(--border-gold);
-  border-radius: 50px;
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2.5rem;
-  animation: fadeDown 1s ease 0.2s both;
+/* ── SECTION BASE ────────────────────────────────── */
+section{position:relative;z-index:1;padding:7rem 2rem}
+.section-label{
+  display:inline-block;font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);font-family:'Inter',sans-serif;
+  margin-bottom:1.2rem;border-bottom:1px solid var(--gold-dim);padding-bottom:6px;
 }
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1.2rem}
+.section-desc{font-size:1.05rem;color:var(--text-secondary);max-width:640px;line-height:1.9}
+.gold-divider{height:1px;background:linear-gradient(to right,transparent,var(--gold-dim),transparent)}
 
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ── FEATURES ────────────────────────────────────── */
+.features-section{background:var(--bg-deep)}
+.features-intro{max-width:1100px;margin:0 auto 5rem}
+.features-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;
 }
-
-.hero-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 900;
-  letter-spacing: -2px;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  animation: fadeUp 1s ease 0.4s both;
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #A87820 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.feature-card{
+  background:var(--bg-card);border:1px solid var(--border-glass);border-radius:2px;
+  padding:2.2rem;transition:all 0.4s ease;position:relative;overflow:hidden;
 }
-
-.hero-subtitle-ar {
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.8rem;
-  animation: fadeUp 1s ease 0.5s both;
+.feature-card::before{
+  content:'';position:absolute;top:0;right:0;width:100%;height:2px;
+  background:linear-gradient(to left,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:right;transition:transform 0.4s ease;
 }
-
-.hero-tagline {
-  font-size: clamp(0.9rem, 2vw, 1.15rem);
-  color: var(--text-secondary);
-  max-width: 680px;
-  margin: 0 auto 3rem;
-  font-weight: 300;
-  animation: fadeUp 1s ease 0.6s both;
-  line-height: 1.9;
+.feature-card:hover{
+  border-color:var(--border-gold);background:rgba(212,175,55,0.05);
+  transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 60px rgba(212,175,55,.05);
 }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.feature-card:hover::before{transform:scaleX(1);transform-origin:left}
+.feature-icon{
+  width:52px;height:52px;border:1px solid var(--border-gold);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;
+  font-size:1.5rem;background:var(--bg-glass);transition:all 0.3s ease;
 }
-
-.hero-slogan {
-  font-size: 2rem; font-weight: 900;
-  color: var(--gold);
-  letter-spacing: 4px;
-  margin-bottom: 3.5rem;
-  animation: fadeUp 1s ease 0.7s both;
-  text-shadow: 0 0 40px rgba(212,175,55,0.4);
+.feature-card:hover .feature-icon{background:rgba(212,175,55,.15);border-color:var(--gold);box-shadow:0 0 20px rgba(212,175,55,.2)}
+.feature-title{font-size:1.15rem;font-weight:700;color:var(--text-primary);margin-bottom:0.3rem}
+.feature-en-label{
+  font-size:9px;color:var(--gold-dim);font-family:'Inter',sans-serif;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;
 }
-
-.hero-cta-group {
-  display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;
-  animation: fadeUp 1s ease 0.9s both;
-}
-
-.btn-primary {
-  padding: 16px 40px;
-  background: linear-gradient(135deg, var(--gold), #B8941E);
-  color: #000;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 700; font-size: 1rem;
-  border: none; border-radius: 4px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  position: relative; overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
-  opacity: 0; transition: opacity 0.3s;
-}
-
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(212,175,55,0.4); }
-.btn-primary:hover::before { opacity: 1; }
-
-.btn-outline {
-  padding: 16px 40px;
-  background: transparent;
-  color: var(--gold);
-  font-family: 'Cairo', sans-serif;
-  font-weight: 600; font-size: 1rem;
-  border: 1px solid var(--border-gold);
-  border-radius: 4px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.btn-outline:hover {
-  background: var(--bg-glass);
-  border-color: var(--gold);
-  transform: translateY(-3px);
-  box-shadow: 0 20px 60px rgba(212,175,55,0.15);
-}
-
-/* ── SCROLL INDICATOR ─────────────────────────────── */
-.scroll-hint {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  animation: fadeUp 1s ease 1.5s both;
-}
-
-.scroll-hint span {
-  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.scroll-line {
-  width: 1px; height: 60px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollLine 2s ease infinite;
-}
-
-@keyframes scrollLine {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
-
-/* ── STATS BAR ────────────────────────────────────── */
-.stats-bar {
-  position: relative; z-index: 1;
-  background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(0,229,255,0.04));
-  border-top: 1px solid var(--border-gold);
-  border-bottom: 1px solid var(--border-gold);
-  padding: 3rem 2rem;
-}
-
-.stats-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem; text-align: center;
-}
-
-.stat-item { padding: 1rem; }
-
-.stat-num {
-  font-family: 'Cinzel', serif;
-  font-size: 3rem; font-weight: 700;
-  color: var(--gold);
-  display: block;
-  text-shadow: 0 0 30px rgba(212,175,55,0.3);
-}
-
-.stat-label {
-  font-size: 0.85rem; color: var(--text-secondary);
-  letter-spacing: 1px; margin-top: 6px;
-}
-
-/* ── SECTION BASE ─────────────────────────────────── */
-section {
-  position: relative; z-index: 1;
-  padding: 7rem 2rem;
-}
-
-.section-label {
-  display: inline-block;
-  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--gold); font-family: 'Inter', sans-serif;
-  margin-bottom: 1.2rem;
-  border-bottom: 1px solid var(--gold-dim);
-  padding-bottom: 6px;
-}
-
-.section-title {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 700; line-height: 1.2;
-  margin-bottom: 1.2rem;
-}
-
-.section-desc {
-  font-size: 1.05rem; color: var(--text-secondary);
-  max-width: 640px; line-height: 1.9;
-}
-
-/* ── DIVIDER ─────────────────────────────────────── */
-.gold-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
-  margin: 0;
-}
-
-/* ── FEATURES GRID ────────────────────────────────── */
-.features-section { background: var(--bg-deep); }
-
-.features-intro { max-width: 1100px; margin: 0 auto 5rem; }
-
-.features-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.feature-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-glass);
-  border-radius: 2px;
-  padding: 2.2rem;
-  transition: all 0.4s ease;
-  position: relative; overflow: hidden;
-  cursor: default;
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute; top: 0; right: 0;
-  width: 100%; height: 2px;
-  background: linear-gradient(to left, transparent, var(--gold), transparent);
-  transform: scaleX(0); transform-origin: right;
-  transition: transform 0.4s ease;
-}
-
-.feature-card:hover {
-  border-color: var(--border-gold);
-  background: rgba(212,175,55,0.05);
-  transform: translateY(-6px);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(212,175,55,0.05);
-}
-
-.feature-card:hover::before { transform: scaleX(1); transform-origin: left; }
-
-.feature-icon {
-  width: 52px; height: 52px;
-  border: 1px solid var(--border-gold);
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-  background: var(--bg-glass);
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover .feature-icon {
-  background: rgba(212,175,55,0.15);
-  border-color: var(--gold);
-  box-shadow: 0 0 20px rgba(212,175,55,0.2);
-}
-
-.feature-title {
-  font-size: 1.15rem; font-weight: 700;
-  color: var(--text-primary); margin-bottom: 0.6rem;
-}
-
-.feature-title-en {
-  font-size: 0.8rem; color: var(--gold-dim);
-  font-family: 'Inter', sans-serif; letter-spacing: 2px; text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.feature-desc {
-  font-size: 0.92rem; color: var(--text-secondary);
-  line-height: 1.8;
-}
-
-.feature-tags {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem;
-}
-
-.tag {
-  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-  padding: 3px 10px;
-  border: 1px solid var(--border-glass);
-  border-radius: 2px;
-  color: var(--text-dim);
-  font-family: 'Inter', sans-serif;
+.feature-desc{font-size:0.92rem;color:var(--text-secondary);line-height:1.8}
+.feature-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem}
+.tag{
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 10px;border:1px solid var(--border-glass);border-radius:2px;
+  color:var(--text-dim);font-family:'Inter',sans-serif;
 }
 
 /* ── WHY SECTION ─────────────────────────────────── */
-.why-section {
-  background: linear-gradient(to bottom, var(--bg-void), var(--bg-deep));
+.why-section{background:linear-gradient(to bottom,var(--bg-void),var(--bg-deep))}
+.why-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:768px){.why-grid{grid-template-columns:1fr}}
+.why-visual{
+  position:relative;height:450px;border:1px solid var(--border-gold);
+  border-radius:2px;overflow:hidden;background:var(--bg-card);
 }
-
-.why-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 5rem; align-items: center;
+.why-visual-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1rem;padding:2rem;
 }
-
-@media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
-
-.why-visual {
-  position: relative;
-  height: 450px;
-  border: 1px solid var(--border-gold);
-  border-radius: 2px;
-  overflow: hidden;
-  background: var(--bg-card);
+.kpi-row{width:100%;display:flex;gap:1rem}
+.kpi-mini{
+  flex:1;padding:1.2rem;border:1px solid var(--border-glass);
+  border-radius:2px;background:rgba(255,255,255,0.03);transition:all 0.3s ease;
 }
-
-.why-visual-inner {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 1rem; padding: 2rem;
+.kpi-mini:hover{border-color:var(--border-gold);background:rgba(212,175,55,.05)}
+.kpi-mini-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;font-family:'Inter',sans-serif}
+.kpi-mini-value{font-size:1.3rem;font-weight:700;font-family:'Inter',sans-serif}
+.kpi-mini-value.cyan{color:var(--cyan)}.kpi-mini-value.gold{color:var(--gold)}
+.kpi-mini-value.green{color:var(--green)}.kpi-mini-value.red{color:var(--red)}
+.mini-chart{width:100%;height:80px;border:1px solid var(--border-glass);border-radius:2px;background:rgba(255,255,255,0.02);position:relative;overflow:hidden}
+.mini-chart svg{width:100%;height:100%}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.why-item{
+  display:flex;align-items:flex-start;gap:1.2rem;padding:1.2rem;
+  border:1px solid var(--border-glass);border-radius:2px;background:var(--bg-card);
+  transition:all 0.3s ease;
 }
-
-.kpi-row {
-  width: 100%; display: flex; gap: 1rem;
+[data-lang="ar"] .why-item:hover{transform:translateX(-8px)}
+[data-lang="en"] .why-item:hover{transform:translateX(8px)}
+.why-bullet{
+  width:32px;height:32px;min-width:32px;border:1px solid var(--gold-dim);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--gold);background:rgba(212,175,55,.08);
 }
-
-.kpi-mini {
-  flex: 1; padding: 1.2rem;
-  border: 1px solid var(--border-glass);
-  border-radius: 2px; background: rgba(255,255,255,0.03);
-  transition: all 0.3s ease;
-}
-
-.kpi-mini:hover {
-  border-color: var(--border-gold);
-  background: rgba(212,175,55,0.05);
-}
-
-.kpi-mini-label {
-  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-dim); margin-bottom: 6px;
-  font-family: 'Inter', sans-serif;
-}
-
-.kpi-mini-value {
-  font-size: 1.3rem; font-weight: 700;
-  font-family: 'Inter', sans-serif;
-}
-
-.kpi-mini-value.cyan { color: var(--cyan); }
-.kpi-mini-value.gold { color: var(--gold); }
-.kpi-mini-value.green { color: var(--green-up); }
-.kpi-mini-value.red { color: var(--red-alert); }
-
-.mini-chart {
-  width: 100%; height: 80px;
-  border: 1px solid var(--border-glass);
-  border-radius: 2px; background: rgba(255,255,255,0.02);
-  position: relative; overflow: hidden;
-}
-
-.mini-chart svg { width: 100%; height: 100%; }
-
-.why-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
-
-.why-item {
-  display: flex; align-items: flex-start; gap: 1.2rem;
-  padding: 1.2rem;
-  border: 1px solid var(--border-glass);
-  border-radius: 2px; background: var(--bg-card);
-  transition: all 0.3s ease;
-}
-
-.why-item:hover {
-  border-color: var(--border-gold);
-  background: var(--bg-glass);
-  transform: translateX(-8px);
-}
-
-.why-bullet {
-  width: 32px; height: 32px; min-width: 32px;
-  border: 1px solid var(--gold-dim);
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: var(--gold);
-  background: rgba(212,175,55,0.08);
-}
-
-.why-text-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
-.why-text-desc { font-size: 0.85rem; color: var(--text-secondary); }
+.why-text-title{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.why-text-desc{font-size:.85rem;color:var(--text-secondary)}
 
 /* ── MODULES ─────────────────────────────────────── */
-.modules-section { background: var(--bg-void); }
-
-.modules-header { text-align: center; max-width: 700px; margin: 0 auto 5rem; }
-
-.modules-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  border: 1px solid var(--border-glass);
-  background: var(--border-glass);
+.modules-section{background:var(--bg-void)}
+.modules-header{text-align:center;max-width:700px;margin:0 auto 5rem}
+.modules-grid{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;border:1px solid var(--border-glass);background:var(--border-glass);
 }
-
-@media (max-width: 900px) { .modules-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 550px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
-
-.module-cell {
-  background: var(--bg-deep);
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: default;
-  position: relative;
+@media(max-width:900px){.modules-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:550px){.modules-grid{grid-template-columns:repeat(2,1fr)}}
+.module-cell{
+  background:var(--bg-deep);padding:2rem 1.5rem;text-align:center;
+  transition:all 0.3s ease;position:relative;
 }
-
-.module-cell:hover {
-  background: rgba(212,175,55,0.06);
-  z-index: 2;
+.module-cell:hover{background:rgba(212,175,55,.06);z-index:2}
+.module-cell::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;background:var(--gold);transition:width 0.3s ease;
 }
+.module-cell:hover::after{width:60%}
+.module-emoji{font-size:1.8rem;margin-bottom:.8rem;display:block}
+.module-name{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.module-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif}
 
-.module-cell::after {
-  content: '';
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 0; height: 2px;
-  background: var(--gold);
-  transition: width 0.3s ease;
+/* ── TECH ────────────────────────────────────────── */
+.tech-section{background:var(--bg-deep);padding:7rem 2rem}
+.tech-inner{max-width:1100px;margin:0 auto}
+.tech-header{text-align:center;max-width:700px;margin:0 auto 1rem}
+.tech-cols{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:4rem}
+@media(max-width:768px){.tech-cols{grid-template-columns:1fr}}
+.tech-block-title{
+  font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  margin-bottom:1.5rem;font-family:'Inter',sans-serif;
+  padding-bottom:8px;border-bottom:1px solid var(--border-gold);
 }
-
-.module-cell:hover::after { width: 60%; }
-
-.module-emoji { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
-.module-name-ar { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
-.module-name-en {
-  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-dim); font-family: 'Inter', sans-serif;
+.tech-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
+.tech-pill{
+  padding:6px 16px;border:1px solid var(--border-glass);border-radius:2px;
+  font-size:.82rem;color:var(--text-secondary);font-family:'Inter',sans-serif;
+  transition:all 0.3s ease;background:rgba(255,255,255,.02);
 }
-
-/* ── TECH SECTION ─────────────────────────────────── */
-.tech-section {
-  background: var(--bg-deep);
-  padding: 7rem 2rem;
+.tech-pill:hover{border-color:var(--border-gold);color:var(--gold);background:var(--bg-glass)}
+.tech-pill.accent{border-color:var(--border-gold);color:var(--gold)}
+.db-row{
+  display:flex;justify-content:space-between;padding:10px;
+  border:1px solid var(--border-glass);border-radius:2px;font-size:.85rem;margin-bottom:8px;
 }
-
-.tech-inner { max-width: 1100px; margin: 0 auto; }
-
-.tech-cols {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3rem; margin-top: 4rem;
+.db-key{color:var(--text-dim);font-family:'Inter',sans-serif}
+.security-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.sec-item{display:flex;align-items:center;gap:12px;font-size:.9rem;color:var(--text-secondary)}
+.sec-icon{
+  width:20px;height:20px;min-width:20px;border-radius:50%;
+  background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.3);
+  display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--green);
 }
-
-@media (max-width: 768px) { .tech-cols { grid-template-columns: 1fr; } }
-
-.tech-block { }
-
-.tech-block-title {
-  font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 1.5rem;
-  font-family: 'Inter', sans-serif;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-gold);
+.ver-row{
+  display:flex;align-items:center;justify-content:space-between;padding:10px;
+  border:1px solid var(--border-glass);border-radius:2px;font-size:.85rem;margin-bottom:8px;
 }
+.ver-row.latest{border-color:var(--border-gold);background:rgba(212,175,55,.05)}
+.ver-tag{color:var(--gold);font-family:'Inter',sans-serif;font-size:11px}
 
-.tech-stack {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem;
+/* ── QUOTE ───────────────────────────────────────── */
+.arabic-quote{max-width:900px;margin:0 auto;text-align:center;padding:5rem 2rem;position:relative;z-index:1}
+.quote-marks{font-family:'Cinzel',serif!important;font-size:8rem;line-height:.5;color:rgba(212,175,55,.1);margin-bottom:1rem}
+.quote-text{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;line-height:1.6;color:var(--text-primary);margin-bottom:1.5rem}
+.quote-sub{font-size:.9rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-family:'Inter',sans-serif}
+
+/* ── CTA ─────────────────────────────────────────── */
+.cta-section{background:var(--bg-void);text-align:center;padding:8rem 2rem;position:relative;overflow:hidden}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(212,175,55,.08) 0%,transparent 70%);
 }
-
-.tech-pill {
-  padding: 6px 16px;
-  border: 1px solid var(--border-glass);
-  border-radius: 2px;
-  font-size: 0.82rem; color: var(--text-secondary);
-  font-family: 'Inter', sans-serif;
-  transition: all 0.3s ease;
-  background: rgba(255,255,255,0.02);
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-title{
+  font-family:'Cinzel',serif!important;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:1.5rem;
 }
+.cta-desc{font-size:1.05rem;color:var(--text-secondary);line-height:1.9;margin-bottom:3rem}
+.cta-line{width:120px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 3rem}
 
-.tech-pill:hover {
-  border-color: var(--border-gold);
-  color: var(--gold);
-  background: var(--bg-glass);
+/* ── VERSION STRIP + FOOTER ──────────────────────── */
+.version-strip{
+  background:rgba(0,0,0,.6);border-top:1px solid var(--border-glass);
+  padding:1.5rem 2rem;display:flex;align-items:center;justify-content:center;
+  gap:2rem;flex-wrap:wrap;position:relative;z-index:1;
 }
-
-.tech-pill.accent { border-color: var(--border-gold); color: var(--gold); }
-
-.security-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-
-.sec-item {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 0.9rem; color: var(--text-secondary);
-}
-
-.sec-icon {
-  width: 20px; height: 20px; min-width: 20px;
-  border-radius: 50%;
-  background: rgba(0,230,118,0.1);
-  border: 1px solid rgba(0,230,118,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--green-up);
-}
-
-/* ── FINAL CTA ───────────────────────────────────── */
-.cta-section {
-  background: var(--bg-void);
-  text-align: center; padding: 8rem 2rem;
-  position: relative; overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 70%);
-}
-
-.cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
-
-.cta-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1.5rem;
-}
-
-.cta-desc {
-  font-size: 1.05rem; color: var(--text-secondary);
-  line-height: 1.9; margin-bottom: 3rem;
-}
-
-.cta-line {
-  width: 120px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), transparent);
-  margin: 0 auto 3rem;
-}
-
-/* ── VERSION BADGE ──────────────────────────────── */
-.version-strip {
-  background: rgba(0,0,0,0.6);
-  border-top: 1px solid var(--border-glass);
-  padding: 1.5rem 2rem;
-  display: flex; align-items: center; justify-content: center;
-  gap: 2rem; flex-wrap: wrap; position: relative; z-index: 1;
-}
-
-.v-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 11px; font-family: 'Inter', sans-serif;
-  color: var(--text-dim); letter-spacing: 2px;
-}
-
-.v-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green-up);
-  box-shadow: 0 0 8px var(--green-up);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-/* ── FOOTER ──────────────────────────────────────── */
-footer {
-  background: #020204;
-  border-top: 1px solid var(--border-glass);
-  padding: 2rem;
-  text-align: center;
-  position: relative; z-index: 1;
-}
-
-.footer-logo {
-  font-family: 'Cinzel', serif;
-  font-size: 1.5rem; font-weight: 700;
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-}
-
-.footer-sub {
-  font-size: 0.8rem; color: var(--text-dim);
-  letter-spacing: 2px;
-}
-
-/* ── FLOATING NAV ───────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.2rem 3rem;
-  display: flex; align-items: center; justify-content: space-between;
-  transition: all 0.4s ease;
-}
-
-nav.scrolled {
-  background: rgba(5,5,8,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-glass);
-  padding: 0.9rem 3rem;
-}
-
-.nav-logo {
-  font-family: 'Cinzel', serif;
-  font-size: 1.2rem; font-weight: 700;
-  color: var(--gold);
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex; gap: 2.5rem; list-style: none;
-}
-
-.nav-links a {
-  font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-dim); text-decoration: none;
-  font-family: 'Inter', sans-serif;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover { color: var(--gold); }
-
-.nav-version {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-dim); font-family: 'Inter', sans-serif;
-  border: 1px solid var(--border-glass);
-  padding: 4px 12px; border-radius: 2px;
-}
-
-/* ── GLOW LINE ──────────────────────────────────── */
-.glow-line {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold), var(--cyan), var(--gold), transparent);
-  animation: glowMove 4s linear infinite;
-  background-size: 200% 100%;
-}
-
-@keyframes glowMove {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ── ARABIC QUOTE ───────────────────────────────── */
-.arabic-quote {
-  max-width: 900px; margin: 0 auto;
-  text-align: center; padding: 5rem 2rem;
-  position: relative; z-index: 1;
-}
-
-.quote-marks {
-  font-family: 'Cinzel', serif;
-  font-size: 8rem; line-height: 0.5;
-  color: rgba(212,175,55,0.1);
-  margin-bottom: 1rem;
-}
-
-.quote-text {
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  font-weight: 700; line-height: 1.6;
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
-}
-
-.quote-sub {
-  font-size: 0.9rem; color: var(--gold);
-  letter-spacing: 3px; text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
-}
-
-@media (max-width: 600px) {
-  nav { padding: 1rem; }
-  .nav-links { display: none; }
-  .features-grid { grid-template-columns: 1fr; }
-  .modules-grid { grid-template-columns: repeat(2,1fr); }
-}
+.v-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-family:'Inter',sans-serif;color:var(--text-dim);letter-spacing:2px}
+.v-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+footer{background:#020204;border-top:1px solid var(--border-glass);padding:2rem;text-align:center;position:relative;z-index:1}
+.footer-logo{font-family:'Cinzel',serif!important;font-size:1.5rem;font-weight:700;color:var(--gold);margin-bottom:.5rem}
+.footer-sub{font-size:.8rem;color:var(--text-dim);letter-spacing:2px}
 </style>
 </head>
 <body>
 
 <canvas id="canvas-bg"></canvas>
 
-<!-- ── NAV ─────────────────────────────────────── -->
+<!-- ══ NAV ══════════════════════════════════════════ -->
 <nav id="navbar">
-  <a class="nav-logo" href="#">VAS</a>
+  <a class="nav-logo force-cairo" href="#">VAS</a>
   <ul class="nav-links">
-    <li><a href="#features">المميزات</a></li>
-    <li><a href="#modules">الوحدات</a></li>
-    <li><a href="#tech">التقنية</a></li>
-    <li><a href="#cta" class="en">Get Started</a></li>
+    <li><a href="#features" data-i18n="nav.features">المميزات</a></li>
+    <li><a href="#modules" data-i18n="nav.modules">الوحدات</a></li>
+    <li><a href="#tech" data-i18n="nav.tech">التقنية</a></li>
+    <li><a href="#cta" data-i18n="nav.start">ابدأ الآن</a></li>
+    <li>
+      <div class="lang-toggle" role="group" aria-label="Language switcher">
+        <button class="lang-btn active" id="btn-ar" onclick="setLang('ar')" aria-pressed="true">
+          <span class="lang-flag">🇸🇦</span> AR
+        </button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-pressed="false">
+          <span class="lang-flag">🇬🇧</span> EN
+        </button>
+      </div>
+    </li>
   </ul>
-  <span class="nav-version en">v2.4.19</span>
 </nav>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- HERO                                           -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ HERO ══════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-badge">
     <span>⚡</span>
-    <span>نظام ERP محاسبي متكامل</span>
-    <span class="en">Enterprise-Grade</span>
+    <span data-i18n="hero.badge">نظام ERP محاسبي متكامل</span>
+    <span style="opacity:.5">|</span>
+    <span style="font-family:'Inter',sans-serif">Enterprise-Grade</span>
   </div>
-
-  <h1 class="hero-title">VIP ACC SYSTEM</h1>
-  <h2 class="hero-subtitle-ar">نظام المحاسبة الذكي للشركات المحترفة</h2>
-
-  <p class="hero-tagline">
+  <h1 class="hero-title force-cairo">VIP ACC SYSTEM</h1>
+  <h2 class="hero-subtitle" data-i18n="hero.subtitle">نظام المحاسبة الذكي للشركات المحترفة</h2>
+  <p class="hero-tagline" data-i18n="hero.tagline">
     منصة ERP محاسبية متكاملة ومفتوحة المصدر، مُصممة خصيصًا للشركات العربية.<br/>
     تجمع بين قوة الأنظمة العالمية وبساطة الواجهة العربية — بيانات دقيقة، تقارير فورية، وتحكم كامل.
   </p>
-
-  <div class="hero-slogan">دقّة ماليّة</div>
-
+  <div class="hero-slogan force-cairo" data-i18n="hero.slogan">دقّة ماليّة</div>
   <div class="hero-cta-group">
-    <button class="btn-primary">ابدأ الآن مجانًا</button>
-    <button class="btn-outline en">View Documentation →</button>
+    <button class="btn-primary" data-i18n="hero.cta1">ابدأ الآن مجانًا</button>
+    <button class="btn-outline" data-i18n="hero.cta2">استعراض التوثيق ←</button>
   </div>
-
   <div class="scroll-hint">
-    <span class="en">Scroll</span>
+    <span data-i18n="hero.scroll">تمرير</span>
     <div class="scroll-line"></div>
   </div>
 </section>
 
 <div class="glow-line"></div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- STATS BAR                                     -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ STATS ══════════════════════════════════════════ -->
 <div class="stats-bar">
   <div class="stats-grid">
-    <div class="stat-item reveal">
+    <div class="reveal">
       <span class="stat-num" data-target="10">0</span>
-      <div class="stat-label">وحدة ERP متكاملة<br/><span class="en">Integrated Modules</span></div>
+      <div class="stat-label" data-i18n="stats.modules">وحدة ERP متكاملة</div>
     </div>
-    <div class="stat-item reveal">
+    <div class="reveal">
       <span class="stat-num" data-target="70" data-suffix="+">0</span>
-      <div class="stat-label">جدول قاعدة بيانات<br/><span class="en">Database Tables</span></div>
+      <div class="stat-label" data-i18n="stats.tables">جدول قاعدة بيانات</div>
     </div>
-    <div class="stat-item reveal">
+    <div class="reveal">
       <span class="stat-num" data-target="40" data-suffix="+">0</span>
-      <div class="stat-label">لغة مدعومة<br/><span class="en">Languages Supported</span></div>
+      <div class="stat-label" data-i18n="stats.langs">لغة مدعومة</div>
     </div>
-    <div class="stat-item reveal">
+    <div class="reveal">
       <span class="stat-num" data-target="100" data-suffix="%">0</span>
-      <div class="stat-label">دعم العربية RTL<br/><span class="en">Arabic RTL Support</span></div>
+      <div class="stat-label" data-i18n="stats.rtl">دعم العربية RTL</div>
     </div>
-    <div class="stat-item reveal">
+    <div class="reveal">
       <span class="stat-num" data-target="8" data-suffix=".0+">0</span>
-      <div class="stat-label">PHP المتوافقة<br/><span class="en">PHP Version Compat.</span></div>
+      <div class="stat-label" data-i18n="stats.php">PHP المتوافقة</div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- ARABIC QUOTE                                  -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ QUOTE ══════════════════════════════════════════ -->
 <div class="arabic-quote">
-  <div class="quote-marks">"</div>
-  <p class="quote-text reveal">
-    لأن قرارات الأعمال الكبرى تُبنى على أرقام دقيقة —<br/>
-    نحن نمنحك الأرقام، والرؤية، والتحكم الكامل.
+  <div class="quote-marks force-cairo">"</div>
+  <p class="quote-text reveal" data-i18n="quote.text">
+    لأن قرارات الأعمال الكبرى تُبنى على أرقام دقيقة —<br/>نحن نمنحك الأرقام، والرؤية، والتحكم الكامل.
   </p>
-  <p class="quote-sub en reveal">Precision. Clarity. Control.</p>
+  <p class="quote-sub reveal" data-i18n="quote.sub">دقة · وضوح · تحكم</p>
 </div>
 
 <div class="gold-divider"></div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- FEATURES                                      -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ FEATURES ═══════════════════════════════════════ -->
 <section class="features-section" id="features">
   <div class="features-intro reveal">
-    <div class="section-label en">Core Features</div>
-    <h2 class="section-title">كل ما تحتاجه لإدارة أعمالك بالكامل</h2>
-    <p class="section-desc">
-      من الفاتورة الأولى إلى التقرير السنوي — VIPAccSystem يغطي كل دورة مالية بدقة واحترافية.
-    </p>
+    <div class="section-label" data-i18n="features.label">Core Features</div>
+    <h2 class="section-title" data-i18n="features.title">كل ما تحتاجه لإدارة أعمالك بالكامل</h2>
+    <p class="section-desc" data-i18n="features.desc">من الفاتورة الأولى إلى التقرير السنوي — VIPAccSystem يغطي كل دورة مالية بدقة واحترافية.</p>
   </div>
-
   <div class="features-grid">
 
     <div class="feature-card reveal">
       <div class="feature-icon">📊</div>
-      <div class="feature-title">لوحة تحكم ذكية</div>
-      <div class="feature-title-en">Intelligent Dashboard</div>
-      <p class="feature-desc">
-        لوحة بيانات تفاعلية بالوقت الفعلي تعرض KPIs المالية، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين — كل شيء في مكان واحد.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Real-time</span>
-        <span class="tag">Chart.js</span>
-        <span class="tag">RTL Ready</span>
-      </div>
+      <div class="feature-title" data-i18n="f1.title">لوحة تحكم ذكية</div>
+      <div class="feature-en-label">Intelligent Dashboard</div>
+      <p class="feature-desc" data-i18n="f1.desc">لوحة بيانات تفاعلية بالوقت الفعلي تعرض KPIs المالية، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.</p>
+      <div class="feature-tags"><span class="tag">Real-time</span><span class="tag">Chart.js</span><span class="tag">RTL Ready</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">🛒</div>
-      <div class="feature-title">المبيعات والعملاء</div>
-      <div class="feature-title-en">Sales & Receivables</div>
-      <p class="feature-desc">
-        إصدار فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع الذمم المدينة. مع تحليل عمر الديون وتقارير المتأخرات.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">AR Aging</span>
-        <span class="tag">Quotations</span>
-        <span class="tag">Receipts</span>
-      </div>
+      <div class="feature-title" data-i18n="f2.title">المبيعات والعملاء</div>
+      <div class="feature-en-label">Sales & Receivables</div>
+      <p class="feature-desc" data-i18n="f2.desc">إصدار فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع الذمم المدينة مع تحليل عمر الديون.</p>
+      <div class="feature-tags"><span class="tag">AR Aging</span><span class="tag">Quotations</span><span class="tag">Receipts</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">🏪</div>
-      <div class="feature-title">المشتريات والموردين</div>
-      <div class="feature-title-en">Purchasing & Payables</div>
-      <p class="feature-desc">
-        دورة المشتريات الكاملة من أمر الشراء حتى دفع الفاتورة. مطابقة الكميات والأسعار تلقائيًا مع إشعارات تجاوز الحد.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">PO Management</span>
-        <span class="tag">GRN</span>
-        <span class="tag">AP Aging</span>
-      </div>
+      <div class="feature-title" data-i18n="f3.title">المشتريات والموردين</div>
+      <div class="feature-en-label">Purchasing & Payables</div>
+      <p class="feature-desc" data-i18n="f3.desc">دورة المشتريات الكاملة من أمر الشراء حتى دفع الفاتورة، مع مطابقة الكميات والأسعار تلقائيًا.</p>
+      <div class="feature-tags"><span class="tag">PO Management</span><span class="tag">GRN</span><span class="tag">AP Aging</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">📦</div>
-      <div class="feature-title">إدارة المخزون والأصناف</div>
-      <div class="feature-title-en">Inventory Management</div>
-      <p class="feature-desc">
-        تتبع الأصناف والتحركات المخزنية، حساب التكلفة بالمتوسط المرجح، تقارير تقييم المخزون، والتنبيه عند انخفاض المخزون.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">FIFO/Average</span>
-        <span class="tag">Valuation</span>
-        <span class="tag">Categories</span>
-      </div>
+      <div class="feature-title" data-i18n="f4.title">إدارة المخزون والأصناف</div>
+      <div class="feature-en-label">Inventory Management</div>
+      <p class="feature-desc" data-i18n="f4.desc">تتبع الأصناف والتحركات المخزنية، حساب التكلفة بالمتوسط المرجح، وتقارير تقييم المخزون.</p>
+      <div class="feature-tags"><span class="tag">FIFO/Average</span><span class="tag">Valuation</span><span class="tag">Categories</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">📒</div>
-      <div class="feature-title">الأستاذ العام والقيود</div>
-      <div class="feature-title-en">General Ledger</div>
-      <p class="feature-desc">
-        شجرة حسابات مرنة ومتعددة المستويات، قيود اليومية، ميزان المراجعة، بيان الدخل، والميزانية العمومية مع Audit Trail كامل.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Chart of Accounts</span>
-        <span class="tag">Audit Trail</span>
-        <span class="tag">Multi-level</span>
-      </div>
+      <div class="feature-title" data-i18n="f5.title">الأستاذ العام والقيود</div>
+      <div class="feature-en-label">General Ledger</div>
+      <p class="feature-desc" data-i18n="f5.desc">شجرة حسابات مرنة متعددة المستويات، قيود اليومية، ميزان المراجعة، والميزانية العمومية مع Audit Trail كامل.</p>
+      <div class="feature-tags"><span class="tag">Chart of Accounts</span><span class="tag">Audit Trail</span><span class="tag">Multi-level</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">🏦</div>
-      <div class="feature-title">البنوك والتسوية</div>
-      <div class="feature-title-en">Banking & Reconciliation</div>
-      <p class="feature-desc">
-        إدارة الحسابات البنكية المتعددة، تسجيل العمليات، التسوية مع كشف الحساب، وعرض الوضع النقدي اللحظي.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Multi-bank</span>
-        <span class="tag">Reconciliation</span>
-        <span class="tag">Cash Position</span>
-      </div>
+      <div class="feature-title" data-i18n="f6.title">البنوك والتسوية</div>
+      <div class="feature-en-label">Banking & Reconciliation</div>
+      <p class="feature-desc" data-i18n="f6.desc">إدارة الحسابات البنكية المتعددة، تسجيل العمليات، التسوية مع كشف الحساب، وعرض الوضع النقدي اللحظي.</p>
+      <div class="feature-tags"><span class="tag">Multi-bank</span><span class="tag">Reconciliation</span><span class="tag">Cash Position</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">🏭</div>
-      <div class="feature-title">التصنيع وقوائم المواد</div>
-      <div class="feature-title-en">Manufacturing & BOM</div>
-      <p class="feature-desc">
-        إدارة قوائم المواد (BOM)، أوامر الإنتاج، تتبع التكاليف الفعلية للتصنيع، وتحديث المخزون تلقائيًا عند الإنتاج.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">BOM</span>
-        <span class="tag">Work Orders</span>
-        <span class="tag">Cost Tracking</span>
-      </div>
+      <div class="feature-title" data-i18n="f7.title">التصنيع وقوائم المواد</div>
+      <div class="feature-en-label">Manufacturing & BOM</div>
+      <p class="feature-desc" data-i18n="f7.desc">إدارة قوائم المواد (BOM)، أوامر الإنتاج، تتبع التكاليف الفعلية، وتحديث المخزون تلقائيًا عند الإنتاج.</p>
+      <div class="feature-tags"><span class="tag">BOM</span><span class="tag">Work Orders</span><span class="tag">Cost Tracking</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">📐</div>
-      <div class="feature-title">الأبعاد ومراكز التكلفة</div>
-      <div class="feature-title-en">Dimensions & Cost Centers</div>
-      <p class="feature-desc">
-        تقسيم النتائج المالية على مراكز التكلفة والربح والمشاريع. تحليل الأداء لكل بُعد على حدة مع تقارير مقارنة.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Profit Centers</span>
-        <span class="tag">Projects</span>
-        <span class="tag">Analytics</span>
-      </div>
+      <div class="feature-title" data-i18n="f8.title">الأبعاد ومراكز التكلفة</div>
+      <div class="feature-en-label">Dimensions & Cost Centers</div>
+      <p class="feature-desc" data-i18n="f8.desc">تقسيم النتائج المالية على مراكز التكلفة والربح والمشاريع، مع تحليل الأداء لكل بُعد على حدة.</p>
+      <div class="feature-tags"><span class="tag">Profit Centers</span><span class="tag">Projects</span><span class="tag">Analytics</span></div>
     </div>
 
     <div class="feature-card reveal">
       <div class="feature-icon">🏗️</div>
-      <div class="feature-title">الأصول الثابتة</div>
-      <div class="feature-title-en">Fixed Assets</div>
-      <p class="feature-desc">
-        سجل الأصول الثابتة، حساب الاستهلاك التلقائي، تتبع القيمة الدفترية، وقيود الاستهلاك الدورية الآلية.
-      </p>
-      <div class="feature-tags">
-        <span class="tag">Depreciation</span>
-        <span class="tag">Asset Register</span>
-        <span class="tag">Auto-GL</span>
-      </div>
+      <div class="feature-title" data-i18n="f9.title">الأصول الثابتة</div>
+      <div class="feature-en-label">Fixed Assets</div>
+      <p class="feature-desc" data-i18n="f9.desc">سجل الأصول الثابتة، حساب الاستهلاك التلقائي، تتبع القيمة الدفترية، وقيود الاستهلاك الدورية الآلية.</p>
+      <div class="feature-tags"><span class="tag">Depreciation</span><span class="tag">Asset Register</span><span class="tag">Auto-GL</span></div>
     </div>
 
   </div>
@@ -986,364 +567,365 @@ nav.scrolled {
 
 <div class="gold-divider"></div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- WHY SECTION                                   -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ WHY ════════════════════════════════════════════ -->
 <section class="why-section">
   <div class="why-grid">
     <div class="why-visual reveal-right">
       <div class="why-visual-inner">
         <div class="kpi-row">
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Revenue MTD</div>
-            <div class="kpi-mini-value cyan" id="kpi1">USD 0</div>
-          </div>
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Net Profit</div>
-            <div class="kpi-mini-value green" id="kpi2">USD 0</div>
-          </div>
+          <div class="kpi-mini"><div class="kpi-mini-label">Revenue MTD</div><div class="kpi-mini-value cyan" id="kpi1">USD 0</div></div>
+          <div class="kpi-mini"><div class="kpi-mini-label">Net Profit</div><div class="kpi-mini-value green" id="kpi2">USD 0</div></div>
         </div>
         <div class="kpi-row">
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Payables</div>
-            <div class="kpi-mini-value red" id="kpi3">USD 0</div>
-          </div>
-          <div class="kpi-mini">
-            <div class="kpi-mini-label">Receivables</div>
-            <div class="kpi-mini-value gold" id="kpi4">USD 0</div>
-          </div>
+          <div class="kpi-mini"><div class="kpi-mini-label">Payables</div><div class="kpi-mini-value red" id="kpi3">USD 0</div></div>
+          <div class="kpi-mini"><div class="kpi-mini-label">Receivables</div><div class="kpi-mini-value gold" id="kpi4">USD 0</div></div>
         </div>
         <div class="mini-chart">
           <svg viewBox="0 0 300 80" preserveAspectRatio="none">
             <defs>
-              <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/>
                 <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
               </linearGradient>
             </defs>
-            <path d="M0,70 L30,60 L60,45 L90,50 L120,30 L150,40 L180,20 L210,25 L240,10 L270,15 L300,5 L300,80 L0,80Z" fill="url(#lineGrad)"/>
+            <path d="M0,70 L30,60 L60,45 L90,50 L120,30 L150,40 L180,20 L210,25 L240,10 L270,15 L300,5 L300,80 L0,80Z" fill="url(#lg1)"/>
             <path d="M0,70 L30,60 L60,45 L90,50 L120,30 L150,40 L180,20 L210,25 L240,10 L270,15 L300,5" fill="none" stroke="#D4AF37" stroke-width="2"/>
             <path d="M0,75 L30,70 L60,65 L90,68 L120,55 L150,60 L180,50 L210,52 L240,45 L270,48 L300,42" fill="none" stroke="#FF4D4D" stroke-width="1.5" stroke-dasharray="4,3"/>
           </svg>
         </div>
-        <div class="kpi-row" style="font-size:10px; color: var(--text-dim); justify-content:center; gap:1.5rem; font-family:'Inter',sans-serif; letter-spacing:1px; text-transform:uppercase;">
-          <span style="color:var(--gold)">■ Revenues</span>
-          <span style="color:var(--red-alert)">■ Expenses</span>
+        <div style="font-size:9px;color:var(--text-dim);display:flex;gap:1.5rem;font-family:'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase;">
+          <span style="color:var(--gold)">■ <span data-i18n="kpi.revenue">الإيرادات</span></span>
+          <span style="color:var(--red)">■ <span data-i18n="kpi.expenses">المصروفات</span></span>
         </div>
       </div>
-      <div style="position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); font-family:'Inter',sans-serif;">Live Dashboard Preview</div>
+      <div style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);font-family:'Inter',sans-serif;white-space:nowrap" data-i18n="kpi.preview">Live Dashboard Preview</div>
     </div>
 
     <div class="reveal-left">
-      <div class="section-label en">Why VIPAccSystem?</div>
-      <h2 class="section-title">لماذا يختار المحترفون VIPAccSystem؟</h2>
-      <p class="section-desc">
-        لم نبنِ مجرد برنامج محاسبة — بنينا أداةً تمنح صاحب القرار رؤية 360° على أعماله في لحظة.
-      </p>
-
+      <div class="section-label" data-i18n="why.label">Why VIPAccSystem?</div>
+      <h2 class="section-title" data-i18n="why.title">لماذا يختار المحترفون VIPAccSystem؟</h2>
+      <p class="section-desc" data-i18n="why.desc">لم نبنِ مجرد برنامج محاسبة — بنينا أداةً تمنح صاحب القرار رؤية 360° على أعماله في لحظة.</p>
       <ul class="why-list">
-        <li class="why-item">
-          <div class="why-bullet">🌍</div>
-          <div>
-            <div class="why-text-title">ثنائية اللغة بالكامل — عربي وإنجليزي</div>
-            <div class="why-text-desc">دعم RTL أصيل مع ترميز UTF-8 الكامل، وقوائم وتقارير وفواتير باللغتين.</div>
-          </div>
-        </li>
-        <li class="why-item">
-          <div class="why-bullet">⚡</div>
-          <div>
-            <div class="why-text-title">أداء عالٍ — قاعدة بيانات محسّنة</div>
-            <div class="why-text-desc">InnoDB + utf8mb4_unicode_ci مع بادئة جداول قابلة للتخصيص لأداء وأمان أعلى.</div>
-          </div>
-        </li>
-        <li class="why-item">
-          <div class="why-bullet">🔐</div>
-          <div>
-            <div class="why-text-title">أمان متعدد الطبقات</div>
-            <div class="why-text-desc">حماية Brute Force، Audit Trail، تحقق من الأسعار والكميات، وصلاحيات قائمة على الأدوار.</div>
-          </div>
-        </li>
-        <li class="why-item">
-          <div class="why-bullet">🔌</div>
-          <div>
-            <div class="why-text-title">قابل للتوسع — نظام الإضافات</div>
-            <div class="why-text-desc">Extension Manager يتيح إضافة وحدات مخصصة دون المساس بالكود الأصلي.</div>
-          </div>
-        </li>
-        <li class="why-item">
-          <div class="why-bullet">🆓</div>
-          <div>
-            <div class="why-text-title">مفتوح المصدر — GPL v3</div>
-            <div class="why-text-desc">ملكيتك الكاملة. لا رسوم ترخيص شهرية، لا قيود على عدد المستخدمين، لا بيانات في السحابة إجباريًا.</div>
-          </div>
-        </li>
+        <li class="why-item"><div class="why-bullet">🌍</div><div><div class="why-text-title" data-i18n="why1.t">ثنائية اللغة بالكامل — عربي وإنجليزي</div><div class="why-text-desc" data-i18n="why1.d">دعم RTL أصيل مع ترميز UTF-8 الكامل، وقوائم وتقارير وفواتير باللغتين.</div></div></li>
+        <li class="why-item"><div class="why-bullet">⚡</div><div><div class="why-text-title" data-i18n="why2.t">أداء عالٍ — قاعدة بيانات محسّنة</div><div class="why-text-desc" data-i18n="why2.d">InnoDB + utf8mb4_unicode_ci مع بادئة جداول قابلة للتخصيص لأداء وأمان أعلى.</div></div></li>
+        <li class="why-item"><div class="why-bullet">🔐</div><div><div class="why-text-title" data-i18n="why3.t">أمان متعدد الطبقات</div><div class="why-text-desc" data-i18n="why3.d">حماية Brute Force، Audit Trail، تحقق من الأسعار والكميات، وصلاحيات قائمة على الأدوار.</div></div></li>
+        <li class="why-item"><div class="why-bullet">🔌</div><div><div class="why-text-title" data-i18n="why4.t">قابل للتوسع — نظام الإضافات</div><div class="why-text-desc" data-i18n="why4.d">Extension Manager يتيح إضافة وحدات مخصصة دون المساس بالكود الأصلي.</div></div></li>
+        <li class="why-item"><div class="why-bullet">🆓</div><div><div class="why-text-title" data-i18n="why5.t">مفتوح المصدر — GPL v3</div><div class="why-text-desc" data-i18n="why5.d">ملكيتك الكاملة. لا رسوم ترخيص شهرية، لا قيود على المستخدمين، لا سحابة إجبارية.</div></div></li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- MODULES GRID                                  -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ MODULES ════════════════════════════════════════ -->
 <section class="modules-section" id="modules">
   <div class="modules-header reveal">
-    <div class="section-label en">All Modules</div>
-    <h2 class="section-title">١٠ وحدات — نظام واحد متكامل</h2>
-    <p class="section-desc" style="margin:0 auto;">كل وحدة تعمل باستقلالية أو مدمجة مع الأخريات في تدفق مالي موحّد ومتكامل.</p>
+    <div class="section-label" data-i18n="mods.label">All Modules</div>
+    <h2 class="section-title" data-i18n="mods.title">١٠ وحدات — نظام واحد متكامل</h2>
+    <p class="section-desc" style="margin:0 auto" data-i18n="mods.desc">كل وحدة تعمل باستقلالية أو مدمجة مع الأخريات في تدفق مالي موحّد.</p>
   </div>
-
   <div class="modules-grid reveal">
-    <div class="module-cell"><span class="module-emoji">🛒</span><div class="module-name-ar">المبيعات</div><div class="module-name-en">Sales</div></div>
-    <div class="module-cell"><span class="module-emoji">🏪</span><div class="module-name-ar">المشتريات</div><div class="module-name-en">Purchases</div></div>
-    <div class="module-cell"><span class="module-emoji">📦</span><div class="module-name-ar">المخزون</div><div class="module-name-en">Inventory</div></div>
-    <div class="module-cell"><span class="module-emoji">🏭</span><div class="module-name-ar">التصنيع</div><div class="module-name-en">Manufacturing</div></div>
-    <div class="module-cell"><span class="module-emoji">📐</span><div class="module-name-ar">الأبعاد</div><div class="module-name-en">Dimensions</div></div>
-    <div class="module-cell"><span class="module-emoji">📒</span><div class="module-name-ar">الأستاذ العام</div><div class="module-name-en">General Ledger</div></div>
-    <div class="module-cell"><span class="module-emoji">🏦</span><div class="module-name-ar">البنوك</div><div class="module-name-en">Banking</div></div>
-    <div class="module-cell"><span class="module-emoji">⚖️</span><div class="module-name-ar">ميزان المراجعة</div><div class="module-name-en">Trial Balance</div></div>
-    <div class="module-cell"><span class="module-emoji">🏗️</span><div class="module-name-ar">الأصول الثابتة</div><div class="module-name-en">Fixed Assets</div></div>
-    <div class="module-cell"><span class="module-emoji">⚙️</span><div class="module-name-ar">الإعدادات</div><div class="module-name-en">Setup</div></div>
+    <div class="module-cell"><span class="module-emoji">🛒</span><div class="module-name" data-i18n="m1">المبيعات</div><div class="module-sub">Sales</div></div>
+    <div class="module-cell"><span class="module-emoji">🏪</span><div class="module-name" data-i18n="m2">المشتريات</div><div class="module-sub">Purchases</div></div>
+    <div class="module-cell"><span class="module-emoji">📦</span><div class="module-name" data-i18n="m3">المخزون</div><div class="module-sub">Inventory</div></div>
+    <div class="module-cell"><span class="module-emoji">🏭</span><div class="module-name" data-i18n="m4">التصنيع</div><div class="module-sub">Manufacturing</div></div>
+    <div class="module-cell"><span class="module-emoji">📐</span><div class="module-name" data-i18n="m5">الأبعاد</div><div class="module-sub">Dimensions</div></div>
+    <div class="module-cell"><span class="module-emoji">📒</span><div class="module-name" data-i18n="m6">الأستاذ العام</div><div class="module-sub">General Ledger</div></div>
+    <div class="module-cell"><span class="module-emoji">🏦</span><div class="module-name" data-i18n="m7">البنوك</div><div class="module-sub">Banking</div></div>
+    <div class="module-cell"><span class="module-emoji">⚖️</span><div class="module-name" data-i18n="m8">ميزان المراجعة</div><div class="module-sub">Trial Balance</div></div>
+    <div class="module-cell"><span class="module-emoji">🏗️</span><div class="module-name" data-i18n="m9">الأصول الثابتة</div><div class="module-sub">Fixed Assets</div></div>
+    <div class="module-cell"><span class="module-emoji">⚙️</span><div class="module-name" data-i18n="m10">الإعدادات</div><div class="module-sub">Setup</div></div>
   </div>
 </section>
 
 <div class="gold-divider"></div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- TECH SECTION                                  -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ TECH ════════════════════════════════════════════ -->
 <section class="tech-section" id="tech">
   <div class="tech-inner">
-    <div class="reveal" style="text-align:center; max-width:700px; margin:0 auto 1rem;">
-      <div class="section-label en">Technology Stack</div>
-      <h2 class="section-title">بُني على أساس تقني راسخ</h2>
+    <div class="tech-header reveal">
+      <div class="section-label" data-i18n="tech.label">Technology Stack</div>
+      <h2 class="section-title" data-i18n="tech.title">بُني على أساس تقني راسخ</h2>
     </div>
-
     <div class="tech-cols">
-      <div class="tech-block reveal-left">
-        <div class="tech-block-title">Stack المستخدم</div>
+      <div class="reveal-left">
+        <div class="tech-block-title" data-i18n="tech.stack">Stack المستخدم</div>
         <div class="tech-stack">
-          <span class="tech-pill accent">PHP 8.2+</span>
-          <span class="tech-pill accent">MySQL 8.0</span>
-          <span class="tech-pill accent">Apache 2.4</span>
-          <span class="tech-pill">Chart.js</span>
-          <span class="tech-pill">TCPDF</span>
-          <span class="tech-pill">MySQLi</span>
-          <span class="tech-pill">InnoDB</span>
-          <span class="tech-pill">UTF-8 / RTL</span>
-          <span class="tech-pill">Session Auth</span>
-          <span class="tech-pill">RBAC</span>
-          <span class="tech-pill">GPL v3</span>
+          <span class="tech-pill accent">PHP 8.2+</span><span class="tech-pill accent">MySQL 8.0</span>
+          <span class="tech-pill accent">Apache 2.4</span><span class="tech-pill">Chart.js</span>
+          <span class="tech-pill">TCPDF</span><span class="tech-pill">MySQLi</span>
+          <span class="tech-pill">InnoDB</span><span class="tech-pill">UTF-8 / RTL</span>
+          <span class="tech-pill">Session Auth</span><span class="tech-pill">RBAC</span><span class="tech-pill">GPL v3</span>
         </div>
-
-        <div class="tech-block-title" style="margin-top:2rem;">مواصفات قاعدة البيانات</div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div style="display:flex; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif;">Database Engine</span>
-            <span style="color:var(--gold);">InnoDB</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif;">Collation</span>
-            <span style="color:var(--cyan);">utf8mb4_unicode_ci</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif;">Table Prefix</span>
-            <span style="color:var(--text-primary);">0_</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif;">Tables Count</span>
-            <span style="color:var(--green-up);">70+</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif;">Schema Version</span>
-            <span style="color:var(--gold);">2.4.1</span>
-          </div>
-        </div>
+        <div class="tech-block-title" style="margin-top:2rem" data-i18n="tech.db">مواصفات قاعدة البيانات</div>
+        <div class="db-row"><span class="db-key">Database Engine</span><span style="color:var(--gold)">InnoDB</span></div>
+        <div class="db-row"><span class="db-key">Collation</span><span style="color:var(--cyan)">utf8mb4_unicode_ci</span></div>
+        <div class="db-row"><span class="db-key">Table Prefix</span><span>0_</span></div>
+        <div class="db-row"><span class="db-key">Tables Count</span><span style="color:var(--green)">70+</span></div>
+        <div class="db-row"><span class="db-key">Schema Version</span><span style="color:var(--gold)">2.4.1</span></div>
       </div>
-
-      <div class="tech-block reveal-right">
-        <div class="tech-block-title">الأمان والحماية</div>
+      <div class="reveal-right">
+        <div class="tech-block-title" data-i18n="tech.sec">الأمان والحماية</div>
         <ul class="security-list">
-          <li class="sec-item"><div class="sec-icon">✓</div>حماية Brute Force — 30 ثانية بين المحاولات</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>منع حقن path_to_root في URL</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>استعلامات MySQLi آمنة ضد SQL Injection</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>Audit Trail كامل على جميع قيود GL</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>نظام صلاحيات قائم على الأدوار RBAC</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>حماية المجلدات بـ .htaccess</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>تسجيل الأخطاء في ملف منفصل</li>
-          <li class="sec-item"><div class="sec-icon">✓</div>التحقق من الأسعار والكميات في المشتريات</li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec1">حماية Brute Force — 30 ثانية بين المحاولات</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec2">منع حقن path_to_root في URL</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec3">استعلامات MySQLi آمنة ضد SQL Injection</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec4">Audit Trail كامل على جميع قيود GL</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec5">نظام صلاحيات قائم على الأدوار RBAC</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec6">حماية المجلدات بـ .htaccess</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec7">تسجيل الأخطاء في ملف منفصل</span></li>
+          <li class="sec-item"><div class="sec-icon">✓</div><span data-i18n="sec8">التحقق من الأسعار والكميات في المشتريات</span></li>
         </ul>
-
-        <div class="tech-block-title" style="margin-top:2.5rem;">الإصدارات</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border-gold); border-radius:2px; background:rgba(212,175,55,0.05); font-size:0.85rem;">
-            <span style="font-weight:700;">v2.4.19</span>
-            <span style="color:var(--gold); font-family:'Inter',sans-serif; font-size:11px;">Nov 2025 — LATEST</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span>v2.4.18</span>
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif; font-size:11px;">Apr 2024</span>
-          </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border-glass); border-radius:2px; font-size:0.85rem;">
-            <span>v2.4.x</span>
-            <span style="color:var(--text-dim); font-family:'Inter',sans-serif; font-size:11px;">Ongoing maintenance</span>
-          </div>
-        </div>
+        <div class="tech-block-title" style="margin-top:2.5rem" data-i18n="tech.versions">الإصدارات</div>
+        <div class="ver-row latest"><span style="font-weight:700">v2.4.19</span><span class="ver-tag">Nov 2025 — LATEST</span></div>
+        <div class="ver-row"><span>v2.4.18</span><span style="color:var(--text-dim);font-family:'Inter',sans-serif;font-size:11px">Apr 2024</span></div>
+        <div class="ver-row"><span>v2.4.x</span><span style="color:var(--text-dim);font-family:'Inter',sans-serif;font-size:11px" data-i18n="tech.ongoing">صيانة مستمرة</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- CTA                                           -->
-<!-- ══════════════════════════════════════════════ -->
+<!-- ══ CTA ════════════════════════════════════════════ -->
 <section class="cta-section" id="cta">
   <div class="cta-inner">
     <div class="reveal">
-      <div class="section-label en" style="display:block; text-align:center; margin-bottom:2rem;">Get Started Today</div>
-      <h2 class="cta-title">ابدأ رحلة الدقة المالية اليوم</h2>
+      <div class="section-label" style="display:block;text-align:center;margin-bottom:2rem" data-i18n="cta.label">Get Started Today</div>
+      <h2 class="cta-title" data-i18n="cta.title">ابدأ رحلة الدقة المالية اليوم</h2>
       <div class="cta-line"></div>
-      <p class="cta-desc">
-        انضم إلى آلاف الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية.<br/>
-        مفتوح المصدر. مجاني. قابل للتخصيص الكامل.
-      </p>
+      <p class="cta-desc" data-i18n="cta.desc">انضم إلى آلاف الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.</p>
       <div class="hero-cta-group">
-        <button class="btn-primary">تحميل النظام مجانًا</button>
-        <button class="btn-outline en">vipaccsystem.com →</button>
+        <button class="btn-primary" data-i18n="cta.btn1">تحميل النظام مجانًا</button>
+        <button class="btn-outline" data-i18n="cta.btn2">vipaccsystem.com ←</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VERSION STRIP -->
 <div class="version-strip">
-  <div class="v-badge"><div class="v-dot"></div>ACTIVE DEVELOPMENT</div>
+  <div class="v-badge"><div class="v-dot"></div><span data-i18n="vs.dev">ACTIVE DEVELOPMENT</span></div>
   <div class="v-badge">VERSION 2.4.19</div>
   <div class="v-badge">DB SCHEMA 2.4.1</div>
   <div class="v-badge">GPL v3 OPEN SOURCE</div>
-  <div class="v-badge">دقّة ماليّة</div>
+  <div class="v-badge force-cairo" style="color:var(--gold);font-size:13px">دقّة ماليّة</div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">VIP ACC SYSTEM</div>
-  <div class="footer-sub">دقّة ماليّة &nbsp;|&nbsp; Financial Precision &nbsp;|&nbsp; vipaccsystem.com</div>
+  <div class="footer-logo force-cairo">VIP ACC SYSTEM</div>
+  <div class="footer-sub" data-i18n="footer.sub">دقّة ماليّة &nbsp;|&nbsp; Financial Precision &nbsp;|&nbsp; vipaccsystem.com</div>
 </footer>
 
+<!-- ════════════════════════════════════════════════════
+     JAVASCRIPT — i18n + Animations
+═════════════════════════════════════════════════════ -->
 <script>
-/* ── CANVAS PARTICLES ─────────────────────────── */
+/* ══ TRANSLATIONS ══════════════════════════════════ */
+const T = {
+  ar: {
+    "nav.features":"المميزات","nav.modules":"الوحدات","nav.tech":"التقنية","nav.start":"ابدأ الآن",
+    "hero.badge":"نظام ERP محاسبي متكامل",
+    "hero.subtitle":"نظام المحاسبة الذكي للشركات المحترفة",
+    "hero.tagline":"منصة ERP محاسبية متكاملة ومفتوحة المصدر، مُصممة خصيصًا للشركات العربية.<br/>تجمع بين قوة الأنظمة العالمية وبساطة الواجهة العربية — بيانات دقيقة، تقارير فورية، وتحكم كامل.",
+    "hero.slogan":"دقّة ماليّة","hero.cta1":"ابدأ الآن مجانًا","hero.cta2":"استعراض التوثيق ←","hero.scroll":"تمرير",
+    "stats.modules":"وحدة ERP متكاملة","stats.tables":"جدول قاعدة بيانات","stats.langs":"لغة مدعومة","stats.rtl":"دعم العربية RTL","stats.php":"PHP المتوافقة",
+    "quote.text":"لأن قرارات الأعمال الكبرى تُبنى على أرقام دقيقة —<br/>نحن نمنحك الأرقام، والرؤية، والتحكم الكامل.",
+    "quote.sub":"دقة · وضوح · تحكم",
+    "features.label":"المميزات الأساسية","features.title":"كل ما تحتاجه لإدارة أعمالك بالكامل",
+    "features.desc":"من الفاتورة الأولى إلى التقرير السنوي — VIPAccSystem يغطي كل دورة مالية بدقة واحترافية.",
+    "f1.title":"لوحة تحكم ذكية","f1.desc":"لوحة بيانات تفاعلية بالوقت الفعلي تعرض KPIs المالية، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.",
+    "f2.title":"المبيعات والعملاء","f2.desc":"إصدار فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع الذمم المدينة مع تحليل عمر الديون.",
+    "f3.title":"المشتريات والموردين","f3.desc":"دورة المشتريات الكاملة من أمر الشراء حتى دفع الفاتورة، مع مطابقة الكميات والأسعار تلقائيًا.",
+    "f4.title":"إدارة المخزون والأصناف","f4.desc":"تتبع الأصناف والتحركات المخزنية، حساب التكلفة بالمتوسط المرجح، وتقارير تقييم المخزون.",
+    "f5.title":"الأستاذ العام والقيود","f5.desc":"شجرة حسابات مرنة متعددة المستويات، قيود اليومية، ميزان المراجعة، والميزانية العمومية مع Audit Trail كامل.",
+    "f6.title":"البنوك والتسوية","f6.desc":"إدارة الحسابات البنكية المتعددة، تسجيل العمليات، التسوية مع كشف الحساب، وعرض الوضع النقدي اللحظي.",
+    "f7.title":"التصنيع وقوائم المواد","f7.desc":"إدارة قوائم المواد (BOM)، أوامر الإنتاج، تتبع التكاليف الفعلية، وتحديث المخزون تلقائيًا عند الإنتاج.",
+    "f8.title":"الأبعاد ومراكز التكلفة","f8.desc":"تقسيم النتائج المالية على مراكز التكلفة والربح والمشاريع، مع تحليل الأداء لكل بُعد على حدة.",
+    "f9.title":"الأصول الثابتة","f9.desc":"سجل الأصول الثابتة، حساب الاستهلاك التلقائي، تتبع القيمة الدفترية، وقيود الاستهلاك الدورية الآلية.",
+    "kpi.revenue":"الإيرادات","kpi.expenses":"المصروفات","kpi.preview":"معاينة اللوحة الحية",
+    "why.label":"لماذا VIPAccSystem؟","why.title":"لماذا يختار المحترفون VIPAccSystem؟",
+    "why.desc":"لم نبنِ مجرد برنامج محاسبة — بنينا أداةً تمنح صاحب القرار رؤية 360° على أعماله في لحظة.",
+    "why1.t":"ثنائية اللغة بالكامل — عربي وإنجليزي","why1.d":"دعم RTL أصيل مع ترميز UTF-8 الكامل، وقوائم وتقارير وفواتير باللغتين.",
+    "why2.t":"أداء عالٍ — قاعدة بيانات محسّنة","why2.d":"InnoDB + utf8mb4_unicode_ci مع بادئة جداول قابلة للتخصيص لأداء وأمان أعلى.",
+    "why3.t":"أمان متعدد الطبقات","why3.d":"حماية Brute Force، Audit Trail، تحقق من الأسعار والكميات، وصلاحيات قائمة على الأدوار.",
+    "why4.t":"قابل للتوسع — نظام الإضافات","why4.d":"Extension Manager يتيح إضافة وحدات مخصصة دون المساس بالكود الأصلي.",
+    "why5.t":"مفتوح المصدر — GPL v3","why5.d":"ملكيتك الكاملة. لا رسوم ترخيص شهرية، لا قيود على المستخدمين، لا سحابة إجبارية.",
+    "mods.label":"جميع الوحدات","mods.title":"١٠ وحدات — نظام واحد متكامل","mods.desc":"كل وحدة تعمل باستقلالية أو مدمجة مع الأخريات في تدفق مالي موحّد.",
+    "m1":"المبيعات","m2":"المشتريات","m3":"المخزون","m4":"التصنيع","m5":"الأبعاد",
+    "m6":"الأستاذ العام","m7":"البنوك","m8":"ميزان المراجعة","m9":"الأصول الثابتة","m10":"الإعدادات",
+    "tech.label":"التقنية المستخدمة","tech.title":"بُني على أساس تقني راسخ","tech.stack":"Stack المستخدم",
+    "tech.db":"مواصفات قاعدة البيانات","tech.sec":"الأمان والحماية","tech.versions":"الإصدارات","tech.ongoing":"صيانة مستمرة",
+    "sec1":"حماية Brute Force — 30 ثانية بين المحاولات","sec2":"منع حقن path_to_root في URL",
+    "sec3":"استعلامات MySQLi آمنة ضد SQL Injection","sec4":"Audit Trail كامل على جميع قيود GL",
+    "sec5":"نظام صلاحيات قائم على الأدوار RBAC","sec6":"حماية المجلدات بـ .htaccess",
+    "sec7":"تسجيل الأخطاء في ملف منفصل","sec8":"التحقق من الأسعار والكميات في المشتريات",
+    "cta.label":"ابدأ اليوم","cta.title":"ابدأ رحلة الدقة المالية اليوم",
+    "cta.desc":"انضم إلى آلاف الشركات التي تثق في VIPAccSystem لإدارة أعمالها المالية.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.",
+    "cta.btn1":"تحميل النظام مجانًا","cta.btn2":"vipaccsystem.com ←",
+    "vs.dev":"قيد التطوير الفعال",
+    "footer.sub":"دقّة ماليّة &nbsp;|&nbsp; Financial Precision &nbsp;|&nbsp; vipaccsystem.com"
+  },
+  en: {
+    "nav.features":"Features","nav.modules":"Modules","nav.tech":"Technology","nav.start":"Get Started",
+    "hero.badge":"Integrated ERP Accounting System",
+    "hero.subtitle":"The Smart Accounting System for Professional Businesses",
+    "hero.tagline":"A comprehensive, open-source ERP platform purpose-built for Arabic-speaking enterprises.<br/>Combining global-grade power with seamless bilingual UX — precise data, real-time reports, full control.",
+    "hero.slogan":"Financial Precision","hero.cta1":"Start Free Now","hero.cta2":"View Documentation →","hero.scroll":"Scroll",
+    "stats.modules":"Integrated ERP Modules","stats.tables":"Database Tables","stats.langs":"Languages Supported","stats.rtl":"Arabic RTL Support","stats.php":"PHP Compatibility",
+    "quote.text":"Because major business decisions are built on accurate numbers —<br/>we give you the numbers, the vision, and complete control.",
+    "quote.sub":"Precision · Clarity · Control",
+    "features.label":"Core Features","features.title":"Everything You Need to Run Your Business",
+    "features.desc":"From the first invoice to the annual report — VIPAccSystem covers every financial cycle with accuracy and professionalism.",
+    "f1.title":"Intelligent Dashboard","f1.desc":"Real-time interactive dashboard showing financial KPIs, revenue & expense charts, cash flow analysis, and AR aging — all in one place.",
+    "f2.title":"Sales & Receivables","f2.desc":"Issue sales invoices, quotations, sales orders, collect payments, and track AR with full aging analysis and overdue alerts.",
+    "f3.title":"Purchasing & Payables","f3.desc":"Full procurement cycle from purchase order to invoice payment, with automatic quantity and price validation.",
+    "f4.title":"Inventory Management","f4.desc":"Track items and stock movements, weighted-average costing, inventory valuation reports, and low-stock alerts.",
+    "f5.title":"General Ledger","f5.desc":"Flexible multi-level chart of accounts, journal entries, trial balance, income statement, and balance sheet with full audit trail.",
+    "f6.title":"Banking & Reconciliation","f6.desc":"Manage multiple bank accounts, record transactions, reconcile with statements, and view real-time cash position.",
+    "f7.title":"Manufacturing & BOM","f7.desc":"Manage bills of materials, production orders, actual cost tracking, and automatic inventory updates upon production.",
+    "f8.title":"Dimensions & Cost Centers","f8.desc":"Allocate financial results across cost centers, profit centers, and projects with per-dimension performance analysis.",
+    "f9.title":"Fixed Assets","f9.desc":"Fixed asset register, automatic depreciation calculation, book value tracking, and automated periodic GL entries.",
+    "kpi.revenue":"Revenues","kpi.expenses":"Expenses","kpi.preview":"Live Dashboard Preview",
+    "why.label":"Why VIPAccSystem?","why.title":"Why Professionals Choose VIPAccSystem",
+    "why.desc":"We didn't just build accounting software — we built a tool that gives decision-makers a 360° view of their business in an instant.",
+    "why1.t":"Fully Bilingual — Arabic & English","why1.d":"Native RTL support with full UTF-8 encoding. Menus, reports, and invoices in both languages.",
+    "why2.t":"High Performance — Optimized Database","why2.d":"InnoDB + utf8mb4_unicode_ci with configurable table prefix for superior performance and security.",
+    "why3.t":"Multi-Layer Security","why3.d":"Brute Force protection, Audit Trail, price/quantity validation, and role-based access control.",
+    "why4.t":"Extensible — Plugin System","why4.d":"Extension Manager lets you add custom modules without touching the core codebase.",
+    "why5.t":"Open Source — GPL v3","why5.d":"Completely yours. No monthly license fees, no user limits, no forced cloud dependency.",
+    "mods.label":"All Modules","mods.title":"10 Modules — One Integrated System","mods.desc":"Each module works independently or integrated with others in a unified financial workflow.",
+    "m1":"Sales","m2":"Purchases","m3":"Inventory","m4":"Manufacturing","m5":"Dimensions",
+    "m6":"General Ledger","m7":"Banking","m8":"Trial Balance","m9":"Fixed Assets","m10":"Setup",
+    "tech.label":"Technology Stack","tech.title":"Built on a Solid Technical Foundation","tech.stack":"Technology Stack",
+    "tech.db":"Database Specifications","tech.sec":"Security & Protection","tech.versions":"Versions","tech.ongoing":"Ongoing maintenance",
+    "sec1":"Brute Force protection — 30s delay between attempts","sec2":"path_to_root injection prevention in URL",
+    "sec3":"Secure MySQLi queries against SQL Injection","sec4":"Full Audit Trail on all GL transactions",
+    "sec5":"Role-based access control system (RBAC)","sec6":"Directory protection via .htaccess",
+    "sec7":"Error logging to a separate log file","sec8":"Price and quantity validation in purchasing",
+    "cta.label":"Get Started Today","cta.title":"Begin Your Financial Precision Journey Today",
+    "cta.desc":"Join thousands of companies that trust VIPAccSystem to manage their finances.<br/>Open Source. Free. Fully customizable.",
+    "cta.btn1":"Download Free Now","cta.btn2":"vipaccsystem.com →",
+    "vs.dev":"ACTIVE DEVELOPMENT",
+    "footer.sub":"Financial Precision &nbsp;|&nbsp; دقّة ماليّة &nbsp;|&nbsp; vipaccsystem.com"
+  }
+};
+
+/* ══ LANGUAGE SWITCH ENGINE ════════════════════════ */
+let currentLang = 'ar';
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+
+  /* 1 — fade out */
+  document.body.classList.add('lang-switching');
+
+  setTimeout(() => {
+    /* 2 — swap HTML attributes */
+    const html = document.documentElement;
+    html.setAttribute('lang', lang);
+    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    html.setAttribute('data-lang', lang);
+
+    /* 3 — translate all [data-i18n] elements */
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const val = T[lang][key];
+      if (val !== undefined) el.innerHTML = val;
+    });
+
+    /* 4 — update page title */
+    document.title = lang === 'ar'
+      ? 'VIP Acc System — نظام المحاسبة الذكي'
+      : 'VIP Acc System — Smart Accounting ERP';
+
+    /* 5 — update toggle buttons */
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-ar').setAttribute('aria-pressed', lang === 'ar');
+    document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+
+    /* 6 — fade back in */
+    document.body.classList.remove('lang-switching');
+
+  }, 320);
+}
+
+/* ══ CANVAS PARTICLES ══════════════════════════════ */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let W, H, particles = [];
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
+function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
 class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.r = Math.random() * 1.5 + 0.3;
-    this.vx = (Math.random() - 0.5) * 0.3;
-    this.vy = -Math.random() * 0.4 - 0.1;
-    this.alpha = Math.random() * 0.6 + 0.2;
-    this.gold = Math.random() > 0.6;
+  constructor(){ this.reset(); }
+  reset(){
+    this.x=Math.random()*W; this.y=Math.random()*H;
+    this.r=Math.random()*1.5+0.3; this.vx=(Math.random()-0.5)*0.3;
+    this.vy=-Math.random()*0.4-0.1; this.alpha=Math.random()*0.6+0.2;
+    this.gold=Math.random()>0.6;
   }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = this.gold
-      ? `rgba(212,175,55,${this.alpha})`
-      : `rgba(0,229,255,${this.alpha * 0.4})`;
+  draw(){
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=this.gold?`rgba(212,175,55,${this.alpha})`:`rgba(0,229,255,${this.alpha*0.4})`;
     ctx.fill();
   }
-  update() {
-    this.x += this.vx; this.y += this.vy;
-    this.alpha -= 0.001;
-    if (this.y < -10 || this.alpha <= 0) this.reset();
+  update(){
+    this.x+=this.vx; this.y+=this.vy; this.alpha-=0.001;
+    if(this.y<-10||this.alpha<=0) this.reset();
   }
 }
+for(let i=0;i<120;i++) particles.push(new Particle());
+(function loop(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(loop); })();
 
-for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-function animateParticles() {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-/* ── NAV SCROLL ──────────────────────────────── */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+/* ══ NAV SCROLL ════════════════════════════════════ */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>60);
 });
 
-/* ── SCROLL REVEAL ───────────────────────────── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el, i) => {
-  el.style.transitionDelay = (i % 4) * 0.1 + 's';
+/* ══ SCROLL REVEAL ═════════════════════════════════ */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.15});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el,i)=>{
+  el.style.transitionDelay=(i%4)*0.1+'s';
   observer.observe(el);
 });
 
-/* ── COUNTER ANIMATION ───────────────────────── */
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const suffix = el.dataset.suffix || '';
-  let current = 0;
-  const duration = 1800;
-  const step = target / (duration / 16);
-  const timer = setInterval(() => {
-    current += step;
-    if (current >= target) { current = target; clearInterval(timer); }
-    el.textContent = Math.floor(current) + suffix;
-  }, 16);
+/* ══ COUNTER ANIMATION ═════════════════════════════ */
+function animateCounter(el){
+  const target=parseInt(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  let cur=0; const step=target/(1800/16);
+  const t=setInterval(()=>{
+    cur+=step;
+    if(cur>=target){cur=target;clearInterval(t);}
+    el.textContent=Math.floor(cur)+suffix;
+  },16);
 }
+const cObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);cObs.unobserve(e.target);}});
+},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>cObs.observe(el));
 
-const counterObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateCounter(e.target);
-      counterObs.unobserve(e.target);
+/* ══ KPI ANIMATION ═════════════════════════════════ */
+function animateKPI(id,target){
+  const el=document.getElementById(id); if(!el) return;
+  let cur=0; const step=target/80;
+  const t=setInterval(()=>{
+    cur+=step;
+    if(cur>=target){cur=target;clearInterval(t);}
+    el.textContent='USD '+Math.floor(cur).toLocaleString();
+  },20);
+}
+const kObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animateKPI('kpi1',1010000); animateKPI('kpi2',49000);
+      animateKPI('kpi3',4095); animateKPI('kpi4',300);
+      kObs.disconnect();
     }
   });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
-
-/* ── KPI COUNTER ANIMATION ───────────────────── */
-function animateKPI(id, target, prefix) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  let cur = 0;
-  const step = target / 80;
-  const timer = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(timer); }
-    el.textContent = prefix + Math.floor(cur).toLocaleString();
-  }, 20);
-}
-
-const kpiObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateKPI('kpi1', 1010000, 'USD ');
-      animateKPI('kpi2', 49000, 'USD ');
-      animateKPI('kpi3', 4095, 'USD ');
-      animateKPI('kpi4', 300, 'USD ');
-      kpiObs.disconnect();
-    }
-  });
-}, { threshold: 0.3 });
-
-const kpiSection = document.querySelector('.why-visual');
-if (kpiSection) kpiObs.observe(kpiSection);
+},{threshold:0.3});
+const kpiEl=document.querySelector('.why-visual');
+if(kpiEl) kObs.observe(kpiEl);
 </script>
 </body>
 </html>
