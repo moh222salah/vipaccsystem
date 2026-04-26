@@ -1,62 +1,510 @@
-![VIP Accounting System ERP](./themes/default/images/logo_frontaccounting.jpg  "VIP Accounting System ERP")
-===================
+<div align="center">
 
-VIP Accounting System ERP is open source, web-based accounting software for small and medium enterprises.
-It supports double entry accounting providing both low level journal entry and user friendly, document based 
-interface for everyday business activity with automatic GL postings generation. This is multicurrency,
-multilanguage system with active worldwide users community:
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    ANIMATED HEADER BANNER                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-* [Project web site](http://frontaccounting.com)
-* [SourceForge project page](http://sourceforge.net/projects/frontaccounting/)
-* [Central users forum](http://frontaccounting.com/punbb/index.php)
-* [Main code repository](https://sourceforge.net/p/frontaccounting/git/ci/master/tree/)
-* [GitHub mirror](http://github.com/FrontAccountingERP/FA)
-* [Mantis bugtracker](http://mantis.frontaccounting.com)
-* [FrontAccounting Wiki](http://frontaccounting.com/fawiki/)
+<a href="http://vipaccsystem.com">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=200&section=header&text=VIP%20Acc%20System&fontSize=60&fontColor=D4AF37&fontAlignY=38&desc=نظام%20المحاسبة%20المتكامل%20|%20Enterprise%20Accounting%20ERP&descAlignY=60&descColor=ffffff&animation=fadeIn" width="100%"/>
+</a>
 
-This project is developed as cooperative effort by FrontAccounting team and available under [GPL v.3 license](./doc/license.txt) 
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                        LOGO                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-## Requirements
+<br/>
 
-To use FrontAccounting application you should have already installed: 
+<img src="https://img.shields.io/badge/%D8%AF%D9%82%D9%91%D8%A9_%D9%85%D8%A7%D9%84%D9%8A%D9%91%D8%A9-VIP_Acc_System-D4AF37?style=for-the-badge&labelColor=0a0a0a&color=D4AF37" height="32"/>
 
-*   Any HTTP web server supporting php eg. _**Apache with mod_php**_ or _**IIS**_.
-*   **_PHP_** >=5.0 (version 5.6 or 7.x is recommended)
-*   **_MySQL_** >=4.1 server with **_Innodb_** tables enabled, or any version on **MariaDB** server
-*   **_Adobe Acrobat Reader_** (or any another PDF reader like _**evince**_) is handy for viewing reports before printing them out.
+<br/><br/>
 
-## Installation
-### 1. PHP configuration checks
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                      BADGES ROW 1                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-*   One critical aspect of the PHP installation is the setting of **_session.auto_start_** in the php.ini file. Some rpm distributions of PHP have the default setting of **_session.auto_start = 1_**. This starts a new session at the beginning of each script. However, this makes it impossible to instantiate any class objects that the system relies on. Classes are used extensively by this system. When sessions are required they are started by the system and this setting of **_session.auto_start_** can and should be set to 0.
-*   For security reasons both Register Globals and Magic Quotes php settings should be set to Off. When FrontAccounting is used with www server running php as Apache module, respective flags are set in .htaccess file. When your server uses CGI interface to PHP you should set  **_magic_quotes_gpc = 0_** and **_register_globals = 0_** in php.ini file.
-*   **_Innodb_** tables must be enabled in the MySQL server. These tables allow database transactions which are a critical component of the software. This is enabled by default in the newer versions of MySQL. If you need to enable it yourself, consult the MySQL manual.
+[![Version](https://img.shields.io/badge/Version-2.4.19-D4AF37?style=for-the-badge&logo=git&logoColor=white&labelColor=0d1117)](https://github.com/vipaccsystem)
+[![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?style=for-the-badge&logo=php&logoColor=white&labelColor=0d1117)](https://php.net)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=0d1117)](https://mysql.com)
+[![License](https://img.shields.io/badge/License-GPL_v3-green?style=for-the-badge&logo=gnu&logoColor=white&labelColor=0d1117)](https://www.gnu.org/licenses/gpl-3.0.html)
 
-### 2. Download application files
+<br/>
 
-* Download and unpack latest FrontAccounting tarball from SourceForge into folder created under web server document root, e.g. **/var/www/html/frontaccounting**
+<!-- BADGES ROW 2 -->
 
-* If you prefer easy upgrades when new minor versions are released, you can clone sources from SourceForge project page or Github mirror e.g.:
->	# cd  /var/www/html
->	# git clone `https://git.code.sf.net/p/frontaccounting/git` frontaccounting
+[![Arabic RTL](https://img.shields.io/badge/Arabic_RTL-Full_Support-00b4d8?style=flat-square&logo=google-translate&logoColor=white)](/)
+[![Chart.js](https://img.shields.io/badge/Chart.js-Integrated-FF6384?style=flat-square&logo=chart.js&logoColor=white)](/)
+[![Status](https://img.shields.io/badge/Status-Active_Development-brightgreen?style=flat-square&logo=statuspage&logoColor=white)](/)
+[![DB Version](https://img.shields.io/badge/DB_Schema-2.4.1-blueviolet?style=flat-square&logo=databricks&logoColor=white)](/)
+[![Collation](https://img.shields.io/badge/Collation-utf8_unicode__ci-orange?style=flat-square&logo=unicode&logoColor=white)](/)
 
-Master branch contains all the latest bugfixes made atop the last stable release.
-	
-### 3. Installation
+<br/><br/>
 
-FrontAccounting should NOT be used via unsecure http protocol. If you really need this - change SECURE_ONLY constant in /includes/session.inc to false (comment in the file added). Unfortunately this option cannot be added in sysprefs/config.php because the settings are not available before session is started.
+---
 
-Use your browser to open page at URL related to chosen installation folder. As an example, if you plan to use application locally and in previous step you have put files on your Linux box in /var/www/html/frontaccounting subfolder, just select `http://localhost/frontaccounting` url in your browser, and you will see start page of installation wizard. Follow instructions displayed during the process.
+</div>
 
-During installation you will need to provide data server credentials with permissions to create new database, or you will have to provide existing database name and credentials for user with valid usage permissions to access it. You will have to chose also a couple of other options including installation language, optimal encoding for database data etc. Keep in mind that some options (like additional translations and charts of accounts) presented during installation process could be installed also later, when FrontAccounting is already in use.
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    BILINGUAL INTRO                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
 
-After successful installation please remove or rename your install directory for safety reasons. You won't need it any more.
+<table width="100%">
+<tr>
+<td width="50%" valign="top">
 
-### 4. Logging In For the First Time
+## 🇬🇧 About VIPAccSystem
 
-Open a browser and enter the URL for the web server directory where FrontAccounting is installed. Enter the user name  **admin** and use password declared during install process to login as company administrator. Now you can proceed with configuration process setting up additional user accounts, creating fiscal years, defining additional currencies, GL accounts etc. All configuration options available in application are described in [FrontAccounting Wiki](http://frontaccounting.com/fawiki/) available directly from Help links on every application page under ![Help](./themes/default/images/help.gif  "Help") icon.
- 
+**VIPAccSystem** is a comprehensive, enterprise-grade open-source accounting ERP built on the FrontAccounting core, extensively customized for Arabic-speaking businesses. It delivers a powerful, bilingual (AR/EN) financial management platform with a modern luxury UI — the **Sovereign Noir** theme — featuring glassmorphism cards, gold accents, and animated dashboards.
 
-## Troubleshooting
+Designed for companies that demand **دقّة ماليّة** — financial precision.
 
-If you encountered any problems with FrontAccounting configuration or usage, please consult your case with other users on [Frontaccounting forum](http://frontaccounting.com/punbb/index.php). If you think you have encountered a bug in application and after consulting other community members you still are sure this is really a bug, please fill in a report in project [Mantis bugtracker](http://mantis.frontaccounting.com) with all details which allow development team reproduce the problem, and hopefully fix it. Keep in mind, that  [GitHub](http://github.com/FrontAccountingERP/FA) page is mainly passive mirror for project based on SorceForge, so posting bug reports here is at least suboptimal.
+</td>
+<td width="50%" valign="top" dir="rtl" align="right">
+
+## 🇸🇦 نبذة عن النظام
+
+**VIPAccSystem** هو نظام ERP محاسبي مفتوح المصدر، متكامل ومُصمَّم للشركات الناطقة بالعربية. يوفر إدارة مالية شاملة ثنائية اللغة (عربي/إنجليزي) مع واجهة مستخدم فاخرة بأسلوب **Sovereign Noir** تتضمن تأثيرات الزجاج، اللمسات الذهبية، ولوحات بيانات متحركة.
+
+مبني على أساس FrontAccounting ومُطوَّر بشكل موسّع ليناسب بيئات الأعمال العربية.
+
+</td>
+</tr>
+</table>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    ANIMATED FEATURE GRID                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## ✨ Core Features | المميزات الأساسية
+
+<div align="center">
+
+| 💼 Module | 🔧 Feature | 🌐 Status |
+|:---:|:---|:---:|
+| 🛒 **Sales** — المبيعات | Invoices, Quotations, Receipts, AR Aging | ✅ Active |
+| 🏪 **Purchases** — المشتريات | PO, GRN, Supplier Invoices, AP Aging | ✅ Active |
+| 📦 **Inventory** — المخزون | Items, Categories, Stock Movements, Valuation | ✅ Active |
+| 🏭 **Manufacturing** — التصنيع | BOM, Work Orders, Cost Tracking | ✅ Active |
+| 📊 **General Ledger** — الأستاذ العام | Chart of Accounts, Journal Entries, Audit Trail | ✅ Active |
+| 🏦 **Banking** — البنوك | Bank Accounts, Reconciliation, Cash Position | ✅ Active |
+| ⚖️ **Trial Balance** — ميزان المراجعة | Real-time balance sheets, comparative reports | ✅ Active |
+| 📐 **Dimensions** — الأبعاد | Cost Centers, Profit Centers | ✅ Active |
+| 🏗️ **Fixed Assets** — الأصول الثابتة | Asset register, Depreciation | ✅ Active |
+| ⚙️ **Setup** — الإعداد | Company prefs, Users, Roles, Extensions | ✅ Active |
+
+</div>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                   TECHNICAL HIGHLIGHTS                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🛠️ Technical Architecture | البنية التقنية
+
+```
+VIPAccSystem/
+│
+├── 🎨  themes/                  → UI Themes (Sovereign Noir / default)
+│   └── default/
+│       ├── renderer.php         → Layout engine (header, sidebar, footer)
+│       └── default.css          → Glassmorphism + Gold accent styles
+│
+├── 📱  applications/            → ERP Module definitions
+│   ├── customers.php            → Sales & Receivables
+│   ├── suppliers.php            → Purchasing & Payables
+│   ├── inventory.php            → Stock Management
+│   ├── generalledger.php        → GL & Reporting
+│   ├── fixed_assets.php         → Asset Management
+│   └── setup.php                → System Configuration
+│
+├── 🗄️  includes/                → Core framework
+│   ├── session.inc              → Auth & session management
+│   ├── db/                      → Database abstraction layer
+│   └── ui/                      → UI helper functions
+│
+├── 📊  reporting/               → PDF & Chart reports
+│   └── includes/tcpdf.php       → PDF generation engine
+│
+├── 🌍  lang/                    → Translations (AR, EN, +40 languages)
+│
+├── 🔧  config.php               → Application configuration
+├── 🔧  config_db.php            → Database connection (utf8_unicode_ci)
+├── 📋  index.php                → Application entry point
+└── 🔌  installed_extensions.php → Extension manager
+```
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                   DASHBOARD SCREENSHOTS                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 📸 Screenshots | لقطات الشاشة
+
+<div align="center">
+
+### 🌙 Arabic Dashboard — لوحة التحكم العربية (RTL)
+> *Dark Luxury Theme with glassmorphism KPI cards, real-time charts, and full RTL layout*
+
+---
+
+### 🌅 English Dashboard — لوحة التحكم الإنجليزية (LTR)
+> *Light professional theme with Monthly P&L, Fiscal Year Summary, Cash Flow analysis, and Journal Entries*
+
+---
+
+### 🗄️ Database Schema — هيكل قاعدة البيانات
+> *MySQL InnoDB — utf8mb4_unicode_ci — 70+ tables with prefix support (`0_`)*
+
+</div>
+
+> **Theme Philosophy:** The **Sovereign Noir** aesthetic uses dark backgrounds (`#0a0a14`), gold accents (`#D4AF37`), electric cyan for financial figures (`#00e5ff`), and glassmorphism panels — creating a premium, trust-inspiring experience for financial professionals.
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    SYSTEM REQUIREMENTS                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## ⚙️ System Requirements | متطلبات النظام
+
+<table>
+<tr>
+<th>Component</th>
+<th>Minimum</th>
+<th>Recommended</th>
+</tr>
+<tr>
+<td>🐘 <strong>PHP</strong></td>
+<td>7.4+</td>
+<td>8.2+ (PHP 8.4 supported)</td>
+</tr>
+<tr>
+<td>🐬 <strong>MySQL / MariaDB</strong></td>
+<td>5.7 / 10.3</td>
+<td>8.0 / 10.6+</td>
+</tr>
+<tr>
+<td>🌐 <strong>Web Server</strong></td>
+<td>Apache 2.4 / Nginx</td>
+<td>Apache 2.4 with mod_rewrite</td>
+</tr>
+<tr>
+<td>💾 <strong>Disk Space</strong></td>
+<td>100 MB</td>
+<td>500 MB+ (for attachments/backups)</td>
+</tr>
+<tr>
+<td>🔤 <strong>DB Collation</strong></td>
+<td>utf8_unicode_ci</td>
+<td><strong>utf8mb4_unicode_ci</strong> (Arabic + Emoji)</td>
+</tr>
+<tr>
+<td>🧩 <strong>PHP Extensions</strong></td>
+<td colspan="2">mysqli, mbstring, gd, curl, gettext, zip</td>
+</tr>
+</table>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    INSTALLATION GUIDE                           -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🚀 Installation | التثبيت
+
+### Step 1 — Clone or Upload | الخطوة الأولى
+
+```bash
+# Clone the repository
+git clone https://github.com/vipaccsystem/vipaccsystem.git /var/www/html/vipaccsystem
+
+# Or extract the release archive
+unzip vipaccsystem-2.4.19.zip -d /var/www/html/
+```
+
+### Step 2 — Configure Web Server | إعداد الخادم
+
+```apache
+# Apache Virtual Host (.htaccess is already configured)
+<VirtualHost *:80>
+    ServerName vipaccsystem.yourdomain.com
+    DocumentRoot /var/www/html/vipaccsystem
+    
+    <Directory /var/www/html/vipaccsystem>
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    # Force UTF-8 for Arabic support
+    AddDefaultCharset UTF-8
+</VirtualHost>
+```
+
+### Step 3 — Database Setup | إعداد قاعدة البيانات
+
+```sql
+-- Create database with Arabic-safe collation
+CREATE DATABASE `vip-system` 
+  CHARACTER SET utf8mb4 
+  COLLATE utf8mb4_unicode_ci;
+
+-- Create user
+CREATE USER 'vip_user'@'localhost' IDENTIFIED BY 'StrongPassword!';
+GRANT ALL PRIVILEGES ON `vip-system`.* TO 'vip_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+### Step 4 — Configure Connection | إعداد الاتصال
+
+```php
+// config_db.php
+$db_connections = array(
+  0 => array(
+    'name'       => 'VIP Acc System',
+    'host'       => 'localhost',
+    'port'       => '3306',
+    'dbname'     => 'vip-system',
+    'collation'  => 'utf8_unicode_ci',   // ✅ Arabic support
+    'tbpref'     => '0_',                // Table prefix
+    'dbuser'     => 'vip_user',
+    'dbpassword' => 'StrongPassword!',
+  ),
+);
+```
+
+### Step 5 — Run Installer | تشغيل المثبت
+
+```
+🌐 Navigate to: http://your-domain/vipaccsystem/install/
+```
+
+> **⚠️ Important:** After installation, ensure `install/` directory is removed or protected.
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                  CONFIGURATION REFERENCE                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🔧 Configuration Reference | مرجع الإعدادات
+
+### Key `config.php` Settings
+
+```php
+// ── Timezone ─────────────────────────────────────────
+ini_set('date.timezone', 'Africa/Cairo');   // Egypt timezone
+
+// ── Debug Mode (DISABLE in production!) ──────────────
+$debug     = 0;    // SQL error display
+$show_sql  = 0;    // All queries in footer
+$go_debug  = 0;    // 1=basic, 2=with backtrace
+
+// ── Security ──────────────────────────────────────────
+$login_delay        = 30;    // Seconds between failed attempts
+$login_max_attempts = 10;    // Max failed logins
+
+// ── Arabic / RTL Support ──────────────────────────────
+$date_system = 0;  // 0=Gregorian, 2=Islamic/Hijri
+// RTL font automatically loaded:
+$UTF8_fontfile = ($_SESSION['language']->dir == 'rtl') 
+                 ? "zarnormal.ttf"   // Arabic
+                 : "FreeSans.ttf";   // Latin
+
+// ── Business Logic ────────────────────────────────────
+$auto_create_branch             = 1;     // Auto-create customer branch
+$use_popup_windows              = 1;     // Popup detail views
+$check_qty_charged_vs_del_qty   = true;  // AP quantity validation
+$check_price_charged_vs_order_price = true; // AP price validation
+
+// ── UI / UX ───────────────────────────────────────────
+$show_menu_category_icons = 1;   // Module icons in sidebar
+$use_popup_search         = true;
+$max_rows_in_search       = 10;
+```
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                   SECURITY SECTION                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🔐 Security | الأمان
+
+> See full policy in [`SECURITY.md`](./SECURITY.md)
+
+```
+✅  Brute-force protection          (30s delay after 10 failed attempts)
+✅  Path traversal prevention       ($path_to_root injection blocked)
+✅  SQL injection protection        (MySQLi prepared statements)
+✅  Session-based authentication    (role-based access control)
+✅  Audit trail logging             (all GL transactions tracked)
+✅  .htaccess directory protection  (direct PHP access blocked)
+✅  Error log file                  (VARLOG_PATH/errors.log)
+```
+
+**Report vulnerabilities to:** `security@frontaccounting.com`
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    VERSION HISTORY                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 📜 Version History | سجل الإصدارات
+
+| Version | Date | Highlights |
+|---------|------|------------|
+| **2.4.19** | Nov 2025 | PHP 8.4 deprecation fixes, stability improvements |
+| **2.4.18** | Apr 2024 | Copy Delivery/Invoice from inquiry, search enhancements |
+| **2.4.17** | 2024 | Supplier Credit Note stock price fix |
+| **2.4.x** | Ongoing | Arabic RTL dashboard, Sovereign Noir theme, Chart.js overhaul |
+
+> Full history: [`CHANGELOG.txt`](./CHANGELOG.txt)
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                  DATABASE SCHEMA OVERVIEW                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🗄️ Database Schema | هيكل قاعدة البيانات
+
+All tables use the prefix `0_` (configurable). Key tables:
+
+```
+📊 Financial Core
+├── 0_chart_master        → Chart of accounts
+├── 0_gl_trans            → General ledger transactions
+├── 0_bank_trans          → Banking transactions
+├── 0_bank_accounts       → Bank account definitions
+└── 0_audit_trail         → Full audit history
+
+👥 CRM & Sales
+├── 0_debtors_master      → Customers
+├── 0_cust_branch         → Customer branches
+├── 0_sales_orders        → Sales order headers
+├── 0_debtor_trans        → Customer transactions
+└── 0_cust_allocations    → Payment allocations
+
+🏪 Purchasing
+├── 0_creditors_master    → Suppliers
+├── 0_supp_trans          → Supplier transactions
+├── 0_grn_batch           → Goods received notes
+└── 0_supp_allocations    → AP allocations
+
+📦 Inventory
+├── 0_stock_master        → Item master
+├── 0_stock_moves         → Stock movements
+├── 0_stock_category      → Item categories
+└── 0_bom                 → Bill of materials
+
+⚙️ System
+├── 0_users               → User accounts
+├── 0_security_roles      → Access control
+├── 0_company             → Company settings
+└── 0_sys_prefs           → System preferences
+```
+
+> **Collation Fix:** DB collation updated from `utf8_xx` (invalid) → `utf8_unicode_ci` to resolve Arabic text display issues (??? characters).
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    QUICK ACTIONS                                -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## ⚡ Quick Actions | إجراءات سريعة
+
+The dashboard provides one-click access to the most common workflows:
+
+<div align="center">
+
+| 🧾 Sales Invoice | 💰 Receipt | 👤 New Customer | 📦 Stock Entry |
+|:---:|:---:|:---:|:---:|
+| **فاتورة مبيعات** | **إيصال قبض** | **عميل جديد** | **إدخال مخزون** |
+
+| 📓 Journal Entry | 📊 Reports | 🛒 Purchase Inv. | ⚖️ Trial Balance |
+|:---:|:---:|:---:|:---:|
+| **قيد يومية** | **التقارير** | **فاتورة مشتريات** | **ميزان المراجعة** |
+
+</div>
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                   CONTRIBUTING                                  -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 🤝 Contributing | المساهمة
+
+We welcome contributions! To get started:
+
+```bash
+# 1. Fork the repository
+# 2. Create a feature branch
+git checkout -b feature/your-feature-name
+
+# 3. Make your changes and test
+# 4. Commit with a descriptive message
+git commit -m "feat: add [description]"
+
+# 5. Push and open a Pull Request
+git push origin feature/your-feature-name
+```
+
+**Contribution areas:**
+- 🌍 Translation improvements (Arabic, regional dialects)
+- 🎨 Theme development (RTL layout fixes, mobile responsiveness)  
+- 🐛 Bug reports via [Mantis bugtracker](https://mantis.frontaccounting.com)
+- 📖 Documentation (Arabic/English)
+- 🔌 Extension development
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                      LICENSE                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+## 📄 License | الترخيص
+
+```
+VIPAccSystem — Copyright (C) VIPAccSystem, LLC.
+
+Released under the GNU General Public License v3.0
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU GPL as published by the Free Software
+Foundation, either version 3 of the License, or any later version.
+
+Full license text: https://www.gnu.org/licenses/gpl-3.0.html
+```
+
+---
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--                    FOOTER BANNER                                -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<div align="center">
+
+<br/>
+
+**Built with ❤️ for Arabic-speaking businesses | مبنيٌّ بشغف للأعمال العربية**
+
+<br/>
+
+[![Website](https://img.shields.io/badge/🌐_Website-vipaccsystem.com-D4AF37?style=for-the-badge&labelColor=0a0a0a)](http://vipaccsystem.com)
+[![Repo](https://img.shields.io/badge/📦_Repository-vipaccsystem.eu-D4AF37?style=for-the-badge&labelColor=0a0a0a)](http://repo.vipaccsystem.eu)
+[![Security](https://img.shields.io/badge/🔐_Security-Report_Vulnerability-red?style=for-the-badge&labelColor=0a0a0a)](mailto:security@frontaccounting.com)
+
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=100&section=footer&reversal=false" width="100%"/>
+
+---
+
+*VIPAccSystem v2.4.19 — DB Schema v2.4.1 — دقّة ماليّة*
+
+</div>
