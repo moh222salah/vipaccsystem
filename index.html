@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-lang="ar" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VIP Acc System — دقّة ماليّة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS — Navy × Gold (matches screenshots)
+═══════════════════════════════════════════════════════ */
+:root{
+  /* Gold palette */
+  --g:#C9A84C; --g2:#E8B84B; --g3:#8B6914; --g4:rgba(201,168,76,0.1);
+  --g-glow:rgba(201,168,76,0.2);
+  /* Accent */
+  --c:#00D4FF;
+  /* Dark navy theme (default) */
+  --bg0:#07101F; --bg1:#0D1B33; --bg2:#112040; --bg3:#162648;
+  --card:rgba(13,27,51,0.8);
+  --t1:#F0EAD6; --t2:rgba(240,234,214,0.6); --t3:rgba(240,234,214,0.3); --t4:rgba(240,234,214,0.12);
+  --b1:rgba(201,168,76,0.2); --b2:rgba(201,168,76,0.08); --b3:rgba(255,255,255,0.07);
+  --r:#E8453C; --gr:#00C880;
+  --nav-bg:rgba(7,16,31,0.92);
+  --shadow:0 8px 40px rgba(0,0,0,0.5);
+  --grid-col:rgba(201,168,76,0.04);
+}
+[data-theme="light"]{
+  --bg0:#F0F4FA; --bg1:#E8EEF8; --bg2:#DDE5F5; --bg3:#D0DAF0;
+  --card:rgba(232,238,248,0.95);
+  --t1:#0D1B33; --t2:rgba(13,27,51,0.65); --t3:rgba(13,27,51,0.4); --t4:rgba(13,27,51,0.12);
+  --b1:rgba(201,168,76,0.35); --b2:rgba(201,168,76,0.12); --b3:rgba(0,0,0,0.08);
+  --nav-bg:rgba(240,244,250,0.95);
+  --shadow:0 8px 40px rgba(13,27,51,0.12);
+  --grid-col:rgba(13,27,51,0.04);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg0); color:var(--t1);
+  font-family:'Cairo',sans-serif; overflow-x:hidden; line-height:1.75;
+  transition:background .4s ease, color .4s ease, opacity .28s ease;
+  padding-bottom:0;
+}
+[data-lang="en"] body{font-family:'Inter','Cairo',sans-serif}
+body.switching{opacity:0;pointer-events:none}
+
+/* Grid texture */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-col) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-col) 1px, transparent 1px);
+  background-size:60px 60px;
+  transition:background .4s;
+}
+
+#bg{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:var(--g3);border-radius:2px}
+
+.z{position:relative;z-index:1}
+.cinzel{font-family:'Cinzel',serif!important}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+.rvl{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease}
+.rvl.on{opacity:1;transform:none}
+.rvr{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease}
+.rvr.on{opacity:1;transform:none}
+
+/* ── NAV ─────────────────────────────────────────── */
+#nav{
+  position:fixed;top:0;inset-inline:0;z-index:300;
+  height:66px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 3rem; transition:all .35s ease;
+}
+#nav.up{
+  background:var(--nav-bg);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid var(--b1);
+  height:58px;
+  box-shadow:0 4px 24px rgba(0,0,0,.25);
+}
+.nav-logo{
+  font-family:'Cinzel',serif; font-size:1rem; font-weight:700;
+  color:var(--g); letter-spacing:.12em; text-decoration:none;
+  display:flex; align-items:center; gap:10px;
+}
+.nav-logo-badge{
+  width:34px; height:34px;
+  background:linear-gradient(135deg,var(--g),var(--g3));
+  border-radius:8px; display:flex; align-items:center; justify-content:center;
+  font-size:.6rem; color:#000; font-weight:900; letter-spacing:.05em;
+  box-shadow:0 4px 14px var(--g-glow);
+}
+.nav-center{
+  display:flex; align-items:center; gap:2.5rem; list-style:none;
+  position:absolute; left:50%; transform:translateX(-50%);
+}
+[data-lang="ar"] .nav-center{left:auto;right:50%;transform:translateX(50%)}
+.nav-center a{
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--t3); text-decoration:none; font-family:'Inter',sans-serif;
+  transition:all .25s; padding-bottom:3px; border-bottom:1px solid transparent;
+}
+.nav-center a:hover{color:var(--g);border-bottom-color:rgba(201,168,76,.4)}
+.nav-end{display:flex;align-items:center;gap:10px}
+
+/* ── THEME TOGGLE ────────────────────────────────── */
+.theme-btn{
+  width:38px; height:38px;
+  border:1px solid var(--b1); border-radius:50%;
+  background:var(--b2); backdrop-filter:blur(12px);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:all .3s ease; color:var(--t2); flex-shrink:0;
+}
+.theme-btn:hover{border-color:rgba(201,168,76,.5);color:var(--g);box-shadow:0 0 18px var(--g-glow);transform:rotate(20deg)}
+.theme-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;transition:all .3s}
+
+/* ── LANG BTN — ELEGANT FLAG STYLE ──────────────── */
+.lang-btn{
+  display:flex; align-items:center; gap:7px;
+  padding:0 14px; height:38px;
+  border:1px solid var(--b1); border-radius:50px;
+  background:var(--b2); backdrop-filter:blur(12px);
+  cursor:pointer; font-family:'Inter',sans-serif;
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--t2); transition:all .3s ease; position:relative; overflow:hidden;
+}
+.lang-btn::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.12),transparent);
+  opacity:0; transition:opacity .3s;
+}
+.lang-btn:hover{border-color:rgba(201,168,76,.5);color:var(--g);box-shadow:0 0 18px var(--g-glow)}
+.lang-btn:hover::after{opacity:1}
+.lang-btn:active{transform:scale(.96)}
+
+/* Lang SVG icon — elegant speech bubbles / language symbol */
+.lang-icon{width:18px;height:18px;flex-shrink:0}
+
+/* ── WHATSAPP FLOAT (DESKTOP) ────────────────────── */
+.wa-float{
+  position:fixed; bottom:36px;
+  right:28px; left:auto;
+  z-index:250;
+  width:56px; height:56px;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 28px rgba(37,211,102,.4);
+  text-decoration:none; transition:all .3s ease;
+  animation:wa-pulse 3s ease infinite;
+}
+[data-lang="ar"] .wa-float{right:28px;left:auto}
+[data-lang="en"] .wa-float{right:28px;left:auto}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 10px 40px rgba(37,211,102,.55)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+@keyframes wa-pulse{
+  0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.4)}
+  50%{box-shadow:0 6px 28px rgba(37,211,102,.4), 0 0 0 10px rgba(37,211,102,.12)}
+}
+
+/* ── MOBILE BOTTOM NAV ───────────────────────────── */
+.mob-nav{
+  display:none;
+  position:fixed; bottom:0; inset-inline:0; z-index:300;
+  background:var(--nav-bg);
+  backdrop-filter:blur(24px) saturate(160%);
+  border-top:1px solid var(--b1);
+  padding:8px 0 max(8px, env(safe-area-inset-bottom));
+  grid-template-columns:repeat(5,1fr);
+}
+.mob-nav-item{
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:6px 0; text-decoration:none; cursor:pointer;
+  border:none; background:none; color:var(--t3); transition:color .25s;
+  font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-family:'Inter',sans-serif;
+}
+.mob-nav-item:hover,.mob-nav-item.act{color:var(--g)}
+.mob-nav-item svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
+.mob-nav-item.wa{color:#25D366}
+.mob-nav-item.wa:hover{color:#25D366}
+
+@media(max-width:768px){
+  .mob-nav{display:grid}
+  body{padding-bottom:70px}
+  .wa-float{display:none}
+  #nav{padding:0 1.2rem}
+  .nav-center{display:none}
+}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero{
+  min-height:100vh; display:grid; grid-template-rows:1fr auto;
+  align-items:center; justify-items:center;
+  text-align:center; position:relative; z-index:1;
+  padding:0 2rem; overflow:hidden;
+}
+.hero-glow{
+  position:absolute; width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.09) 0%,transparent 65%);
+  top:50%; left:50%; transform:translate(-50%,-52%);
+  pointer-events:none; animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:translate(-50%,-52%) scale(1)}50%{transform:translate(-50%,-52%) scale(1.1)}}
+.hero-inner{padding-top:100px;padding-bottom:3rem;max-width:860px;margin:0 auto}
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:12px;
+  margin-bottom:2.5rem; animation:fdown .9s ease .1s both;
+}
+.eyebrow-line{width:36px;height:1px;background:linear-gradient(to right,transparent,var(--g))}
+[data-lang="ar"] .eyebrow-line:last-child{background:linear-gradient(to left,transparent,var(--g))}
+.eyebrow-text{
+  font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.35em;
+  text-transform:uppercase; color:var(--g); font-weight:500;
+}
+@keyframes fdown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes fup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+.hero-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(3.2rem,9vw,8rem); font-weight:900;
+  line-height:.92; letter-spacing:-.02em; margin-bottom:1.8rem;
+  animation:fup .9s ease .25s both;
+  background:linear-gradient(160deg,#F5E070 0%,#D4AF37 35%,#9A7020 65%,#C89B2A 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  filter:drop-shadow(0 0 50px rgba(201,168,76,.2));
+}
+.hero-sub{
+  font-size:clamp(1.1rem,2.5vw,1.7rem); font-weight:700;
+  color:var(--t1); margin-bottom:1.2rem;
+  animation:fup .9s ease .35s both;
+}
+.hero-tag{
+  font-size:clamp(.88rem,1.6vw,1.05rem); color:var(--t2);
+  max-width:600px; margin:0 auto 2.8rem; font-weight:300;
+  animation:fup .9s ease .45s both; line-height:1.95;
+}
+.hero-slogan{
+  font-family:'Cinzel',serif; font-size:clamp(1.3rem,2.5vw,1.9rem); font-weight:700;
+  color:var(--g); letter-spacing:.2em; margin-bottom:3rem;
+  animation:fup .9s ease .55s both;
+  text-shadow:0 0 40px rgba(201,168,76,.35);
+}
+.hero-ctas{
+  display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
+  animation:fup .9s ease .65s both; margin-bottom:3.5rem;
+}
+.btn-g{
+  height:52px; padding:0 36px;
+  background:linear-gradient(135deg,var(--g2),var(--g),#9A7020);
+  color:#000; font-weight:700; font-size:.95rem; letter-spacing:.05em;
+  border:none; border-radius:6px; cursor:pointer;
+  position:relative; overflow:hidden; transition:all .3s ease; font-family:inherit;
+  box-shadow:0 4px 20px rgba(201,168,76,.3);
+}
+.btn-g::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);opacity:0;transition:opacity .3s}
+.btn-g:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(201,168,76,.4)}
+.btn-g:hover::after{opacity:1}
+.btn-o{
+  height:52px; padding:0 36px; background:transparent; color:var(--g);
+  font-weight:600; font-size:.95rem; letter-spacing:.05em;
+  border:1px solid var(--b1); border-radius:6px; cursor:pointer;
+  transition:all .3s ease; font-family:inherit;
+}
+.btn-o:hover{background:var(--b2);border-color:rgba(201,168,76,.45);transform:translateY(-3px)}
+
+.scroll-down{
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  padding-bottom:2.5rem; animation:fup .9s ease 1.2s both;
+}
+.scroll-down span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--t3);font-family:'Inter',sans-serif}
+.scroll-track{width:1px;height:50px;background:linear-gradient(to bottom,var(--g),transparent);animation:strack 2s ease infinite}
+@keyframes strack{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ── MARQUEE ─────────────────────────────────────── */
+.marquee-wrap{
+  position:relative;z-index:1;
+  border-top:1px solid var(--b1); border-bottom:1px solid var(--b1);
+  overflow:hidden; padding:14px 0; background:var(--bg1);
+  transition:background .4s;
+}
+.marquee-track{display:flex;gap:0;width:max-content;animation:marq 28s linear infinite}
+[data-lang="ar"] .marquee-track{animation-direction:reverse}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.m-item{
+  display:flex;align-items:center;gap:10px;padding:0 2.5rem;
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--t3);font-family:'Inter',sans-serif;white-space:nowrap;
+}
+.m-item strong{color:var(--g);font-weight:600}
+.m-sep{color:var(--g3)}
+
+/* ── NUMBERS ─────────────────────────────────────── */
+.nums-section{position:relative;z-index:1;padding:6rem 2rem;background:var(--bg1);transition:background .4s}
+.nums-grid{
+  max-width:1080px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:1px; background:var(--b3);
+  border:1px solid var(--b3); border-radius:10px; overflow:hidden;
+}
+@media(max-width:860px){.nums-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.nums-grid{grid-template-columns:repeat(2,1fr)}}
+.num-cell{
+  background:var(--bg1); padding:2.4rem 1.5rem; text-align:center;
+  transition:background .3s ease; position:relative; overflow:hidden;
+}
+.num-cell::before{
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:0; height:2px; background:linear-gradient(to right,transparent,var(--g),transparent);
+  transition:width .4s ease;
+}
+.num-cell:hover{background:var(--bg2)}
+.num-cell:hover::before{width:75%}
+.num-big{
+  font-family:'Cinzel',serif; font-size:2.6rem; font-weight:700;
+  color:var(--g); display:block; line-height:1; margin-bottom:.5rem;
+  text-shadow:0 0 25px rgba(201,168,76,.25);
+}
+.num-label{font-size:.78rem;color:var(--t3);letter-spacing:.06em;line-height:1.5}
+
+/* ── SECTION HEADERS ─────────────────────────────── */
+.sh{max-width:1080px;margin:0 auto 4rem}
+.sh.center{text-align:center;margin-inline:auto}
+.sh-ey{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:1rem;
+  font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--g);
+}
+.sh-ey-line{width:22px;height:1px;background:var(--g);opacity:.5}
+.sh-ttl{font-size:clamp(1.5rem,3.2vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:1rem}
+.sh-dsc{font-size:.98rem;color:var(--t2);line-height:1.9;max-width:560px}
+.sh.center .sh-dsc{margin-inline:auto}
+
+/* ── FEATURES ────────────────────────────────────── */
+.feat-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--bg1);transition:background .4s}
+.feat-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--b3); border:1px solid var(--b3); border-radius:10px; overflow:hidden;
+}
+@media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.feat-grid{grid-template-columns:1fr}}
+.feat-cell{
+  background:var(--bg1);padding:2.6rem 2rem;
+  position:relative;overflow:hidden;transition:background .35s ease;
+}
+.feat-cell::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%,rgba(201,168,76,.07),transparent 70%);
+  opacity:0;transition:opacity .4s;
+}
+.feat-cell:hover{background:var(--bg2)}
+.feat-cell:hover::after{opacity:1}
+.feat-bar{width:2px;height:36px;border-radius:2px;background:linear-gradient(to bottom,var(--g),transparent);margin-bottom:1.4rem}
+.feat-em{font-size:1.6rem;margin-bottom:1rem}
+.feat-ttl{font-size:.98rem;font-weight:700;margin-bottom:.3rem;color:var(--t1)}
+.feat-sub{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--g3);font-family:'Inter',sans-serif;margin-bottom:.9rem}
+.feat-dsc{font-size:.87rem;color:var(--t2);line-height:1.85}
+.feat-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:1.3rem}
+.ftag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--b3);border-radius:50px;color:var(--t3);font-family:'Inter',sans-serif}
+
+/* ── WHY ─────────────────────────────────────────── */
+.why-section{position:relative;z-index:1;padding:8rem 2rem;background:var(--bg0);transition:background .4s}
+.why-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+@media(max-width:820px){.why-inner{grid-template-columns:1fr;gap:3.5rem}}
+
+/* dashboard card */
+.dash-mock{
+  border:1px solid var(--b1); border-radius:12px; overflow:hidden;
+  background:var(--bg2); box-shadow:var(--shadow); transition:background .4s;
+}
+.dash-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.65rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.06);
+  background:var(--bg3); transition:background .4s;
+}
+.dash-dots{display:flex;gap:5px}
+.dash-dot{width:9px;height:9px;border-radius:50%}
+.dash-dot:nth-child(1){background:#E8453C}.dash-dot:nth-child(2){background:#F0B429}.dash-dot:nth-child(3){background:#00C880}
+.dash-tabs{display:flex;gap:1.4rem}
+.dash-tab{font-size:9px;color:var(--t3);font-family:'Inter',sans-serif;padding-bottom:2px;cursor:pointer;transition:color .2s}
+.dash-tab.act{color:var(--g);border-bottom:1px solid var(--g)}
+.dash-body{padding:1.3rem}
+.kpi-row2{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:.9rem}
+.kpi-box{background:var(--bg1);border:1px solid var(--b3);border-radius:6px;padding:.85rem;transition:background .4s}
+.kpi-lbl{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);margin-bottom:.35rem;font-family:'Inter',sans-serif}
+.kpi-val{font-size:1.05rem;font-weight:700;font-family:'Inter',sans-serif}
+.kv-c{color:var(--c)}.kv-g{color:var(--g)}.kv-r{color:var(--r)}.kv-gr{color:var(--gr)}
+.kpi-d{font-size:9px;font-family:'Inter',sans-serif;margin-top:3px}
+.chart-card{background:var(--bg1);border:1px solid var(--b3);border-radius:6px;padding:.9rem;margin-bottom:.8rem;transition:background .4s}
+.ch-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}
+.ch-title{font-size:9px;color:var(--t2);font-family:'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.ch-pill{font-size:8px;color:var(--g);font-family:'Inter',sans-serif;border:1px solid rgba(201,168,76,.2);padding:2px 8px;border-radius:50px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.bar-nm{font-size:8px;color:var(--t3);font-family:'Inter',sans-serif;min-width:46px;text-align:right}
+[data-lang="en"] .bar-nm{text-align:left}
+.bar-track{flex:1;height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width 1.4s ease}
+.bar-val{font-size:8px;color:var(--t2);font-family:'Inter',sans-serif;min-width:36px}
+.dash-foot{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.55rem 1.1rem;border-top:1px solid rgba(255,255,255,.04);
+  background:var(--bg3); transition:background .4s;
+}
+.dash-live{display:flex;align-items:center;gap:5px;font-size:8px;color:var(--gr);font-family:'Inter',sans-serif}
+.dpulse{width:5px;height:5px;border-radius:50%;background:var(--gr);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.dash-ver{font-size:8px;color:var(--t3);font-family:'Inter',sans-serif}
+
+/* why items */
+.why-items{display:flex;flex-direction:column;gap:1.1rem;margin-top:2.5rem}
+.why-row{
+  display:flex;gap:1.1rem;align-items:flex-start;padding:1.2rem 1.4rem;
+  border:1px solid var(--b3);border-radius:8px;background:var(--bg1);
+  transition:all .3s ease;
+}
+.why-row:hover{border-color:var(--b1);background:var(--bg2);transform:translateX(-6px)}
+[data-lang="en"] .why-row:hover{transform:translateX(6px)}
+.why-ico{
+  width:34px;height:34px;min-width:34px;border:1px solid rgba(201,168,76,.25);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  background:var(--b2);font-size:15px;
+}
+.why-tt{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.why-dd{font-size:.81rem;color:var(--t2)}
+
+/* ── MODULES ─────────────────────────────────────── */
+.mods-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--bg1);transition:background .4s}
+.mods-grid{
+  max-width:1080px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  border:1px solid var(--b3);border-radius:10px;overflow:hidden;background:var(--b3);
+}
+@media(max-width:880px){.mods-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.mods-grid{grid-template-columns:repeat(2,1fr)}}
+.mod-cell{
+  background:var(--bg1);padding:2rem 1rem;text-align:center;
+  transition:background .3s;position:relative;
+}
+.mod-cell:hover{background:var(--bg2)}
+.mod-cell::after{
+  content:'';position:absolute;inset-inline:20%;bottom:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--g),transparent);
+  transform:scaleX(0);transition:transform .3s;transform-origin:center;
+}
+.mod-cell:hover::after{transform:scaleX(1)}
+.mod-em{font-size:1.65rem;margin-bottom:.65rem}
+.mod-nm{font-size:.84rem;font-weight:700;margin-bottom:.2rem}
+.mod-sub{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);font-family:'Inter',sans-serif}
+
+/* ── TECH ────────────────────────────────────────── */
+.tech-section{position:relative;z-index:1;padding:7rem 2rem;background:var(--bg0);transition:background .4s}
+.tech-inner{max-width:1080px;margin:0 auto}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4.5rem}
+@media(max-width:760px){.tech-grid{grid-template-columns:1fr}}
+.tb-lbl{
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--g);
+  font-family:'Inter',sans-serif;margin-bottom:1.3rem;
+  padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,.15);
+}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:2.2rem}
+.pill{
+  padding:5px 13px;border:1px solid var(--b3);border-radius:50px;
+  font-size:11px;color:var(--t2);font-family:'Inter',sans-serif;
+  transition:all .25s;background:transparent;
+}
+.pill:hover{border-color:var(--b1);color:var(--g);background:var(--b2)}
+.pill.hi{border-color:rgba(201,168,76,.3);color:var(--g)}
+.db-tbl{width:100%;border-collapse:collapse;font-size:.82rem}
+.db-tbl tr{border-bottom:1px solid var(--b3);transition:background .2s}
+.db-tbl tr:hover{background:var(--bg2)}
+.db-tbl td{padding:9px 12px}
+.db-tbl td:first-child{color:var(--t3);font-family:'Inter',sans-serif}
+.db-tbl td:last-child{text-align:right;font-family:'Inter',sans-serif;font-weight:500}
+.sec-list{display:flex;flex-direction:column;gap:8px;margin-bottom:2.2rem}
+.sec-li{display:flex;align-items:center;gap:9px;font-size:.86rem;color:var(--t2)}
+.sec-chk{
+  width:18px;height:18px;min-width:18px;border-radius:50%;
+  background:rgba(0,200,128,.08);border:1px solid rgba(0,200,128,.25);
+  display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gr);
+}
+.ver-list{display:flex;flex-direction:column;gap:7px}
+.ver-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 13px;border:1px solid var(--b3);border-radius:6px;font-size:.82rem;
+}
+.ver-row.cur{border-color:rgba(201,168,76,.28);background:rgba(201,168,76,.04)}
+.ver-tag{color:var(--g);font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.08em}
+
+/* ── CTA ─────────────────────────────────────────── */
+.cta-section{
+  position:relative;z-index:1;padding:9rem 2rem;
+  background:var(--bg1);text-align:center;overflow:hidden; transition:background .4s;
+}
+.cta-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  animation:breathe 8s ease-in-out infinite;
+}
+.cta-in{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.cta-ttl{
+  font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:700;
+  background:linear-gradient(135deg,var(--g2),var(--g));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:1.5rem;line-height:1.1;
+}
+.cta-dsc{font-size:1rem;color:var(--t2);line-height:1.9;margin-bottom:3rem}
+.cta-hr{width:72px;height:1px;background:linear-gradient(to right,transparent,var(--g),transparent);margin:0 auto 2.5rem}
+
+/* ── VERSION BAR + FOOTER ────────────────────────── */
+.ver-bar{
+  position:relative;z-index:1;background:rgba(0,0,0,.4);
+  border-top:1px solid var(--b3);
+  padding:1.3rem 3rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;
+  transition:background .4s;
+}
+.vb-item{
+  display:flex;align-items:center;gap:7px;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--t3);font-family:'Inter',sans-serif;
+}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--gr);box-shadow:0 0 6px var(--gr);animation:pulse 2s infinite}
+footer{
+  position:relative;z-index:1;background:var(--bg0);
+  border-top:1px solid var(--b3);
+  padding:2.2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  transition:background .4s;
+}
+.foot-logo{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;color:var(--g);letter-spacing:.1em}
+.foot-sl{font-size:10px;color:var(--t3);letter-spacing:.14em}
+.foot-links{display:flex;gap:2rem}
+.foot-links a{font-size:10px;color:var(--t3);text-decoration:none;letter-spacing:.14em;text-transform:uppercase;font-family:'Inter',sans-serif;transition:color .2s}
+.foot-links a:hover{color:var(--g)}
+
+/* ── GLOW DIVIDER ────────────────────────────────── */
+.gd{height:1px;position:relative;z-index:1;background:linear-gradient(to right,transparent,var(--g),var(--c),var(--g),transparent);background-size:300% 100%;animation:gm 5s linear infinite}
+@keyframes gm{0%{background-position:200%}100%{background-position:-200%}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<!-- ══ NAV ══════════════════════════════════════════════ -->
+<nav id="nav" class="z">
+  <a class="nav-logo cinzel" href="#">
+    <div class="nav-logo-badge">VAS</div>
+    VIP ACC
+  </a>
+
+  <ul class="nav-center">
+    <li><a href="#features" data-i18n="n.feat">المميزات</a></li>
+    <li><a href="#modules" data-i18n="n.mods">الوحدات</a></li>
+    <li><a href="#tech"    data-i18n="n.tech">التقنية</a></li>
+    <li><a href="#cta"     data-i18n="n.start">ابدأ</a></li>
+  </ul>
+
+  <div class="nav-end">
+    <!-- ── THEME TOGGLE ── -->
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <!-- Moon icon (dark mode active) -->
+      <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <!-- Sun icon (light mode active — hidden by default) -->
+      <svg id="icon-sun" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+
+    <!-- ── LANG BTN — shows OPPOSITE language ── -->
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Switch language">
+      <!-- Elegant language SVG icon — no cross -->
+      <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 8l4 4-4 4"/>
+        <path d="M3 12h8"/>
+        <path d="M13 6h8"/>
+        <path d="M13 12h5"/>
+        <path d="M13 18h3"/>
+      </svg>
+      <span id="lang-label">EN</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ WA FLOAT (DESKTOP) ════════════════════════════ -->
+<a class="wa-float" href="https://wa.me/201113903070" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero z">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text" data-i18n="h.ey">نظام ERP محاسبي متكامل للمؤسسات</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h1 class="hero-title cinzel">VIP ACC<br/>SYSTEM</h1>
+    <h2 class="hero-sub" data-i18n="h.sub">نظام المحاسبة الذكي للشركات المحترفة</h2>
+    <p class="hero-tag" data-i18n="h.tag">منصة ERP محاسبية متكاملة ومفتوحة المصدر، مصممة للشركات الطموحة.<br/>دقة في الأرقام. وضوح في القرارات. تحكم كامل في كل تفاصيل أعمالك.</p>
+    <div class="hero-slogan cinzel" data-i18n="h.sl">دقّة ماليّة</div>
+    <div class="hero-ctas">
+      <button class="btn-g" data-i18n="h.c1">ابدأ الآن — مجانًا</button>
+      <button class="btn-o" data-i18n="h.c2">استعراض الإمكانيات ←</button>
+    </div>
+  </div>
+  <div class="scroll-down">
+    <span data-i18n="h.sc">تمرير للاستكشاف</span>
+    <div class="scroll-track"></div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ═══════════════════════════════════════════ -->
+<div class="marquee-wrap z">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+<!-- ══ NUMBERS ══════════════════════════════════════════ -->
+<section class="nums-section">
+  <div class="nums-grid rv">
+    <div class="num-cell"><span class="num-big" data-target="10">0</span><div class="num-label" data-i18n="s.md">وحدة ERP<br/>متكاملة</div></div>
+    <div class="num-cell"><span class="num-big" data-target="70" data-sfx="+">0</span><div class="num-label" data-i18n="s.tb">جدول في<br/>قاعدة البيانات</div></div>
+    <div class="num-cell"><span class="num-big" data-target="40" data-sfx="+">0</span><div class="num-label" data-i18n="s.lg">لغة<br/>مدعومة</div></div>
+    <div class="num-cell"><span class="num-big" data-target="100" data-sfx="%">0</span><div class="num-label" data-i18n="s.rt">دعم العربية<br/>RTL كامل</div></div>
+    <div class="num-cell"><span class="num-big cinzel" style="font-size:1.35rem">2.4.19</span><div class="num-label" data-i18n="s.vr">أحدث<br/>إصدار</div></div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- ══ FEATURES ══════════════════════════════════════════ -->
+<section class="feat-section" id="features">
+  <div class="sh center rv">
+    <div class="sh-ey"><div class="sh-ey-line"></div><span data-i18n="f.lb">المميزات الأساسية</span><div class="sh-ey-line"></div></div>
+    <h2 class="sh-ttl" data-i18n="f.tt">كل أدوات المحاسبة الاحترافية في مكان واحد</h2>
+    <p class="sh-dsc" data-i18n="f.ds">من الفاتورة الأولى إلى الإقفال السنوي — غطاء مالي شامل بدقة لا مثيل لها.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">📊</div><div class="feat-ttl" data-i18n="f1.t">لوحة تحكم ذكية</div><div class="feat-sub">Intelligent Dashboard</div><p class="feat-dsc" data-i18n="f1.d">KPIs مالية بالوقت الفعلي، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.</p><div class="feat-tags"><span class="ftag">Real-time</span><span class="ftag">Chart.js</span><span class="ftag">RTL</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">🛒</div><div class="feat-ttl" data-i18n="f2.t">المبيعات والعملاء</div><div class="feat-sub">Sales & Receivables</div><p class="feat-dsc" data-i18n="f2.d">فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع كامل للذمم المدينة مع تحليل عمر الديون.</p><div class="feat-tags"><span class="ftag">AR Aging</span><span class="ftag">Invoicing</span><span class="ftag">CRM</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">🏪</div><div class="feat-ttl" data-i18n="f3.t">المشتريات والموردين</div><div class="feat-sub">Purchasing & Payables</div><p class="feat-dsc" data-i18n="f3.d">دورة مشتريات كاملة من أمر الشراء حتى السداد، مع مطابقة الكميات والأسعار تلقائيًا.</p><div class="feat-tags"><span class="ftag">PO</span><span class="ftag">GRN</span><span class="ftag">AP Aging</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">📦</div><div class="feat-ttl" data-i18n="f4.t">إدارة المخزون</div><div class="feat-sub">Inventory Management</div><p class="feat-dsc" data-i18n="f4.d">تتبع الأصناف وتحركات المخزون، تكلفة المتوسط المرجح، تقييم المخزون، وتنبيهات الحد الأدنى.</p><div class="feat-tags"><span class="ftag">FIFO/Avg</span><span class="ftag">Valuation</span><span class="ftag">Alerts</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">📒</div><div class="feat-ttl" data-i18n="f5.t">الأستاذ العام</div><div class="feat-sub">General Ledger</div><p class="feat-dsc" data-i18n="f5.d">شجرة حسابات متعددة المستويات، قيود اليومية، ميزان المراجعة، القوائم المالية، وAudit Trail كامل.</p><div class="feat-tags"><span class="ftag">CoA</span><span class="ftag">Audit Trail</span><span class="ftag">Reports</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">🏦</div><div class="feat-ttl" data-i18n="f6.t">البنوك والتسوية</div><div class="feat-sub">Banking & Reconciliation</div><p class="feat-dsc" data-i18n="f6.d">حسابات بنكية متعددة، تسجيل العمليات، تسوية كشوف الحساب، والوضع النقدي اللحظي.</p><div class="feat-tags"><span class="ftag">Multi-bank</span><span class="ftag">Recon.</span><span class="ftag">Cash</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">🏭</div><div class="feat-ttl" data-i18n="f7.t">التصنيع وقوائم المواد</div><div class="feat-sub">Manufacturing & BOM</div><p class="feat-dsc" data-i18n="f7.d">قوائم المواد، أوامر الإنتاج، تكاليف التصنيع الفعلية، وتحديث المخزون التلقائي.</p><div class="feat-tags"><span class="ftag">BOM</span><span class="ftag">Work Orders</span><span class="ftag">Costing</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">📐</div><div class="feat-ttl" data-i18n="f8.t">مراكز التكلفة والأبعاد</div><div class="feat-sub">Dimensions & Cost Centers</div><p class="feat-dsc" data-i18n="f8.d">توزيع النتائج المالية على مراكز التكلفة والربح والمشاريع مع تحليل دقيق لكل وحدة.</p><div class="feat-tags"><span class="ftag">Cost Centers</span><span class="ftag">Projects</span><span class="ftag">P&L</span></div></div>
+    <div class="feat-cell rv"><div class="feat-bar"></div><div class="feat-em">🏗️</div><div class="feat-ttl" data-i18n="f9.t">الأصول الثابتة</div><div class="feat-sub">Fixed Assets</div><p class="feat-dsc" data-i18n="f9.d">سجل الأصول، استهلاك تلقائي، قيمة دفترية لحظية، وقيود محاسبية دورية آلية بدون تدخل يدوي.</p><div class="feat-tags"><span class="ftag">Depreciation</span><span class="ftag">Register</span><span class="ftag">Auto-GL</span></div></div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- ══ WHY ═══════════════════════════════════════════════ -->
+<section class="why-section" id="why">
+  <div class="why-inner">
+    <div class="dash-mock rvl">
+      <div class="dash-topbar">
+        <div class="dash-dots"><div class="dash-dot"></div><div class="dash-dot"></div><div class="dash-dot"></div></div>
+        <div class="dash-tabs">
+          <span class="dash-tab act" data-i18n="db.ov">نظرة عامة</span>
+          <span class="dash-tab" data-i18n="db.rp">التقارير</span>
+          <span class="dash-tab" data-i18n="db.jn">القيود</span>
+        </div>
+        <div style="font-size:8px;color:var(--gr);font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px"><div class="dpulse"></div>Live</div>
+      </div>
+      <div class="dash-body">
+        <div class="kpi-row2">
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.rv">الإيرادات</div><div class="kpi-val kv-c" id="k1">$0K</div><div class="kpi-d" style="color:var(--gr)">↑ 12.4%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.np">صافي الربح</div><div class="kpi-val kv-gr" id="k2">$0K</div><div class="kpi-d" style="color:var(--gr)">↑ 8.1%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.py">المدفوعات</div><div class="kpi-val kv-r" id="k3">$0K</div><div class="kpi-d" style="color:var(--r)">↓ 3.2%</div></div>
+          <div class="kpi-box"><div class="kpi-lbl" data-i18n="k.rc">المستحقات</div><div class="kpi-val kv-g" id="k4">$0K</div><div class="kpi-d" style="color:var(--gr)">↑ 5.7%</div></div>
+        </div>
+        <div class="chart-card">
+          <div class="ch-head">
+            <span class="ch-title" data-i18n="db.mn">الإيرادات الشهرية</span>
+            <span class="ch-pill" data-i18n="db.fy">السنة المالية</span>
+          </div>
+          <div class="bar-row"><span class="bar-nm" data-i18n="m.ja">يناير</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#C9A84C,#E8B84B)" data-w="82"></div></div><span class="bar-val" style="color:var(--g)">$82K</span></div>
+          <div class="bar-row"><span class="bar-nm" data-i18n="m.fe">فبراير</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,var(--c),#0090bb)" data-w="67"></div></div><span class="bar-val" style="color:var(--c)">$67K</span></div>
+          <div class="bar-row"><span class="bar-nm" data-i18n="m.mr">مارس</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,var(--gr),#00905e)" data-w="95"></div></div><span class="bar-val" style="color:var(--gr)">$95K</span></div>
+          <div class="bar-row"><span class="bar-nm" data-i18n="m.ap">أبريل</span><div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,var(--r),#b02020)" data-w="58"></div></div><span class="bar-val" style="color:var(--r)">$58K</span></div>
+        </div>
+      </div>
+      <div class="dash-foot">
+        <div class="dash-live"><div class="dpulse"></div><span data-i18n="db.lv">البيانات محدّثة الآن</span></div>
+        <div class="dash-ver">VIPAccSystem v2.4.19</div>
+      </div>
+    </div>
+
+    <div class="rvr">
+      <div class="sh">
+        <div class="sh-ey"><div class="sh-ey-line"></div><span data-i18n="w.lb">لماذا VIPAccSystem؟</span></div>
+        <h2 class="sh-ttl" data-i18n="w.tt">الاختيار الذكي لأصحاب القرار</h2>
+        <p class="sh-dsc" data-i18n="w.ds">لم نبنِ مجرد برنامج — بنينا أداة تمنح قائد الأعمال رؤية مالية 360° في أي لحظة.</p>
+      </div>
+      <div class="why-items">
+        <div class="why-row"><div class="why-ico">🌍</div><div><div class="why-tt" data-i18n="w1.t">ثنائية اللغة — عربي وإنجليزي</div><div class="why-dd" data-i18n="w1.d">RTL أصيل، ترميز UTF-8 كامل، تقارير وفواتير باللغتين.</div></div></div>
+        <div class="why-row"><div class="why-ico">⚡</div><div><div class="why-tt" data-i18n="w2.t">أداء استثنائي</div><div class="why-dd" data-i18n="w2.d">InnoDB + utf8mb4 مع بادئة جداول قابلة للتخصيص لأقصى أداء.</div></div></div>
+        <div class="why-row"><div class="why-ico">🔐</div><div><div class="why-tt" data-i18n="w3.t">أمان متعدد الطبقات</div><div class="why-dd" data-i18n="w3.d">Brute Force، Audit Trail، RBAC، وحماية شاملة من الثغرات.</div></div></div>
+        <div class="why-row"><div class="why-ico">🔌</div><div><div class="why-tt" data-i18n="w4.t">قابل للتوسع الكامل</div><div class="why-dd" data-i18n="w4.d">نظام إضافات متقدم يتيح تخصيص النظام دون المساس بالكود.</div></div></div>
+        <div class="why-row"><div class="why-ico">🆓</div><div><div class="why-tt" data-i18n="w5.t">مفتوح المصدر — GPL v3</div><div class="why-dd" data-i18n="w5.d">ملكيتك الكاملة. لا رسوم شهرية، لا قيود على المستخدمين.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MODULES ═══════════════════════════════════════════ -->
+<section class="mods-section" id="modules">
+  <div class="sh center rv">
+    <div class="sh-ey"><div class="sh-ey-line"></div><span data-i18n="mo.lb">جميع الوحدات</span><div class="sh-ey-line"></div></div>
+    <h2 class="sh-ttl" data-i18n="mo.tt">١٠ وحدات متخصصة — نظام واحد متكامل</h2>
+    <p class="sh-dsc" data-i18n="mo.ds">كل وحدة مستقلة بذاتها، ومتكاملة مع بقية النظام في تدفق مالي سلس.</p>
+  </div>
+  <div class="mods-grid rv">
+    <div class="mod-cell"><div class="mod-em">🛒</div><div class="mod-nm" data-i18n="md1">المبيعات</div><div class="mod-sub">Sales</div></div>
+    <div class="mod-cell"><div class="mod-em">🏪</div><div class="mod-nm" data-i18n="md2">المشتريات</div><div class="mod-sub">Purchases</div></div>
+    <div class="mod-cell"><div class="mod-em">📦</div><div class="mod-nm" data-i18n="md3">المخزون</div><div class="mod-sub">Inventory</div></div>
+    <div class="mod-cell"><div class="mod-em">🏭</div><div class="mod-nm" data-i18n="md4">التصنيع</div><div class="mod-sub">Manufacturing</div></div>
+    <div class="mod-cell"><div class="mod-em">📐</div><div class="mod-nm" data-i18n="md5">الأبعاد</div><div class="mod-sub">Dimensions</div></div>
+    <div class="mod-cell"><div class="mod-em">📒</div><div class="mod-nm" data-i18n="md6">الأستاذ العام</div><div class="mod-sub">General Ledger</div></div>
+    <div class="mod-cell"><div class="mod-em">🏦</div><div class="mod-nm" data-i18n="md7">البنوك</div><div class="mod-sub">Banking</div></div>
+    <div class="mod-cell"><div class="mod-em">⚖️</div><div class="mod-nm" data-i18n="md8">ميزان المراجعة</div><div class="mod-sub">Trial Balance</div></div>
+    <div class="mod-cell"><div class="mod-em">🏗️</div><div class="mod-nm" data-i18n="md9">الأصول الثابتة</div><div class="mod-sub">Fixed Assets</div></div>
+    <div class="mod-cell"><div class="mod-em">⚙️</div><div class="mod-nm" data-i18n="md10">الإعدادات</div><div class="mod-sub">Setup</div></div>
+  </div>
+</section>
+
+<div class="gd"></div>
+
+<!-- ══ TECH ══════════════════════════════════════════════ -->
+<section class="tech-section" id="tech">
+  <div class="tech-inner">
+    <div class="sh rv">
+      <div class="sh-ey"><div class="sh-ey-line"></div><span data-i18n="tc.lb">التقنية والبنية</span></div>
+      <h2 class="sh-ttl" data-i18n="tc.tt">أساس تقني صلب على أعلى المعايير العالمية</h2>
+    </div>
+    <div class="tech-grid">
+      <div class="rvl">
+        <div class="tb-lbl" data-i18n="tc.st">التقنيات المستخدمة</div>
+        <div class="pills">
+          <span class="pill hi">PHP 8.2+</span><span class="pill hi">MySQL 8.0</span>
+          <span class="pill hi">Apache 2.4</span><span class="pill">Chart.js</span>
+          <span class="pill">TCPDF</span><span class="pill">MySQLi</span>
+          <span class="pill">InnoDB</span><span class="pill">UTF-8</span>
+          <span class="pill">Session Auth</span><span class="pill">RBAC</span>
+          <span class="pill">GPL v3</span>
+        </div>
+        <div class="tb-lbl" data-i18n="tc.db">مواصفات قاعدة البيانات</div>
+        <table class="db-tbl">
+          <tr><td>Database Engine</td><td style="color:var(--g)">InnoDB</td></tr>
+          <tr><td>Collation</td><td style="color:var(--c)">utf8mb4_unicode_ci</td></tr>
+          <tr><td>Table Prefix</td><td>0_</td></tr>
+          <tr><td>Tables Count</td><td style="color:var(--gr)">70+</td></tr>
+          <tr><td>Schema Version</td><td style="color:var(--g)">2.4.1</td></tr>
+          <tr><td>Source Version</td><td style="color:var(--g)">2.4.19</td></tr>
+        </table>
+      </div>
+      <div class="rvr">
+        <div class="tb-lbl" data-i18n="tc.sc">الأمان والحماية</div>
+        <ul class="sec-list">
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc1">حماية Brute Force — 30 ثانية بين المحاولات</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc2">منع حقن path_to_root عبر URL</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc3">استعلامات MySQLi آمنة ضد SQL Injection</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc4">Audit Trail على جميع قيود GL</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc5">نظام صلاحيات RBAC متكامل</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc6">حماية المجلدات بـ .htaccess</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc7">تسجيل الأخطاء في ملف آمن</span></li>
+          <li class="sec-li"><div class="sec-chk">✓</div><span data-i18n="sc8">التحقق من الأسعار والكميات تلقائيًا</span></li>
+        </ul>
+        <div class="tb-lbl" data-i18n="tc.vr">الإصدارات</div>
+        <div class="ver-list">
+          <div class="ver-row cur"><span style="font-weight:700">v2.4.19</span><span class="ver-tag">Nov 2025 — LATEST ✦</span></div>
+          <div class="ver-row"><span>v2.4.18</span><span style="color:var(--t3);font-family:'Inter',sans-serif;font-size:10px">Apr 2024</span></div>
+          <div class="ver-row"><span>v2.4.1 <span style="font-size:10px;color:var(--t3)">(DB)</span></span><span style="color:var(--t3);font-family:'Inter',sans-serif;font-size:10px" data-i18n="tc.st2">مستقر</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ════════════════════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-in rv">
+    <div class="sh-ey" style="justify-content:center;margin-bottom:2rem"><div class="sh-ey-line"></div><span data-i18n="ct.lb">ابدأ اليوم</span><div class="sh-ey-line"></div></div>
+    <h2 class="cta-ttl cinzel" data-i18n="ct.tt">ابدأ رحلة<br/>الدقة المالية</h2>
+    <div class="cta-hr"></div>
+    <p class="cta-dsc" data-i18n="ct.ds">انضم إلى الشركات التي تثق في VIPAccSystem.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.</p>
+    <div class="hero-ctas" style="animation:none">
+      <button class="btn-g" data-i18n="ct.b1">تحميل النظام مجانًا</button>
+      <button class="btn-o" data-i18n="ct.b2">vipaccsystem.com ←</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VERSION BAR ════════════════════════════════════════ -->
+<div class="ver-bar z">
+  <div class="vb-item"><div class="live-dot"></div><span data-i18n="vb.dv">قيد التطوير الفعال</span></div>
+  <div class="vb-item">VERSION 2.4.19</div>
+  <div class="vb-item">DB SCHEMA 2.4.1</div>
+  <div class="vb-item">GPL v3 OPEN SOURCE</div>
+  <div class="vb-item" style="color:var(--g);font-family:'Cairo',sans-serif;font-size:12px">دقّة ماليّة</div>
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer>
+  <div>
+    <div class="foot-logo cinzel">VIP ACC SYSTEM</div>
+    <div class="foot-sl" data-i18n="ft.sl">دقّة ماليّة | Financial Precision</div>
+  </div>
+  <div class="foot-links">
+    <a href="#" data-i18n="ft.dc">التوثيق</a>
+    <a href="#" data-i18n="ft.sc">الأمان</a>
+    <a href="https://wa.me/201113903070" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- ══ MOBILE BOTTOM NAV ══════════════════════════════════ -->
+<nav class="mob-nav" id="mob-nav">
+  <a class="mob-nav-item" href="#features">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span data-i18n="mb.ft">المميزات</span>
+  </a>
+  <a class="mob-nav-item" href="#modules">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    <span data-i18n="mb.md">الوحدات</span>
+  </a>
+  <a class="mob-nav-item wa" href="https://wa.me/201113903070" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>واتساب</span>
+  </a>
+  <button class="mob-nav-item" onclick="toggleTheme()" style="background:none;border:none">
+    <svg viewBox="0 0 24 24" id="mob-theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span data-i18n="mb.th">المظهر</span>
+  </button>
+  <button class="mob-nav-item" onclick="toggleLang()" style="background:none;border:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l4 4-4 4"/><path d="M3 12h8"/><path d="M13 6h8"/><path d="M13 12h5"/><path d="M13 18h3"/></svg>
+    <span id="mob-lang-label">EN</span>
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════ -->
+<script>
+/* ── TRANSLATIONS ─────────────────────────────────── */
+const T={
+ar:{
+  "n.feat":"المميزات","n.mods":"الوحدات","n.tech":"التقنية","n.start":"ابدأ",
+  "h.ey":"نظام ERP محاسبي متكامل للمؤسسات",
+  "h.sub":"نظام المحاسبة الذكي للشركات المحترفة",
+  "h.tag":"منصة ERP محاسبية متكاملة ومفتوحة المصدر، مصممة للشركات الطموحة.<br/>دقة في الأرقام. وضوح في القرارات. تحكم كامل في كل تفاصيل أعمالك.",
+  "h.sl":"دقّة ماليّة","h.c1":"ابدأ الآن — مجانًا","h.c2":"استعراض الإمكانيات ←","h.sc":"تمرير للاستكشاف",
+  "s.md":"وحدة ERP<br/>متكاملة","s.tb":"جدول في<br/>قاعدة البيانات","s.lg":"لغة<br/>مدعومة","s.rt":"دعم العربية<br/>RTL كامل","s.vr":"أحدث<br/>إصدار",
+  "f.lb":"المميزات الأساسية","f.tt":"كل أدوات المحاسبة الاحترافية في مكان واحد","f.ds":"من الفاتورة الأولى إلى الإقفال السنوي — غطاء مالي شامل بدقة لا مثيل لها.",
+  "f1.t":"لوحة تحكم ذكية","f1.d":"KPIs مالية بالوقت الفعلي، مخططات الإيرادات والمصروفات، التدفق النقدي، وتحليل عمر المدينين.",
+  "f2.t":"المبيعات والعملاء","f2.d":"فواتير البيع، عروض الأسعار، أوامر البيع، استلام المدفوعات، وتتبع كامل للذمم المدينة.",
+  "f3.t":"المشتريات والموردين","f3.d":"دورة مشتريات كاملة من أمر الشراء حتى السداد، مع مطابقة الكميات والأسعار تلقائيًا.",
+  "f4.t":"إدارة المخزون","f4.d":"تتبع الأصناف وتحركات المخزون، تكلفة المتوسط المرجح، وتقييم المخزون.",
+  "f5.t":"الأستاذ العام","f5.d":"شجرة حسابات متعددة المستويات، قيود اليومية، ميزان المراجعة، وAudit Trail كامل.",
+  "f6.t":"البنوك والتسوية","f6.d":"حسابات بنكية متعددة، تسجيل العمليات، تسوية كشوف الحساب، والوضع النقدي.",
+  "f7.t":"التصنيع وقوائم المواد","f7.d":"قوائم المواد، أوامر الإنتاج، تكاليف التصنيع الفعلية، وتحديث المخزون التلقائي.",
+  "f8.t":"مراكز التكلفة والأبعاد","f8.d":"توزيع النتائج المالية على مراكز التكلفة والربح والمشاريع مع تحليل دقيق.",
+  "f9.t":"الأصول الثابتة","f9.d":"سجل الأصول، استهلاك تلقائي، قيمة دفترية لحظية، وقيود محاسبية آلية.",
+  "k.rv":"الإيرادات","k.np":"صافي الربح","k.py":"المدفوعات","k.rc":"المستحقات",
+  "db.ov":"نظرة عامة","db.rp":"التقارير","db.jn":"القيود","db.mn":"الإيرادات الشهرية","db.fy":"السنة المالية","db.lv":"البيانات محدّثة الآن",
+  "m.ja":"يناير","m.fe":"فبراير","m.mr":"مارس","m.ap":"أبريل",
+  "w.lb":"لماذا VIPAccSystem؟","w.tt":"الاختيار الذكي لأصحاب القرار","w.ds":"لم نبنِ مجرد برنامج — بنينا أداة تمنح قائد الأعمال رؤية مالية 360° في أي لحظة.",
+  "w1.t":"ثنائية اللغة — عربي وإنجليزي","w1.d":"RTL أصيل، ترميز UTF-8 كامل، تقارير وفواتير باللغتين.",
+  "w2.t":"أداء استثنائي","w2.d":"InnoDB + utf8mb4 مع بادئة جداول قابلة للتخصيص لأقصى أداء.",
+  "w3.t":"أمان متعدد الطبقات","w3.d":"Brute Force، Audit Trail، RBAC، وحماية شاملة من الثغرات.",
+  "w4.t":"قابل للتوسع الكامل","w4.d":"نظام إضافات متقدم يتيح تخصيص النظام دون المساس بالكود.",
+  "w5.t":"مفتوح المصدر — GPL v3","w5.d":"ملكيتك الكاملة. لا رسوم شهرية، لا قيود على المستخدمين.",
+  "mo.lb":"جميع الوحدات","mo.tt":"١٠ وحدات متخصصة — نظام واحد متكامل","mo.ds":"كل وحدة مستقلة بذاتها، ومتكاملة مع بقية النظام في تدفق مالي سلس.",
+  "md1":"المبيعات","md2":"المشتريات","md3":"المخزون","md4":"التصنيع","md5":"الأبعاد",
+  "md6":"الأستاذ العام","md7":"البنوك","md8":"ميزان المراجعة","md9":"الأصول الثابتة","md10":"الإعدادات",
+  "tc.lb":"التقنية والبنية","tc.tt":"أساس تقني صلب على أعلى المعايير العالمية",
+  "tc.st":"التقنيات المستخدمة","tc.db":"مواصفات قاعدة البيانات","tc.sc":"الأمان والحماية","tc.vr":"الإصدارات","tc.st2":"مستقر",
+  "sc1":"حماية Brute Force — 30 ثانية بين المحاولات","sc2":"منع حقن path_to_root عبر URL",
+  "sc3":"استعلامات MySQLi آمنة ضد SQL Injection","sc4":"Audit Trail على جميع قيود GL",
+  "sc5":"نظام صلاحيات RBAC متكامل","sc6":"حماية المجلدات بـ .htaccess",
+  "sc7":"تسجيل الأخطاء في ملف آمن","sc8":"التحقق من الأسعار والكميات تلقائيًا",
+  "ct.lb":"ابدأ اليوم","ct.tt":"ابدأ رحلة<br/>الدقة المالية",
+  "ct.ds":"انضم إلى الشركات التي تثق في VIPAccSystem.<br/>مفتوح المصدر. مجاني. قابل للتخصيص الكامل.",
+  "ct.b1":"تحميل النظام مجانًا","ct.b2":"vipaccsystem.com ←",
+  "vb.dv":"قيد التطوير الفعال","ft.sl":"دقّة ماليّة | Financial Precision","ft.dc":"التوثيق","ft.sc":"الأمان",
+  "mb.ft":"المميزات","mb.md":"الوحدات","mb.th":"المظهر"
+},
+en:{
+  "n.feat":"Features","n.mods":"Modules","n.tech":"Technology","n.start":"Get Started",
+  "h.ey":"Integrated Enterprise ERP Accounting Platform",
+  "h.sub":"The Smart Accounting System for Professional Businesses",
+  "h.tag":"A comprehensive open-source ERP platform built for ambitious businesses.<br/>Precise numbers. Clear decisions. Full control over every financial detail.",
+  "h.sl":"Financial Precision","h.c1":"Start Now — Free","h.c2":"Explore Features →","h.sc":"Scroll to Explore",
+  "s.md":"Integrated ERP<br/>Modules","s.tb":"Database<br/>Tables","s.lg":"Languages<br/>Supported","s.rt":"Arabic RTL<br/>Full Support","s.vr":"Latest<br/>Version",
+  "f.lb":"Core Features","f.tt":"Every Professional Accounting Tool, One Platform","f.ds":"From first invoice to annual close — comprehensive financial coverage with unmatched precision.",
+  "f1.t":"Intelligent Dashboard","f1.d":"Real-time financial KPIs, revenue & expense charts, cash flow analysis, and AR aging — all in one view.",
+  "f2.t":"Sales & Receivables","f2.d":"Sales invoices, quotations, orders, payment collection, and full AR tracking with aging analysis.",
+  "f3.t":"Purchasing & Payables","f3.d":"Full procurement cycle from PO to payment with automatic quantity and price validation.",
+  "f4.t":"Inventory Management","f4.d":"Item tracking, stock movements, weighted-average costing, inventory valuation, and low-stock alerts.",
+  "f5.t":"General Ledger","f5.d":"Multi-level chart of accounts, journal entries, trial balance, financial statements, and full audit trail.",
+  "f6.t":"Banking & Reconciliation","f6.d":"Multiple bank accounts, transaction recording, statement reconciliation, and real-time cash position.",
+  "f7.t":"Manufacturing & BOM","f7.d":"Bills of materials, production orders, actual manufacturing costs, and automatic inventory updates.",
+  "f8.t":"Dimensions & Cost Centers","f8.d":"Allocate financial results across cost centers, profit centers, and projects with per-dimension analysis.",
+  "f9.t":"Fixed Assets","f9.d":"Asset register, automatic depreciation, real-time book value, and automated periodic GL entries.",
+  "k.rv":"Revenue","k.np":"Net Profit","k.py":"Payables","k.rc":"Receivables",
+  "db.ov":"Overview","db.rp":"Reports","db.jn":"Journal","db.mn":"Monthly Revenue","db.fy":"Fiscal Year","db.lv":"Data updated live",
+  "m.ja":"January","m.fe":"February","m.mr":"March","m.ap":"April",
+  "w.lb":"Why VIPAccSystem?","w.tt":"The Smart Choice for Decision Makers","w.ds":"We didn't just build software — we built a tool that gives business leaders 360° financial visibility at any moment.",
+  "w1.t":"Fully Bilingual — Arabic & English","w1.d":"Native RTL, full UTF-8 encoding. Reports and invoices in both languages.",
+  "w2.t":"Exceptional Performance","w2.d":"InnoDB + utf8mb4 with configurable table prefix for maximum performance.",
+  "w3.t":"Multi-Layer Security","w3.d":"Brute Force protection, Audit Trail, RBAC, and comprehensive vulnerability protection.",
+  "w4.t":"Fully Extensible","w4.d":"Advanced plugin system lets you customize the system without touching the core.",
+  "w5.t":"Open Source — GPL v3","w5.d":"Completely yours. No monthly fees, no user limits whatsoever.",
+  "mo.lb":"All Modules","mo.tt":"10 Specialized Modules — One Integrated System","mo.ds":"Each module works independently and integrates seamlessly in one unified financial workflow.",
+  "md1":"Sales","md2":"Purchases","md3":"Inventory","md4":"Manufacturing","md5":"Dimensions",
+  "md6":"General Ledger","md7":"Banking","md8":"Trial Balance","md9":"Fixed Assets","md10":"Setup",
+  "tc.lb":"Technology & Architecture","tc.tt":"A Solid Technical Foundation Built to World Standards",
+  "tc.st":"Technology Stack","tc.db":"Database Specifications","tc.sc":"Security & Protection","tc.vr":"Versions","tc.st2":"Stable",
+  "sc1":"Brute Force protection — 30s delay between attempts","sc2":"path_to_root injection prevention via URL",
+  "sc3":"Secure MySQLi queries against SQL Injection","sc4":"Full Audit Trail on all GL transactions",
+  "sc5":"Integrated RBAC permissions system","sc6":"Directory protection via .htaccess",
+  "sc7":"Error logging to a secure separate file","sc8":"Automatic price and quantity validation",
+  "ct.lb":"Get Started Today","ct.tt":"Begin Your<br/>Financial Precision Journey",
+  "ct.ds":"Join the companies that trust VIPAccSystem to manage their finances.<br/>Open Source. Free. Fully Customizable.",
+  "ct.b1":"Download Free Now","ct.b2":"vipaccsystem.com →",
+  "vb.dv":"ACTIVE DEVELOPMENT","ft.sl":"Financial Precision | دقّة ماليّة","ft.dc":"Docs","ft.sc":"Security",
+  "mb.ft":"Features","mb.md":"Modules","mb.th":"Theme"
+}};
+
+/* ── MARQUEE ─────────────────────────────────────── */
+const MD={
+  ar:["المبيعات","المشتريات","المخزون","الأستاذ العام","التصنيع","البنوك","الأصول الثابتة","ميزان المراجعة","الأبعاد","دقّة ماليّة"],
+  en:["Sales","Purchasing","Inventory","General Ledger","Manufacturing","Banking","Fixed Assets","Trial Balance","Dimensions","Financial Precision"]
+};
+function buildMarquee(l){
+  const t=document.getElementById('marquee'),items=MD[l];
+  let h='';
+  for(let r=0;r<2;r++) items.forEach(it=>{h+=`<div class="m-item"><span class="m-sep">✦</span><strong>${it}</strong></div>`;});
+  t.innerHTML=h;
+}
+buildMarquee('ar');
+
+/* ── LANG ENGINE ─────────────────────────────────── */
+let lang='ar';
+function toggleLang(){setLang(lang==='ar'?'en':'ar')}
+function setLang(l){
+  if(l===lang)return; lang=l;
+  document.body.classList.add('switching');
+  setTimeout(()=>{
+    const h=document.documentElement;
+    h.setAttribute('lang',l);h.setAttribute('dir',l==='ar'?'rtl':'ltr');h.setAttribute('data-lang',l);
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const v=T[l][el.getAttribute('data-i18n')];if(v!==undefined)el.innerHTML=v;});
+    const lbl=l==='ar'?'EN':'عربي';
+    document.getElementById('lang-label').textContent=lbl;
+    document.getElementById('mob-lang-label').textContent=lbl;
+    buildMarquee(l);
+    document.title=l==='ar'?'VIP Acc System — دقّة ماليّة':'VIP Acc System — Financial Precision';
+    document.body.classList.remove('switching');
+  },280);
+}
+
+/* ── THEME ENGINE ────────────────────────────────── */
+let theme='dark';
+function toggleTheme(){
+  theme=theme==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',theme);
+  const moon=document.getElementById('icon-moon'),sun=document.getElementById('icon-sun');
+  if(theme==='light'){moon.style.display='none';sun.style.display='block'}
+  else{moon.style.display='block';sun.style.display='none'}
+  // Mobile icon
+  const mi=document.getElementById('mob-theme-icon');
+  mi.innerHTML=theme==='dark'
+    ?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+    :'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>';
+}
+
+/* ── CANVAS PARTICLES ────────────────────────────── */
+const cv=document.getElementById('bg'),cx=cv.getContext('2d');
+let W,H,pts=[];
+const rs=()=>{W=cv.width=window.innerWidth;H=cv.height=window.innerHeight};
+rs();window.addEventListener('resize',rs);
+class P{
+  constructor(){this.r()}
+  r(){this.x=Math.random()*W;this.y=Math.random()*H;this.rad=Math.random()*1.3+.2;this.vx=(Math.random()-.5)*.2;this.vy=-Math.random()*.3-.06;this.a=Math.random()*.45+.12;this.g=Math.random()>.55}
+  draw(){cx.beginPath();cx.arc(this.x,this.y,this.rad,0,Math.PI*2);cx.fillStyle=this.g?`rgba(201,168,76,${this.a})`:`rgba(0,212,255,${this.a*.3})`;cx.fill()}
+  up(){this.x+=this.vx;this.y+=this.vy;this.a-=.0007;if(this.y<-8||this.a<=0)this.r()}
+}
+for(let i=0;i<90;i++)pts.push(new P());
+(function loop(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.up();p.draw()});requestAnimationFrame(loop)})();
+
+/* ── NAV SCROLL ──────────────────────────────────── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('up',scrollY>50));
+
+/* ── REVEAL ──────────────────────────────────────── */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach((el,i)=>{el.style.transitionDelay=(i%5)*.08+'s';ro.observe(el)});
+
+/* ── COUNTERS ────────────────────────────────────── */
+const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){cnt(x.target);co.unobserve(x.target)}}),{threshold:.4});
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+function cnt(el){const t=+el.dataset.target,s=el.dataset.sfx||'';let c=0;const st=t/(1600/16);const ti=setInterval(()=>{c+=st;if(c>=t){c=t;clearInterval(ti)}el.textContent=Math.floor(c)+s},16)}
+
+/* ── KPI ANIMATION ───────────────────────────────── */
+const ko=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){kpis();ko.disconnect()}}),{threshold:.3});
+const dm=document.querySelector('.dash-mock');if(dm)ko.observe(dm);
+function kpi(id,t){const el=document.getElementById(id);if(!el)return;let c=0;const s=t/70;const ti=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(ti)}el.textContent='$'+Math.floor(c)+'K'},18)}
+function kpis(){kpi('k1',105);kpi('k2',49);kpi('k3',56);kpi('k4',32)}
+
+/* ── BAR CHART ───────────────────────────────────── */
+const bo=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){bars();bo.disconnect()}}),{threshold:.3});
+if(dm)bo.observe(dm);
+function bars(){document.querySelectorAll('.bar-fill').forEach(el=>{const w=el.dataset.w;setTimeout(()=>el.style.width=w+'%',350)})}
+</script>
+</body>
+</html>
